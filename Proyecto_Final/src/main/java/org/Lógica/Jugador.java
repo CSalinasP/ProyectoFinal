@@ -1,18 +1,17 @@
-package org.example;
+package org.Lógica;
 
-public class Jugador {
+public class Jugador implements competidor{
+    /*
+    Datos basico de los participantes
+     */
     private String nombre;
     private int edad;
-    private int altura;
-    private int peso;
     private String categoria;
     private Equipo equipo;
 
     public Jugador(String nombre, int edad, int altura, int peso, String categoria) {
         this.nombre = nombre;
         this.edad = edad;
-        this.altura = altura;
-        this.peso = peso;
         this.categoria = categoria;
     }
 
@@ -23,14 +22,6 @@ public class Jugador {
 
     public int getEdad() {
         return edad;
-    }
-
-    public int getAltura() {
-        return altura;
-    }
-
-    public int getPeso() {
-        return peso;
     }
 
     public String getCategoria() {
@@ -50,10 +41,9 @@ public class Jugador {
         return "Jugador{" +
                 "nombre='" + nombre + '\'' +
                 ", edad=" + edad +
-                ", altura=" + altura +
-                ", peso=" + peso +
                 ", categoria='" + categoria + '\'' +
                 ", equipo=" + (equipo != null ? equipo.getNombreEquipo() : "sin equipo") +
                 '}';
     }
 }
+
