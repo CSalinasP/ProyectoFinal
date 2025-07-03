@@ -1,8 +1,10 @@
 package JuegoGUI;
+import Lógica.Torneo;
 import javax.swing.*;
 
 public class VentanaJuego extends JFrame {
     private static VentanaJuego instancia;
+    private Torneo torneo;
     private JPanel panelActual;
 
     /**Constructor de la clase que configura el tamao de la ventana, la posisiona en pantalla,
@@ -13,7 +15,7 @@ public class VentanaJuego extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        panelActual = new MenuInicial();
+        panelActual = new MenuInicial(this);
         this.add(panelActual);
         this.setVisible(true);
     }
@@ -36,6 +38,18 @@ public class VentanaJuego extends JFrame {
         this.remove(panelActual);
         panelActual = panel;
         this.add(panelActual);
+    }
+
+    public void cerrarVantanaJuego (){
+        this.dispose();
+    }
+
+    public Torneo getTorneo() {
+        return torneo;
+    }
+
+    public void setTorneo(Torneo torneo) {
+        this.torneo = torneo;
     }
 
     public JPanel getPanelActual() {

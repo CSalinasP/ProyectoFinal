@@ -1,4 +1,4 @@
-package org.Lógica;
+package Lógica;
 
 import java.util.ArrayList;
 import java.util.List;

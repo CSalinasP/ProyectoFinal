@@ -1,4 +1,4 @@
-package org.Lógica;
+package Lógica;
 
 public class Jugador implements competidor{
     /*

@@ -16,4 +16,12 @@ public class BotonGenerico extends JButton{
     }
 
     public void setComando(Comando comando){this.comando = comando;}
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

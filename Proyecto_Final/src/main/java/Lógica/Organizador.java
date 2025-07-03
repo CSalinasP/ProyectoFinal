@@ -1,4 +1,4 @@
-package org.Lógica;
+package Lógica;
 /*
 Clase para crear al organizador del torneo
 @author ignacio

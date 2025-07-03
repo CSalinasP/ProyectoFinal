@@ -1,4 +1,5 @@
-package org.Lógica;
+package Lógica;
+import JuegoGUI.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
  * @since 2025-07-02
  */
 public class Torneo extends ArrayList {
+    private ArrayList<Object> avatares;
     
     /** Fecha en la que se realizará el torneo */
     private LocalDate fechaInicio;
@@ -24,18 +26,13 @@ public class Torneo extends ArrayList {
     private String nombreTorneo;
     private ArrayList<Equipo> Equipos;
 
-    /**
-     * Constructor que crea un nuevo torneo con los parámetros especificados.
-     *
-     * @param nombreTorneo el nombre del torneo
-     * @param fecha la fecha del torneo
-     * @param horaPrevista la hora prevista de inicio
-     * @throws IllegalArgumentException si el nombre está vacío o la fecha es anterior a la actual
-     */
-    public Torneo(String nombreTorneo, LocalDate fecha, LocalDateTime horaPrevista) {
-        this.nombreTorneo = nombreTorneo;
-        this.fechaInicio = fecha;
-        this.FechaTermino = horaPrevista;
+
+    public Torneo(TipoTorneo tipoTorneo, ArrayList<TipoPersonaje> avatares) {
+        avatares = new ArrayList<>();
+    }
+
+    public Torneo() {
+
     }
 
     /**
