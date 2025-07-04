@@ -2,12 +2,18 @@ package JuegoGUI;
 import Lógica.Torneo;
 import javax.swing.*;
 
+/**
+ * Clase que contiene los JPanels que cosntituyen la GUI del juego.
+ * Mantiene como atributo la única instancia de Torneo que se usa durante el juego
+ * para que los JPanels que contiene puedan acceder a ella.
+ * @author Francisco Arentsen
+ */
 public class VentanaJuego extends JFrame {
     private static VentanaJuego instancia;
     private Torneo torneo;
     private JPanel panelActual;
 
-    /**Constructor de la clase que configura el tamao de la ventana, la posisiona en pantalla,
+    /**Constructor de la clase que configura las dimensiones de la ventana, la posisiona en pantalla,
      * establece el termino de la aplicación cuando se presiona el icono de cerrar ventana,
      * agrega una instancia de MenuInicial al JFrame y lo hace visible.*/
     private VentanaJuego(){
@@ -40,6 +46,7 @@ public class VentanaJuego extends JFrame {
         this.add(panelActual);
     }
 
+    /**Este metodo cierra VentanaJuego*/
     public void cerrarVantanaJuego (){
         this.dispose();
     }
