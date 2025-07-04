@@ -1,5 +1,4 @@
 package JuegoGUI;
-import Lógica.Torneo;
 
 import javax.swing.*;
 import java.awt.*;

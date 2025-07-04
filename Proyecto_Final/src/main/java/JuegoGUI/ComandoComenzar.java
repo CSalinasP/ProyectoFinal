@@ -16,7 +16,7 @@ public class ComandoComenzar implements Comando{
     public void ejecutar() {
         if(tipoTorneo!=null && avatares!=null){
             ventanaJuego.setTorneo(new Torneo(tipoTorneo.getTipoTorneo(), avatares.getAvatares()));
-            ventanaJuego.cambiarPanel(new MenuEntreCombates());
+            ventanaJuego.cambiarPanel(new MenuEntreCombates(ventanaJuego));
         }
     }
 }

@@ -1,3 +1,4 @@
+// Modificar este archivo
 package JuegoGUI;
 
 import javax.swing.*;
@@ -14,11 +15,12 @@ public class ComandoMostrarOpciones implements Comando{
         if(opciones instanceof OpcionesTorneo){
             OpcionesTorneo opcionesTorneo = (OpcionesTorneo) opciones;
             opcionesTorneo.MostrarOpciones();
-        }
-        else{
+        } else if (opciones instanceof OpcionesAvatares) {
             OpcionesAvatares opcionesAvatares = (OpcionesAvatares) opciones;
             opcionesAvatares.MostrarOpciones();
+        } else if (opciones instanceof MenuEntreCombates) { // <-- ¡Nueva sección!
+            MenuEntreCombates menuEntreCombates = (MenuEntreCombates) opciones;
+            menuEntreCombates.MostrarOpcionesAvatares(); // Muestra los 16 avatares
         }
     }
-
 }
