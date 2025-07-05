@@ -1,7 +1,7 @@
 package LogicaTorneo;
 /*
-Crear
+Crear una interfaz, entre el equipo barra el competidor
  */
 public interface Inscribible {
-    public void inscribir(Torneo torneo);
+
 }

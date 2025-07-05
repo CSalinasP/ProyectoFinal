@@ -2,8 +2,13 @@ package LogicaTorneo;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+Clase básica para el torneo, y el equipo
+ */
 public class Equipo implements Inscribible {
+    /*
+
+     */
     private String nombreEquipo;
     private int numeroEquipo;
     private List<Inscribible> competidores;
