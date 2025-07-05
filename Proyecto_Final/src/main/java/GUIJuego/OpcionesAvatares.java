@@ -3,30 +3,30 @@ package GUIJuego;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import LogicaJuego.TipoPersonaje;
 
 public class OpcionesAvatares extends JPanel {
-    private VentanaJuego ventanaJuego;
     private ArrayList<TipoPersonaje> avatares;
     private BotonGenerico a, b, c, d, e;
     private ArrayList<BotonGenerico> botones;
     private int clicks;
 
-    public OpcionesAvatares(VentanaJuego ventanaJuego){
-        this.ventanaJuego = ventanaJuego;
-        a= new BotonGenerico(new ComandoMostrarOpciones(this),"Opciones de Avatares");
+    public OpcionesAvatares(){
+        this.setBackground(Color.blue);
+        a= new BotonGenerico(new ComandoMostrarOpciones(this),"Opciones de Avatares", 1000, 100);
         a.addActionListener(k->a.getComando().ejecutar());
         this.add(a);
 
-        b= new BotonGenerico(null, "Humano");
+        b= new BotonGenerico(null, "Humano", "/16bit.png", 64, 64);
         b.setComando(new ComandoOcultarOpciones(this, b));
         b.addActionListener(k->b.getComando().ejecutar());
-        c= new BotonGenerico(null, "Cavernario");
+        c= new BotonGenerico(null, "Cavernario", "/16bit.png", 64, 64);
         c.setComando(new ComandoOcultarOpciones(this, c));
         c.addActionListener(k->c.getComando().ejecutar());
-        d= new BotonGenerico(null, "Caballero");
+        d= new BotonGenerico(null, "Caballero", "/16bit.png", 64, 64);
         d.setComando(new ComandoOcultarOpciones(this, d));
         d.addActionListener(k->d.getComando().ejecutar());
-        e= new BotonGenerico(null, "No-Muerto");
+        e= new BotonGenerico(null, "No-Muerto", "/16bit.png", 64, 64);
         e.setComando(new ComandoOcultarOpciones(this, e));
         e.addActionListener(k->e.getComando().ejecutar());
 
@@ -35,6 +35,15 @@ public class OpcionesAvatares extends JPanel {
         avatares = new ArrayList<>();
 
         clicks = 0;
+    }
+
+    public void MostrarOpciones(){
+        avatares.clear();
+        this.remove(a);
+        this.setLayout(new GridLayout(1,4,0,0));
+        this.add(botones.get(0)); this.add(botones.get(1)); this.add(botones.get(2)); this.add(botones.get(3));
+        this.revalidate();
+        this.repaint();
     }
 
     public void OcultarOpciones(String tipo){
@@ -57,15 +66,6 @@ public class OpcionesAvatares extends JPanel {
             this.revalidate();
             this.repaint();
         }
-    }
-
-    public void MostrarOpciones(){
-        avatares.clear();
-        this.remove(a);
-        this.setLayout(new GridLayout(1,4,0,0));
-        this.add(botones.get(0)); this.add(botones.get(1)); this.add(botones.get(2)); this.add(botones.get(3));
-        this.revalidate();
-        this.repaint();
     }
 
     public ArrayList<TipoPersonaje> getAvatares() {

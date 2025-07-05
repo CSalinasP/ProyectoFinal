@@ -1,13 +1,14 @@
 package LogicaJuego;
 
+import LogicaTorneo.Torneo;
+
 public class Combate {
     private Personaje avatar;
     private Personaje contendiente;
     private Personaje ganador;
 
-    public Combate(Personaje Avatar, Personaje Contendiente){
+    public Combate(Personaje Avatar, Torneo torneo){
         avatar = Avatar;
-        contendiente = Contendiente;
     }
 
     public void usarHabilidadAvatar(Habilidad habilidad){

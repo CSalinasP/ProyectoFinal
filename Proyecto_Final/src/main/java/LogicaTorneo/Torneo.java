@@ -1,10 +1,6 @@
 package LogicaTorneo;
-import GUIJuego.*;
-import GUIJuego.TipoTorneo;
-import LogicaJuego.PlanillaPersonajes;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 

@@ -1,20 +1,23 @@
 // Nuevo archivo: GUIJuego/ComandoComenzarCombate.java
 package GUIJuego;
+import LogicaJuego.*;
+import LogicaTorneo.*;
+
+import LogicaJuego.Personaje_NoMuerto;
 
 public class ComandoComenzarCombate implements Comando {
     private VentanaJuego ventanaJuego;
-    private MenuEntreCombates menuEntreCombates; // Referencia para deshabilitar/habilitar cosas si es necesario
+    private MenuEntreCombates menuEntreCombates;
 
-    public ComandoComenzarCombate(VentanaJuego ventanaJuego, MenuEntreCombates menuEntreCombates) {
+    public ComandoComenzarCombate(MenuEntreCombates menuEntreCombates, VentanaJuego ventanaJuego) {
         this.ventanaJuego = ventanaJuego;
         this.menuEntreCombates = menuEntreCombates;
     }
 
     @Override
     public void ejecutar() {
-        // Aquí deberías crear y pasar los personajes seleccionados a Arena
-        // Por ahora, Arena está en blanco como pediste
-        ventanaJuego.cambiarPanel(new Arena()); // Asumo que Arena es un JPanel
-        System.out.println("Cambiando a la Arena de Combate.");
+        if(menuEntreCombates.getPersonajeSeleccionado()!=null){
+            ventanaJuego.cambiarPanel(new Arena(new Combate(PlanillaPersonajes.getInstance().seleccionarPersonaje(menuEntreCombates.getPersonajeSeleccionado()), ventanaJuego.getTorneo())));
+        }
     }
 }

@@ -2,10 +2,10 @@ package LogicaTorneo;
 
 public class FabricaTorneos {
 
-    public FabricaTorneos(TipoTorneo tipoTorneo){
+    public FabricaTorneos(){
     }
 
-    public Torneo crearTorneo(TipoTorneo tipoTorneo) {
+    public static Torneo crearTorneo(TipoTorneo tipoTorneo) {
         switch (tipoTorneo) {
             case ELIMINATORIA_SIMPLE:
                 return EliminatoriaSimple.getInstance();

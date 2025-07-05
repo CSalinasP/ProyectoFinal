@@ -1,4 +1,7 @@
 package LogicaJuego;
+import GUIJuego.VentanaJuego;
+import LogicaTorneo.Inscribible;
+
 import java.util.ArrayList;
 
 public class PlanillaPersonajes {
@@ -9,8 +12,19 @@ public class PlanillaPersonajes {
         personajes = new ArrayList<>();
     }
 
-    public void añadirPersonaje(Personaje personaje){
-        personajes.add(personaje);
+    public static PlanillaPersonajes getInstance(){
+        if(instancia==null){
+            instancia = new PlanillaPersonajes();
+        }
+        return instancia;
+    }
+
+    public void añadirPersonaje(TipoPersonaje tipoPersonaje){
+        personajes.add(FabricaPersonajes.crearPersonaje(tipoPersonaje));
+    }
+
+    public Personaje seleccionarPersonaje(TipoPersonaje tipoPersonaje){
+        return personajes.get(0);
     }
 
     public PlanillaPersonajes getInstancia(){

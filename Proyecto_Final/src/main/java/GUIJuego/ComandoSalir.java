@@ -1,14 +1,12 @@
 package GUIJuego;
 
 public class ComandoSalir implements Comando{
-    VentanaJuego ventanaJuego;
 
-    public ComandoSalir(VentanaJuego ventanaJuego){
-        this.ventanaJuego = ventanaJuego;
+    public ComandoSalir(){
     }
 
     @Override
     public void ejecutar() {
-        ventanaJuego.cerrarVantanaJuego();
+        VentanaJuego.getInstancia().cerrarVantanaJuego();
     }
 }

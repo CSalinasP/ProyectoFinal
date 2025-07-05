@@ -2,15 +2,11 @@
 package GUIJuego;
 
 public class ComandoVolverMenuInicial implements Comando {
-    private VentanaJuego ventanaJuego;
 
-    public ComandoVolverMenuInicial(VentanaJuego ventanaJuego) {
-        this.ventanaJuego = ventanaJuego;
-    }
+    public ComandoVolverMenuInicial() {}
 
     @Override
     public void ejecutar() {
-        ventanaJuego.cambiarPanel(new MenuInicial(ventanaJuego)); // Crea una nueva instancia de MenuInicial
-        System.out.println("Volviendo al Menú Inicial.");
+        VentanaJuego.getInstancia().cambiarPanel(new MenuInicial()); // Crea una nueva instancia de MenuInicial
     }
 }

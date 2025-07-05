@@ -1,22 +1,23 @@
 package GUIJuego;
-import LogicaTorneo.Torneo;
+import LogicaJuego.PlanillaPersonajes;
+import LogicaTorneo.FabricaTorneos;
 
 public class ComandoComenzar implements Comando{
-    private VentanaJuego ventanaJuego;
     private OpcionesTorneo tipoTorneo;
     private OpcionesAvatares avatares;
 
-    public ComandoComenzar(VentanaJuego ventanaJuego, OpcionesTorneo tipoTorneo, OpcionesAvatares avatares){
-        this.ventanaJuego = ventanaJuego;
+    public ComandoComenzar(OpcionesTorneo tipoTorneo, OpcionesAvatares avatares){
         this.tipoTorneo = tipoTorneo;
         this.avatares = avatares;
     }
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo!=null && avatares!=null){
-            ventanaJuego.setTorneo(new Torneo(tipoTorneo.getTipoTorneo(), avatares.getAvatares()));
-            ventanaJuego.cambiarPanel(new MenuEntreCombates(ventanaJuego));
+        if(tipoTorneo!=null && avatares.getAvatares().size()==2){
+            VentanaJuego.getInstancia().setTorneo(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo()));
+            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(0));
+            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(1));
+            VentanaJuego.getInstancia().cambiarPanel(new MenuEntreCombates());
         }
     }
 }

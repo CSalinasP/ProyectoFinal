@@ -8,59 +8,61 @@ import java.awt.*;
  * @author Francisco Arentsen
  */
 public class MenuInicial extends JPanel {
-    private VentanaJuego ventanaJuego;
     private JPanel panelCentral;
     private OpcionesTorneo tipoTorneo;
     private OpcionesAvatares tipoAvatares;
     private JPanel comienzoOsalida;
     private BotonGenerico comenzar, salir;
-    private JPanel fondo;
+    private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
 
     /**Constructor de la clase que configura sus dimensiones y la disposición
      * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
      * las opciones de Salir y Continuar, les aagrega los ActionListeners corresondientes
-     * y los añade a sus respectivos subpaneles
-     * @param ventanaJuego corresponde a una instancia de ventana que perimite invocar a los
-     * metodos declarados en esta.
+     * y los añade a sus respectivos subpaneles.
      * */
-    public MenuInicial(VentanaJuego ventanaJuego){
-        this.ventanaJuego = ventanaJuego;
+    public MenuInicial(){
         this.setLayout(new BorderLayout());
         panelCentral = new JPanel();
-        panelCentral.setLayout(new GridLayout(3,1,0,0));
+        panelCentral.setLayout(new GridLayout(3,1,0,10));
+        panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panelCentral.setBackground(Color.blue);
 
         tipoTorneo = new OpcionesTorneo();
-        tipoAvatares = new OpcionesAvatares(ventanaJuego);
-        comienzoOsalida = new JPanel(); comienzoOsalida.setLayout(new GridLayout(1,2,0,0));
-        comenzar = new BotonGenerico(new ComandoComenzar(ventanaJuego, tipoTorneo, tipoAvatares), "Comenzar");
+        tipoAvatares = new OpcionesAvatares();
+        comienzoOsalida = new JPanel(); comienzoOsalida.setLayout(new GridLayout(1,2,10,0));
+        comienzoOsalida.setBackground(Color.blue);
+        comenzar = new BotonGenerico(new ComandoComenzar(tipoTorneo, tipoAvatares), "Comenzar");
         comenzar.addActionListener(e -> comenzar.getComando().ejecutar());
-        salir = new BotonGenerico(new ComandoSalir(ventanaJuego), "Salir");
+        salir = new BotonGenerico(new ComandoSalir(), "Salir");
         salir.addActionListener(e -> salir.getComando().ejecutar());
         comienzoOsalida.add(salir);
         comienzoOsalida.add(comenzar);
         panelCentral.add(tipoTorneo); panelCentral.add(tipoAvatares); panelCentral.add(comienzoOsalida);
-        fondo = new JPanel();
+        fondoSur = new JPanel();
+        fondoSur.setPreferredSize(new Dimension(0,200));
+        fondoSur.setBackground(Color.blue);
+        fondoNorte = new JPanel();
+        fondoNorte.setPreferredSize(new Dimension(0,200));
+        fondoNorte.setBackground(Color.blue);
+        fondoEste = new JPanel();
+        fondoEste.setPreferredSize(new Dimension(200,0));
+        fondoEste.setBackground(Color.blue);
+        fondoOeste = new JPanel();
+        fondoOeste.setPreferredSize(new Dimension(200,0));
+        fondoOeste.setBackground(Color.blue);
 
         this.add(panelCentral, BorderLayout.CENTER);
-        this.add(fondo, BorderLayout.NORTH);
-        this.add(fondo, BorderLayout.SOUTH);
-        this.add(fondo, BorderLayout.EAST);
-        this.add(fondo, BorderLayout.WEST);
+        this.add(fondoNorte, BorderLayout.NORTH);
+        this.add(fondoSur, BorderLayout.SOUTH);
+        this.add(fondoEste, BorderLayout.EAST);
+        this.add(fondoOeste, BorderLayout.WEST);
     }
 
     /**Este metodo remueve el MenuInicial de la VentanaJuego y agrega otro en su lugar.
      * @param panel es el nuevo JPanel que se quiere agregar a VentanaJuego.
      * */
     public void removerPanel(JPanel panel){
-        ventanaJuego.cambiarPanel(panel);
-    }
-
-    public VentanaJuego getVentanaJuego() {
-        return ventanaJuego;
-    }
-
-    public void setVentanaJuego(VentanaJuego ventanaJuego) {
-        this.ventanaJuego = ventanaJuego;
+        VentanaJuego.getInstancia().cambiarPanel(panel);
     }
 
     public JPanel getPanelCentral() {
@@ -93,14 +95,6 @@ public class MenuInicial extends JPanel {
 
     public void setComienzoOsalida(JPanel comienzoOsalida) {
         this.comienzoOsalida = comienzoOsalida;
-    }
-
-    public JPanel getFondo() {
-        return fondo;
-    }
-
-    public void setFondo(JPanel fondo) {
-        this.fondo = fondo;
     }
 
     public BotonGenerico getComenzar() {

@@ -17,19 +17,13 @@ public class ComandoOcultarOpciones implements Comando {
             OpcionesTorneo opcionesTorneo = (OpcionesTorneo) opciones;
             opcionesTorneo.OcultarOpciones(botonGenerico.getNombre());
         }
-        else{
+        else if(opciones instanceof OpcionesAvatares){
             OpcionesAvatares opcionesAvatares = (OpcionesAvatares) opciones;
             opcionesAvatares.OcultarOpciones(botonGenerico.getNombre());
         }
-        if(opciones instanceof OpcionesTorneo){
-            OpcionesTorneo opcionesTorneo = (OpcionesTorneo) opciones;
-            opcionesTorneo.MostrarOpciones();
-        } else if (opciones instanceof OpcionesAvatares) {
-            OpcionesAvatares opcionesAvatares = (OpcionesAvatares) opciones;
-            opcionesAvatares.MostrarOpciones();
-        } else if (opciones instanceof MenuEntreCombates) { // <-- ¡Nueva sección!
-            MenuEntreCombates menuEntreCombates = (MenuEntreCombates) opciones;
-            menuEntreCombates.MostrarOpcionesAvatares(); // Muestra los 16 avatares
+        else if(opciones instanceof MenuEntreCombates){
+            MenuEntreCombates opcionesAvatar = (MenuEntreCombates) opciones;
+            opcionesAvatar.OcultarOpciones(botonGenerico.getNombre());
         }
     }
 }

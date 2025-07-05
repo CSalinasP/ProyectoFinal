@@ -18,9 +18,9 @@ public class ComandoMostrarOpciones implements Comando{
         } else if (opciones instanceof OpcionesAvatares) {
             OpcionesAvatares opcionesAvatares = (OpcionesAvatares) opciones;
             opcionesAvatares.MostrarOpciones();
-        } else if (opciones instanceof MenuEntreCombates) { // <-- ¡Nueva sección!
+        } else if (opciones instanceof MenuEntreCombates) {
             MenuEntreCombates menuEntreCombates = (MenuEntreCombates) opciones;
-            menuEntreCombates.MostrarOpcionesAvatares(); // Muestra los 16 avatares
+            menuEntreCombates.MostrarOpciones();
         }
     }
 }

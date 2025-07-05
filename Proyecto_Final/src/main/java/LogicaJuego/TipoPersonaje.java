@@ -1,4 +1,4 @@
-package GUIJuego;
+package LogicaJuego;
 
 public enum TipoPersonaje {
     HUMANO,

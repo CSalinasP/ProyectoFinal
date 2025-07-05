@@ -1,5 +1,6 @@
 package GUIJuego;
 
+import LogicaTorneo.TipoTorneo;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ public class OpcionesTorneo extends JPanel {
     private ArrayList<BotonGenerico> botones;
 
     public OpcionesTorneo(){
-        a= new BotonGenerico(new ComandoMostrarOpciones(this),"Modalidad de Torneo");
+        this.setBackground(Color.blue);
+        a= new BotonGenerico(new ComandoMostrarOpciones(this),"Modalidad de Torneo", 1000, 100);
         a.addActionListener(e->a.getComando().ejecutar());
         this.add(a);
 
@@ -25,16 +27,18 @@ public class OpcionesTorneo extends JPanel {
         d.addActionListener(e->d.getComando().ejecutar());
 
         botones = new ArrayList<>(); botones.add(b); botones.add(c); botones.add(d);
+
+        tipoTorneo = null;
     }
 
     public void OcultarOpciones(String tipo){
         if(tipo.equals("Eliminatoria Simple")){
-            this.setTipoTorneo(TipoTorneo.ELIMINATORIASIMPLE);
+            this.setTipoTorneo(TipoTorneo.ELIMINATORIA_SIMPLE);
         }
         else if(tipo.equals("Eliminatoria Doble")){
-            this.setTipoTorneo(TipoTorneo.ELIMINATORIADOBLE);
+            this.setTipoTorneo(TipoTorneo.ELIMINATORIA_DOBLE);
         }
-        else{this.setTipoTorneo(TipoTorneo.LIGASIMPLE);}
+        else{this.setTipoTorneo(TipoTorneo.LIGA_SIMPLE);}
 
         this.remove(botones.get(0)); this.remove(botones.get(1)); this.remove(botones.get(2));
         this.setLayout(new GridLayout(1,1,0,0));

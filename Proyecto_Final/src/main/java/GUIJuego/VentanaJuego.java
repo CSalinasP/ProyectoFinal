@@ -1,6 +1,7 @@
 package GUIJuego;
 import LogicaTorneo.Torneo;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Clase que contiene los JPanels que cosntituyen la GUI del juego.
@@ -17,20 +18,21 @@ public class VentanaJuego extends JFrame {
      * establece el termino de la aplicación cuando se presiona el icono de cerrar ventana,
      * agrega una instancia de MenuInicial al JFrame y lo hace visible.*/
     private VentanaJuego(){
-        this.setSize(800,600);
+        this.setPreferredSize(new Dimension(800,600));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        panelActual = new MenuInicial(this);
+        panelActual = new MenuInicial();
         this.add(panelActual);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
 
     /**Este metodo crea la única instancia de VentanaJuego que se usara en el juego si no existe
-     * o retorna esta misma instancia si ya fue creaada.
-     * @return instancia es la única instancia de esta clase que sera usado en el juego.
+     * o retorna esta misma instancia si ya fue creada.
+     * @return instancia es la única instancia de esta clase que sera usada en el juego.
      * */
-    public static VentanaJuego getInstance(){
+    public static VentanaJuego getInstancia(){
         if(instancia==null){
             instancia = new VentanaJuego();
         }
