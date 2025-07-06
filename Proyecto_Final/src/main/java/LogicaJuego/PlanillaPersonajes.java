@@ -27,9 +27,6 @@ public class PlanillaPersonajes {
         return personajes.get(0);
     }
 
-    public PlanillaPersonajes getInstancia(){
-        return instancia;
-    }
 
     public ArrayList<Personaje> getPersonajes(){
         return personajes;
