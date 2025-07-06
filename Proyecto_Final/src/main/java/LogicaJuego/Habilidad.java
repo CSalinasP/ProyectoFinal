@@ -1,4 +1,4 @@
-package org.LogicaJuego;
+package LogicaJuego;
 
 abstract class Habilidad {
     private String nombre;

@@ -1,19 +1,25 @@
-package org.Lógica;
+package LogicaTorneo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Equipo {
+public class Equipo implements Inscribible {
     private String nombreEquipo;
     private int numeroEquipo;
-    private List<Jugador> jugadores;
+    private List<Inscribible> competidores;
 
     public Equipo(String nombreEquipo, int numeroEquipo) {
         this.nombreEquipo = nombreEquipo;
         this.numeroEquipo = numeroEquipo;
-        this.jugadores = new ArrayList<>();
+        this.competidores = new ArrayList<>();
     }
 
+    @Override
+    public void inscribir(Torneo torneo){
+        torneo.getCompetidores().add(this);
+    }
+
+    /**
     public void agregarJugador(Jugador jugador) {
         if (jugador.getEquipo() != this) {
             // Si el jugador ya tiene un equipo, eliminarlo del equipo anterior
@@ -50,5 +56,5 @@ public class Equipo {
     @Override
     public String toString() {
         return "Equipo " + nombreEquipo + " (#" + numeroEquipo + ") con " + jugadores.size() + " jugadores";
-    }
+    }*/
 }

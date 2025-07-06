@@ -1,4 +1,4 @@
-package org.Lógica;
+package LogicaTorneo;
 
 public class Main {
     public static void main(String[] args) {
