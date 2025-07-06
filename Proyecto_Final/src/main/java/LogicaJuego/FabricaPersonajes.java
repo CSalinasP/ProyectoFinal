@@ -2,6 +2,16 @@ package LogicaJuego;
 
 import LogicaTorneo.*;
 
+/**
+ * Clase que usa el patrón Factory para fabricar personajes
+ * @author CSalinasP
+ * @version 1.0
+ * @since 2025-07-05
+ */
+
+/**
+ * Metodo que crea un Personaje con sus caracteristicas y los retorna
+ */
 public class FabricaPersonajes {
     public FabricaPersonajes(){}
 
