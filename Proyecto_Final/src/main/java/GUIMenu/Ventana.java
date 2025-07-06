@@ -11,7 +11,7 @@ public class Ventana extends JFrame {
     public JPanel EliminarDoble;
     public JPanel LigaSimple;
     public Ventana(){
-        this.setTitle("Torneo de Futbol");
+        this.setTitle("Ventana principal");
         this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

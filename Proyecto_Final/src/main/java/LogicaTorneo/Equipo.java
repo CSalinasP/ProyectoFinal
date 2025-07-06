@@ -19,7 +19,6 @@ public class Equipo implements Inscribible {
         this.competidores = new ArrayList<>();
     }
 
-    @Override
     public void inscribir(Torneo torneo){
         torneo.getCompetidores().add(this);
     }

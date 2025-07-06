@@ -19,8 +19,7 @@ public class FabricaPersonajes {
         }
     }
 
-    @Override
-    public String toString(){
+    public String toString() {
         return "Clase encargada de fabricar personajes";
     }
 }

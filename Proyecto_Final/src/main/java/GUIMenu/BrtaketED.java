@@ -1,4 +1,4 @@
-package GUIMenu.Imagenes;
+package GUIMenu;
 
 public class BrtaketED {
 }

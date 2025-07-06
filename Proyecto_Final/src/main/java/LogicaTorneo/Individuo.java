@@ -11,7 +11,7 @@ public class Individuo implements Inscribible{
         
     }
 
-    @Override
+
     public void inscribir(Torneo torneo) {
         torneo.getCompetidores().add(this);
     }

@@ -18,7 +18,7 @@ public abstract class Personaje implements Inscribible{
     public void setSprites(){
     }
 
-    @Override
+
     public void inscribir(Torneo torneo) {
         torneo.getCompetidores().add(this);
     }
