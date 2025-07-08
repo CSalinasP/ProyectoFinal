@@ -5,26 +5,30 @@ import LogicaTorneo.*;
 /**
  * Clase que usa el patrón Factory para fabricar personajes
  * @author CSalinasP
- * @version 1.0
- * @since 2025-07-05
+ * @version 1.1
+ * @since 2025-07-07
  */
 
-/**
- * Metodo que crea un Personaje con sus caracteristicas y los retorna
- */
-public class FabricaPersonajes {
+public abstract class FabricaPersonajes {
     public FabricaPersonajes(){}
 
-    public static Personaje crearPersonaje(TipoPersonaje tipoPersonaje){
+    /**
+     * Metodo que crea un Personaje con sus características y los retorna
+     *
+     * @param tipoPersonaje El tipo de Personaje que se desea crear
+     * @param Nivel El nivel del Personaje que se desea crear
+     * Dependiendo del tipo de Personaje, se usa su fábrica respectivamente
+     */
+    public static Personaje crearPersonaje(TipoPersonaje tipoPersonaje, int Nivel){
         switch (tipoPersonaje) {
             case HUMANO:
-                return new Personaje_Humano();
+                return FabricaHumanos.crearPersonaje(Nivel);
             case CABALLERO:
-                return new Personaje_Caballero();
+                return FabricaCaballeros.crearPersonaje(Nivel);
             case CAVERNARIO:
-                return new Personaje_Cavernario();
+                return FabricaCavernarios.crearPersonaje(Nivel);
             case NOMUERTO:
-                return new Personaje_NoMuerto();
+                return FabricaNoMuertos.crearPersonaje(Nivel);
             default: return null;
         }
     }

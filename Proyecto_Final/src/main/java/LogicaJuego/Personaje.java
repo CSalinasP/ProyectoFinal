@@ -3,8 +3,15 @@ import LogicaTorneo.Inscribible;
 import LogicaTorneo.Torneo;
 import java.util.ArrayList;
 
-public abstract class Personaje implements Inscribible{
-    /** El nombre del Personaje */
+/**
+ * Clase que representa a los Personajes y sus características
+ *
+ * @author CSalinasP
+ * @version 1.1
+ * @since 2025-07-07
+ */
+public class Personaje implements Inscribible{
+    /** El nombre del Personaje asociado a tu Tipo de Personaje*/
     private String nombre;
     /** La vida total o máxima del Personaje */
     private int vidaTotal;
@@ -12,7 +19,7 @@ public abstract class Personaje implements Inscribible{
     private int vida;
     /** La resistencia al daño del Personaje */
     private int resistencia;
-    /** La regeneracion de vida por turno del Personaje */
+    /** La regeneración de vida por turno del Personaje */
     private int regeneracion;
     /** La lista de habilidades del Personaje */
     private ArrayList<Habilidad> habilidades;
@@ -20,10 +27,20 @@ public abstract class Personaje implements Inscribible{
 
 
     /**
-    * Constructor que declara al Personaje con sus caracteristicas
+    * Constructor que declara al Personaje con sus características
+     *
+     * @param Nombre El nombre del Personaje asociado a qué tipo de Personaje es
+     * @param Vida La vida del Personaje
+     * @param Resistencia La resistencia del Personaje
+     * @param Regeneracion La regeneración del Personaje
+     * También se crea el Arraylist para las habilidades
     */
-    public Personaje(){
-        habilidades = new ArrayList<>();
+    public Personaje(String Nombre, int Vida, int Resistencia, int Regeneracion){
+        nombre = Nombre;
+        vida = Vida;
+        resistencia = Resistencia;
+        regeneracion = Regeneracion;
+        habilidades = new ArrayList<Habilidad>();
     }
 
     /**
@@ -56,7 +73,7 @@ public abstract class Personaje implements Inscribible{
 
     /**
      * Metodo que cura al Personaje en cada turno
-     * Depende de la cantidad de regeneracion que tiene el Personaje
+     * Depende de la cantidad de regeneración que tiene el Personaje
      * Si después de curar, la vida actual sobrepasa la vida máxima del Personaje:
      * Se iguala la vida actual con la vida máxima
      */
@@ -71,6 +88,11 @@ public abstract class Personaje implements Inscribible{
     public void setSprites(){
     }
 
+    /**
+     * Metodo que inscribe al Personaje en el Torneo
+     *
+     * @param torneo El torneo al cual se le quiere inscribir
+     */
     @Override
     public void inscribir(Torneo torneo) {
         torneo.getCompetidores().add(this);
@@ -85,24 +107,83 @@ public abstract class Personaje implements Inscribible{
         habilidades.add(habilidad);
     }
 
+    /**
+     * Metodo getter que retorna el nombre del Personaje
+     */
     public String getNombre(){
         return nombre;
     }
 
+    /**
+     * Metodo getter que retorna la vida del Personaje
+     */
     public int getVida(){
         return vida;
     }
 
+    /**
+     * Metodo getter que retorna la resistencia del Personaje
+     */
+    public int getResistencia(){
+        return resistencia;
+    }
+
+    /**
+     * Metodo getter que retorna la regeneración del Personaje
+     */
+    public int getRegeneracion(){
+        return regeneracion;
+    }
+
+    /**
+     * Metodo getter que retorna la lista de habilidades del Personaje
+     */
     public ArrayList<Habilidad> getHabilidades(){
         return habilidades;
     }
 
+    /**
+     * Metodo que calcula el promedio del daño todas las habilidades del personaje
+     * Se suman el daño de todas las habilidades y se divide por la cantidad de habilidades total
+     */
+    public double getPromedioDamageHabilidades(){
+        double sumatoria = 0;
+        Habilidad auxHabilidad;
+        for (int i=0;i<habilidades.size();i++){
+            auxHabilidad = habilidades.get(i);
+            sumatoria += auxHabilidad.getDamage();
+        }
+        return sumatoria/(double)habilidades.size();
+    }
+
+    /**
+     * Metodo que calcula el promedio de la curación de todas las habilidades del personaje
+     * * Se suman la curación de todas las habilidades y se divide por la cantidad de habilidades total
+     */
+    public double getPromedioCuracionHabilidades(){
+        double sumatoria = 0;
+        Habilidad auxHabilidad;
+        for (int i=0;i<habilidades.size();i++){
+            auxHabilidad = habilidades.get(i);
+            sumatoria += auxHabilidad.getCuracion();
+        }
+        return sumatoria/(double)habilidades.size();
+    }
+
+    /**
+     * Metodo que modifica la cantidad de vida del Personaje
+     *
+     * @param numero Cantidad de vida que se quiere modificar
+     */
     public void modificarVida(int numero){
         vida = vida + numero;
     }
 
     @Override
     public String toString(){
-        return "Nombre: "+getNombre()+", Vida: "+getVida();
+        return "Nombre: "+this.getNombre()+
+                ", Vida: "+this.getVida()+
+                ", Resistencia: "+this.getResistencia()+
+                ", Regeneracion: "+this.getRegeneracion();
     }
 }
