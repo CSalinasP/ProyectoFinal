@@ -4,19 +4,17 @@ import LogicaTorneo.FabricaTorneos;
 
 public class ComandoComenzar implements Comando{
     private OpcionesTorneo tipoTorneo;
-    private OpcionesAvatares avatares;
+    private OpcionesNiveles opcionesNiveles;
 
-    public ComandoComenzar(OpcionesTorneo tipoTorneo, OpcionesAvatares avatares){
+    public ComandoComenzar(OpcionesTorneo tipoTorneo, OpcionesNiveles opcionesNiveles){
         this.tipoTorneo = tipoTorneo;
-        this.avatares = avatares;
+        this.opcionesNiveles = opcionesNiveles;
     }
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo!=null && avatares.getAvatares().size()==2){
-            VentanaJuego.getInstancia().setTorneo(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo()));
-            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(0));
-            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(1));
+        if(tipoTorneo!=null){
+            VentanaJuego.getInstancia().setTorneoActual(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo()));
             VentanaJuego.getInstancia().cambiarPanel(new MenuEntreCombates());
         }
     }

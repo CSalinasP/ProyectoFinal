@@ -10,12 +10,12 @@ import java.awt.*;
 public class MenuInicial extends JPanel {
     private JPanel panelCentral;
     private OpcionesTorneo tipoTorneo;
-    private OpcionesAvatares tipoAvatares;
+    private OpcionesNiveles tipoAvatares;
     private JPanel comienzoOsalida;
     private BotonGenerico comenzar, salir;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
 
-    /**Constructor de la clase que configura sus dimensiones y la disposición
+    /**Constructor de la clase que configura sus dimensiones, color y la disposición
      * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
      * las opciones de Salir y Continuar, les aagrega los ActionListeners corresondientes
      * y los añade a sus respectivos subpaneles.
@@ -28,7 +28,7 @@ public class MenuInicial extends JPanel {
         panelCentral.setBackground(Color.blue);
 
         tipoTorneo = new OpcionesTorneo();
-        tipoAvatares = new OpcionesAvatares();
+        tipoAvatares = new OpcionesNiveles();
         comienzoOsalida = new JPanel(); comienzoOsalida.setLayout(new GridLayout(1,2,10,0));
         comienzoOsalida.setBackground(Color.blue);
         comenzar = new BotonGenerico(new ComandoComenzar(tipoTorneo, tipoAvatares), "Comenzar");
@@ -74,11 +74,11 @@ public class MenuInicial extends JPanel {
         this.tipoTorneo = tipoTorneo;
     }
 
-    public OpcionesAvatares getTipoAvatares() {
+    public OpcionesNiveles getTipoAvatares() {
         return tipoAvatares;
     }
 
-    public void setTipoAvatares(OpcionesAvatares tipoAvatares) {
+    public void setTipoAvatares(OpcionesNiveles tipoAvatares) {
         this.tipoAvatares = tipoAvatares;
     }
 
@@ -106,8 +106,46 @@ public class MenuInicial extends JPanel {
         this.salir = salir;
     }
 
-    public String toSring(){
-        return "Clase que sirve de primer menu que permite al usuario escoger el tipo de torneo " +
-                "en el que quiere participar y 2 avatares basicos de entre 4 opciones";
+    public JPanel getFondoSur() {
+        return fondoSur;
+    }
+
+    public void setFondoSur(JPanel fondoSur) {
+        this.fondoSur = fondoSur;
+    }
+
+    public JPanel getFondoNorte() {
+        return fondoNorte;
+    }
+
+    public void setFondoNorte(JPanel fondoNorte) {
+        this.fondoNorte = fondoNorte;
+    }
+
+    public JPanel getFondoEste() {
+        return fondoEste;
+    }
+
+    public void setFondoEste(JPanel fondoEste) {
+        this.fondoEste = fondoEste;
+    }
+
+    public JPanel getFondoOeste() {
+        return fondoOeste;
+    }
+
+    public void setFondoOeste(JPanel fondoOeste) {
+        this.fondoOeste = fondoOeste;
+    }
+
+    @Override
+    public String toString(){
+        return "MenuInicial[" +
+                "panelCentral=" + (panelCentral != null ? panelCentral.toString() : "null") +
+                ", tipoTorneo=" + (tipoTorneo != null ? tipoTorneo.toString() : "null") +
+                ", tipoAvatares=" + (tipoAvatares != null ? tipoAvatares.toString() : "null") +
+                ", comenzarButton=" + (comenzar != null ? "'" + comenzar.toString() + "'" : "null") +
+                ", salirButton=" + (salir != null ? "'" + salir.toString() + "'" : "null") +
+                ']';
     }
 }

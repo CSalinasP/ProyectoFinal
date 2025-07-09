@@ -15,15 +15,15 @@ public class MenuEntreCombates extends JPanel {
     private TipoPersonaje personajeSeleccionado;
     private JPanel panelCentral;
     private ArrayList<BotonGenerico> botonesAvatares;
-    private BotonGenerico avatares, comenzar, volverMenuInicial, status;
+    private BotonGenerico avatares, comenzarCombate, volverMenuInicial, status;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
 
-    /**
-     * JPanel que representa el menu que aparece entre los combates.
-     * Permite gestionar avatares, comenzar el siguiente combate,
-     * volver al menú inicial o ver el estado del juego.
-     * @author Francisco Arentsen
-     */
+     /**Constructor de la clase que configura sus dimensiones, color y la disposición
+     * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
+     * ver las opciones de avateres, comenzar el combate, volver al menu inical o ver el setatus,
+     * les aagrega los ActionListeners corresondientes
+     * y los añade a sus respectivos subpaneles .
+     * */
     public MenuEntreCombates(){
         personajeSeleccionado=null;
         this.setLayout(new BorderLayout());
@@ -55,8 +55,8 @@ public class MenuEntreCombates extends JPanel {
         avatares = new BotonGenerico(new ComandoMostrarOpciones(this), "Avatares");
         avatares.addActionListener(e -> avatares.getComando().ejecutar());
 
-        comenzar = new BotonGenerico(new ComandoComenzarCombate(this), "Comenzar Combate");
-        comenzar.addActionListener(e -> comenzar.getComando().ejecutar());
+        comenzarCombate = new BotonGenerico(new ComandoComenzarCombate(this), "Comenzar Combate");
+        comenzarCombate.addActionListener(e -> comenzarCombate.getComando().ejecutar());
 
         volverMenuInicial = new BotonGenerico(new ComandoVolverMenuInicial(), "Volver al Menu Inicial");
         volverMenuInicial.addActionListener(e -> volverMenuInicial.getComando().ejecutar());
@@ -70,10 +70,13 @@ public class MenuEntreCombates extends JPanel {
             botonesAvatares.add(btnAvatar);
         }
 
-        panelCentral.add(avatares); panelCentral.add(comenzar); panelCentral.add(volverMenuInicial);
+        panelCentral.add(avatares); panelCentral.add(comenzarCombate); panelCentral.add(volverMenuInicial);
         this.add(panelCentral, BorderLayout.CENTER);
     }
 
+    /**Este metodo remueve los Jpaneles contenidos en el panel central, configura la disposision de
+     * sus elementos y
+     * */
     public void MostrarOpciones(){
         panelCentral.removeAll();
         panelCentral.setLayout(new GridLayout(4,4,0,0));
@@ -99,7 +102,7 @@ public class MenuEntreCombates extends JPanel {
         panelCentral.removeAll();
         panelCentral.setLayout(new GridLayout(3,1,0,0));
         panelCentral.add(avatares);
-        panelCentral.add(comenzar);
+        panelCentral.add(comenzarCombate);
         panelCentral.add(volverMenuInicial);
         this.repaint();
         this.revalidate();

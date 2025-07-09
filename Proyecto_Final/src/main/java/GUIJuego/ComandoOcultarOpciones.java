@@ -17,9 +17,9 @@ public class ComandoOcultarOpciones implements Comando {
             OpcionesTorneo opcionesTorneo = (OpcionesTorneo) opciones;
             opcionesTorneo.OcultarOpciones(botonGenerico.getNombre());
         }
-        else if(opciones instanceof OpcionesAvatares){
-            OpcionesAvatares opcionesAvatares = (OpcionesAvatares) opciones;
-            opcionesAvatares.OcultarOpciones(botonGenerico.getNombre());
+        else if(opciones instanceof OpcionesNiveles){
+            OpcionesNiveles opcionesNiveles = (OpcionesNiveles) opciones;
+            opcionesNiveles.OcultarOpciones(botonGenerico.getNombre());
         }
         else if(opciones instanceof MenuEntreCombates){
             MenuEntreCombates opcionesAvatar = (MenuEntreCombates) opciones;

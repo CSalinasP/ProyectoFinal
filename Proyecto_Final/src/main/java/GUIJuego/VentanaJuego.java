@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class VentanaJuego extends JFrame {
     private static VentanaJuego instancia;
-    private Torneo torneo;
+    private Torneo torneoActual;
     private JPanel panelActual;
 
     /**Constructor de la clase que configura las dimensiones de la ventana, la posisiona en pantalla,
@@ -53,12 +53,12 @@ public class VentanaJuego extends JFrame {
         this.dispose();
     }
 
-    public Torneo getTorneo() {
-        return torneo;
+    public Torneo getTorneoActual() {
+        return torneoActual;
     }
 
-    public void setTorneo(Torneo torneo) {
-        this.torneo = torneo;
+    public void setTorneoActual(Torneo torneoActual) {
+        this.torneoActual = torneoActual;
     }
 
     public JPanel getPanelActual() {
@@ -69,7 +69,8 @@ public class VentanaJuego extends JFrame {
         this.panelActual = panelActual;
     }
 
+    @Override
     public String toString(){
-        return "Esta clase sirve de contenedor para los paneles que que constituyen la GUI del juego";
+        return "VentanaJuego [TorneoActual: "+torneoActual.toString()+"PanelActual: "+panelActual.toString()+"]";
     }
 }
