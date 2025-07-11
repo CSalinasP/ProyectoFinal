@@ -31,7 +31,7 @@ public class MenuInicial extends JPanel {
         tipoAvatares = new OpcionesNiveles();
         comienzoOsalida = new JPanel(); comienzoOsalida.setLayout(new GridLayout(1,2,10,0));
         comienzoOsalida.setBackground(Color.blue);
-        comenzar = new BotonGenerico(new ComandoComenzar(tipoTorneo, tipoAvatares), "Comenzar");
+        comenzar = new BotonGenerico(new ComandoComenzar(tipoTorneo), "Comenzar");
         comenzar.addActionListener(e -> comenzar.getComando().ejecutar());
         salir = new BotonGenerico(new ComandoSalir(), "Salir");
         salir.addActionListener(e -> salir.getComando().ejecutar());

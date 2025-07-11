@@ -7,6 +7,7 @@ import java.awt.*;
 public class Arena extends JPanel{
     private Combate combate;
     private BotonGenerico pausa;
+    private int nivel;
 
     public Arena(Combate combate){
         this.setBackground(Color.red);

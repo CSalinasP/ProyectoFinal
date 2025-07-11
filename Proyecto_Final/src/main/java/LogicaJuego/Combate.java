@@ -42,14 +42,12 @@ public class Combate {
      * Constructor que declara a los personajes que estarán en el combate
      *
      * @param Avatar 1.° Personaje del combate
-     * @param Contendiente 2.° Personaje del combate
      * @param Torneo La instancia del Torneo en el que se está haciendo el combate
      * Siempre empieza el Personaje Avatar el combate (turnoActual = 0)
      * Se instancia con Random para generar los números aleatorios
      */
-    public Combate(Personaje Avatar, Personaje Contendiente, Torneo Torneo){
+    public Combate(Personaje Avatar, Torneo Torneo){
         avatar = Avatar;
-        contendiente = Contendiente;
         torneoActual = Torneo;
         turnoActual = 0;
         rand = new Random();

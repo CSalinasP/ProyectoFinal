@@ -1,9 +1,6 @@
 // Nuevo archivo: GUIJuego/ComandoComenzarCombate.java
 package GUIJuego;
 import LogicaJuego.*;
-import LogicaTorneo.*;
-
-import LogicaJuego.Personaje_NoMuerto;
 
 public class ComandoComenzarCombate implements Comando {
     private MenuEntreCombates menuEntreCombates;

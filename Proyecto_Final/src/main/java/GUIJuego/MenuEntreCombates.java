@@ -17,12 +17,14 @@ public class MenuEntreCombates extends JPanel {
     private ArrayList<BotonGenerico> botonesAvatares;
     private BotonGenerico avatares, comenzarCombate, volverMenuInicial, status;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
+    private JPanel avatar, oponente;
+    private JLabel imgAvatar, imgOponente;
 
      /**Constructor de la clase que configura sus dimensiones, color y la disposición
      * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
      * ver las opciones de avateres, comenzar el combate, volver al menu inical o ver el setatus,
      * les aagrega los ActionListeners corresondientes
-     * y los añade a sus respectivos subpaneles .
+     * y los añade a sus respectivos subpaneles.
      * */
     public MenuEntreCombates(){
         personajeSeleccionado=null;
@@ -44,8 +46,23 @@ public class MenuEntreCombates extends JPanel {
         fondoOeste.setPreferredSize(new Dimension(400,0));
         fondoOeste.setBackground(Color.GREEN);
         this.add(fondoSur, BorderLayout.SOUTH);
-        this.add(fondoEste, BorderLayout.EAST);
+
+        avatar = new JPanel();
+        avatar.add(new JLabel("Avatar Actual"));
+        ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+        imgAvatar = new JLabel(iconAvatar);
+        avatar.add(imgAvatar);
+        fondoOeste.add(avatar);
         this.add(fondoOeste, BorderLayout.WEST);
+
+        oponente = new JPanel();
+        oponente.add(new JLabel("Oponente Actual"));
+        ImageIcon iconOponente = RecursosGraficos.cargarImagen("/16bit.png", 100, 150);
+        imgOponente = new JLabel(iconOponente);
+        oponente.add(imgOponente);
+        fondoEste.add(oponente);
+        this.add(fondoEste, BorderLayout.EAST);
+
 
         status = new BotonGenerico(new ComandoMostrarStatus(), "Bracket");
         status.addActionListener(e -> status.getComando().ejecutar());
@@ -79,7 +96,7 @@ public class MenuEntreCombates extends JPanel {
      * */
     public void MostrarOpciones(){
         panelCentral.removeAll();
-        panelCentral.setLayout(new GridLayout(4,4,0,0));
+        panelCentral.setLayout(new GridLayout(2,2,0,0));
         panelCentral.setLayout(new FlowLayout(FlowLayout.LEFT));
         for(JButton avatar : botonesAvatares){
             panelCentral.add(avatar);
@@ -91,14 +108,27 @@ public class MenuEntreCombates extends JPanel {
     public void OcultarOpciones(String tipo){
         if(tipo.equals("Humano")){
             personajeSeleccionado=TipoPersonaje.HUMANO;
+            avatar.remove(imgAvatar);
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            imgAvatar = new JLabel(iconAvatar);
         }
         else if(tipo.equals("Cavallero")){
             personajeSeleccionado=TipoPersonaje.CABALLERO;
+            avatar.remove(imgAvatar);
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            imgAvatar = new JLabel(iconAvatar);
         }
         else if(tipo.equals("Cavernario")){
             personajeSeleccionado=TipoPersonaje.CAVERNARIO;
+            avatar.remove(imgAvatar);
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            imgAvatar = new JLabel(iconAvatar);
         }
-        else{personajeSeleccionado=TipoPersonaje.NOMUERTO;}
+        else{personajeSeleccionado=TipoPersonaje.NOMUERTO;
+            avatar.remove(imgAvatar);
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            imgAvatar = new JLabel(iconAvatar);
+        }
         panelCentral.removeAll();
         panelCentral.setLayout(new GridLayout(3,1,0,0));
         panelCentral.add(avatares);
@@ -107,7 +137,6 @@ public class MenuEntreCombates extends JPanel {
         this.repaint();
         this.revalidate();
     }
-
     public TipoPersonaje getPersonajeSeleccionado() {
         return personajeSeleccionado;
     }
