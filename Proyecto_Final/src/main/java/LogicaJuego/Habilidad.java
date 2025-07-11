@@ -1,27 +1,25 @@
 package LogicaJuego;
 
 /**
- * Clase que representa las habilidades de los Personajes y gestiona sus caracteristicas
- *
+ * Clase que representa las habilidades de los personajes y gestiona sus características.
  * @author CSalinasP
- * @version 1.0
- * @since 2025-07-05
+ * @version 1.2
+ * @since 2025-07-10
  */
 
-abstract class Habilidad {
-    /** El nombre de la habilidad */
+class Habilidad {
+    /** El nombre de la habilidad. */
     private String nombre;
-    /** La cantidad de daño de la habilidad */
+    /** La cantidad de daño de la habilidad. */
     private int damage;
-    /** La cantidad de curacion de la habilidad */
+    /** La cantidad de curación de la habilidad. */
     private int curacion;
 
     /**
-     * Constructor que declara las caracteristicas de la habilidad
-     *
-     * @param Nombre Nombre de la habilidad
-     * @param Damage El daño de la habilidad
-     * @param Curacion La curacion de la habilidad
+     * Constructor que declara las características de la habilidad.
+     * @param Nombre Nombre de la habilidad.
+     * @param Damage El daño de la habilidad.
+     * @param Curacion La curación de la habilidad.
      */
     public Habilidad(String Nombre, int Damage, int Curacion){
         nombre = Nombre;
@@ -30,30 +28,43 @@ abstract class Habilidad {
     }
 
     /**
-     * Metodo getter que retorna el nombre de la habilidad
+     * Metodo que sube de nivel el daño y la curación de la habilidad.
+     * Si uno de los atributos era 0, sabemos que es una habilidad que o solo hace daño o solo cura,
+     * asi que no se aumenta tal atributo.
+     */
+    public void subirNivel(){
+        if (damage>0){
+            damage += 5;
+        }
+        if (curacion>0){
+            curacion += 5;
+        }
+    }
+
+    /**
+     * Metodo getter que retorna el nombre de la habilidad.
      */
     public String getNombre(){
         return nombre;
     }
 
     /**
-     * Metodo getter que retorna el daño de la habilidad
+     * Metodo getter que retorna el daño de la habilidad.
      */
     public int getDamage(){
         return damage;
     }
 
     /**
-     * Metodo getter que retorna la curación de la habilidad
+     * Metodo getter que retorna la curación de la habilidad.
      */
     public int getCuracion(){
         return curacion;
     }
 
     /**
-     * Metodo que usa la habilidad en un personaje
-     *
-     * @param personaje Personaje al que se le aplica los efectos de la habilidad
+     * Metodo que usa la habilidad en un personaje.
+     * @param personaje Personaje al que se le aplica los efectos de la habilidad.
      */
     public int usar(Personaje personaje){
         personaje.curarVida(curacion);
@@ -62,6 +73,8 @@ abstract class Habilidad {
 
     @Override
     public String toString(){
-        return "Habilidad: "+getNombre()+", Daño: "+getDamage()+", Curacion: "+getCuracion();
+        return "Habilidad: "+getNombre()+", " +
+                "Daño: "+getDamage()+", " +
+                "Curacion: "+getCuracion();
     }
 }
