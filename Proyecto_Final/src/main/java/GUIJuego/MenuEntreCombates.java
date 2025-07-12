@@ -55,7 +55,7 @@ public class MenuEntreCombates extends JPanel {
         avatares = new BotonGenerico(new ComandoMostrarOpciones(this), "Avatares");
         avatares.addActionListener(e -> avatares.getComando().ejecutar());
 
-        comenzar = new BotonGenerico(new ComandoComenzarCombate(this,VentanaJuego.getInstancia()), "Comenzar Combate");
+        comenzar = new BotonGenerico(new ComandoComenzarCombate(this), "Comenzar Combate");
         comenzar.addActionListener(e -> comenzar.getComando().ejecutar());
 
         volverMenuInicial = new BotonGenerico(new ComandoVolverMenuInicial(), "Volver al Menu Inicial");

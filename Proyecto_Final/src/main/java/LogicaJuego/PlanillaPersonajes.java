@@ -4,9 +4,19 @@ import LogicaTorneo.Inscribible;
 
 import java.util.ArrayList;
 
+
+/**
+ * Clase que representa la planilla de Personajes del jugador
+ *
+ * @author CSalinasP
+ * @version 1.0
+ * @since 2025-07-05
+ */
 public class PlanillaPersonajes {
-    private static PlanillaPersonajes instancia;
-    private ArrayList<Personaje> personajes;
+    /** La lista que contiene a los personajes */
+    ArrayList<Personaje> personajes;
+    /** La instancia de esta clase */
+    static PlanillaPersonajes instancia;
 
     private PlanillaPersonajes(){
         personajes = new ArrayList<>();
@@ -19,6 +29,11 @@ public class PlanillaPersonajes {
         return instancia;
     }
 
+    /**
+     * Metodo que añade un Personaje a la lista de Personajes
+     *
+     * @param tipoPersonaje Personaje que se añade
+     */
     public void añadirPersonaje(TipoPersonaje tipoPersonaje){
         personajes.add(FabricaPersonajes.crearPersonaje(tipoPersonaje));
     }
@@ -27,9 +42,6 @@ public class PlanillaPersonajes {
         return personajes.get(0);
     }
 
-    public PlanillaPersonajes getInstancia(){
-        return instancia;
-    }
 
     public ArrayList<Personaje> getPersonajes(){
         return personajes;

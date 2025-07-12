@@ -58,13 +58,6 @@ public class MenuInicial extends JPanel {
         this.add(fondoOeste, BorderLayout.WEST);
     }
 
-    /**Este metodo remueve el MenuInicial de la VentanaJuego y agrega otro en su lugar.
-     * @param panel es el nuevo JPanel que se quiere agregar a VentanaJuego.
-     * */
-    public void removerPanel(JPanel panel){
-        VentanaJuego.getInstancia().cambiarPanel(panel);
-    }
-
     public JPanel getPanelCentral() {
         return panelCentral;
     }
