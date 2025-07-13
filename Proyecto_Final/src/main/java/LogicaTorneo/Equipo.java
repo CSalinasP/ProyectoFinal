@@ -1,5 +1,7 @@
 package LogicaTorneo;
 
+import LogicaJuego.FabricaCavernarios;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Equipo implements Inscribible {
 
     @Override
     public void inscribir(Torneo torneo){
-        torneo.getCompetidores().add(this);
+        torneo.getCompetidores().add(FabricaCavernarios.crearPersonaje(3));
     }
 
     /**

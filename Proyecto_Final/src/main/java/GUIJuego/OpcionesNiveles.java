@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class OpcionesNiveles extends JPanel {
     private BotonGenerico niveles;
     private ArrayList<BotonGenerico> botones;
-    private int numNiveles;
 
     public OpcionesNiveles(){
         this.setBackground(Color.blue);
@@ -36,7 +35,7 @@ public class OpcionesNiveles extends JPanel {
     }
 
     public void OcultarOpciones(String numNiveles){
-        this.numNiveles = Integer.parseInt(numNiveles);
+        ((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).setNumNiveles(Integer.parseInt(numNiveles));
         for(JButton avatar : botones){
             this.remove(avatar);
         }
@@ -51,8 +50,5 @@ public class OpcionesNiveles extends JPanel {
     }
     public ArrayList<BotonGenerico> getBotones(){
         return botones;
-    }
-    public int getNumNiveles(){
-        return numNiveles;
     }
 }

@@ -14,6 +14,7 @@ public class MenuInicial extends JPanel {
     private JPanel comienzoOsalida;
     private BotonGenerico comenzar, salir;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
+    private int numNiveles;
 
     /**Constructor de la clase que configura sus dimensiones, color y la disposición
      * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
@@ -136,6 +137,14 @@ public class MenuInicial extends JPanel {
 
     public void setFondoOeste(JPanel fondoOeste) {
         this.fondoOeste = fondoOeste;
+    }
+
+    public int getNumNiveles() {
+        return numNiveles;
+    }
+
+    public void setNumNiveles(int numNiveles){
+        this.numNiveles = numNiveles;
     }
 
     @Override

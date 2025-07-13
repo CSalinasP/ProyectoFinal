@@ -25,9 +25,9 @@ public class FabricaCaballeros extends FabricaPersonajes{
      * @param Nivel El nivel del Caballero que se desea crear.
      */
     public static Personaje crearPersonaje(int Nivel){
-        return new Personaje(nombre, vidaBase+10*Nivel,
-                                resistenciaBase+5*Nivel,
-                              regeneracionBase+5*Nivel,
+        return new Personaje(nombre, vidaBase+10*(Nivel-1),
+                                resistenciaBase+5*(Nivel-1),
+                              regeneracionBase+5*(Nivel-1),
                 FabricaHabilidadCaballero.crearHabilidades(Nivel));
     }
 

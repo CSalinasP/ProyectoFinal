@@ -18,7 +18,7 @@ public class Combate {
     /** Referencia al torneo en el que se hace el combate. */
     private Torneo torneoActual;
     /** El personaje que gana el combate. */
-    private Personaje ganador;
+    private Boolean ganador;
     /** turnoActual=0 es el turno del Avatar y turnoActual=1 es el turno del contendiente. */
     private int turnoActual;
 
@@ -31,6 +31,8 @@ public class Combate {
     public Combate(Personaje Avatar, Torneo Torneo){
         avatar = Avatar;
         torneoActual = Torneo;
+        contendiente = torneoActual.getCompetidores().getFirst();
+        calcularResultado();
         turnoActual = 0;
     }
 
@@ -48,7 +50,7 @@ public class Combate {
         contendiente.quitarVida(damage);
 
         if (contendiente.getVida() <= 0){
-            this.Resultado(avatar);
+            this.Resultado(true);
         }
         turnoActual = 1;
     }
@@ -67,7 +69,7 @@ public class Combate {
         avatar.quitarVida(damage);
 
         if (avatar.getVida() <= 0){
-            this.Resultado(contendiente);
+            this.Resultado(false);
         }
         turnoActual = 0;
     }
@@ -122,10 +124,10 @@ public class Combate {
         probGanador = probVida + probResistencia + probRegeneracion + probDamage + probCuracion;
         Double auxRandom = rand.nextDouble();
         if (auxRandom <= probGanador){
-            this.Resultado(avatar);
+            this.Resultado(true);
         }
         else {
-            this.Resultado(contendiente);
+            this.Resultado(false);
         }
     }
 
@@ -133,8 +135,12 @@ public class Combate {
      * Metodo que declara el ganador del combate.
      * @param Ganador quien ganó el combate.
      */
-    public void Resultado(Personaje Ganador){
+    public void Resultado(Boolean Ganador){
         ganador = Ganador;
+    }
+
+    public Boolean getGanador() {
+        return ganador;
     }
 
     @Override

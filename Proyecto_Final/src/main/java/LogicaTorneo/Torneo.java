@@ -3,6 +3,7 @@ package LogicaTorneo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import LogicaJuego.Personaje;
 
 /**
  * Clase que representa un torneo deportivo/competitivo.
@@ -16,20 +17,23 @@ import java.util.Date;
  * modificar subpaneles
  */
 public abstract class Torneo {
+    protected int niveles;
     protected Disciplina disciplina;
-    protected ArrayList<Inscribible> competidores;
+    protected ArrayList<Personaje> competidores;
     protected ArrayList<LocalDate> fechaReferencia;
     protected ArrayList<Date> fechasEnfrentamientos;
 
-    /**Establece pares enfrentados, establece fechas*/
-    public Torneo() {}
-
     /**Actualiza los pares enfrentados conforme vayan quedando menos*/
-    public void resultadosEnfrentamientos(ArrayList<ArrayList<Inscribible>> enfrentamientos){
+    public abstract void resultadosEnfrentamientos();
 
+    public int getNiveles() {
+        return niveles;
+    }
+    public void setNiveles(int niveles) {
+        this.niveles = niveles;
     }
 
-    public ArrayList<Inscribible> getCompetidores(){
+    public ArrayList<Personaje> getCompetidores(){
         return competidores;
     }
 }
