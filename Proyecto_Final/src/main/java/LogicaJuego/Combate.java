@@ -4,11 +4,10 @@ import LogicaTorneo.Torneo;
 import java.util.Random;
 
 /**
- * Clase que representa el combate,
- * gestiona los ataques entre personajes, así como también los turnos.
+ * Clase que representa el combate entre Avatar y el enemigo.
  * @author CSalinasP
- * @version 1.2
- * @since 2025-07-10
+ * @version 1.3
+ * @since 2025-07-13
  */
 public class Combate {
     /** El personaje que se usará para combatir. */
@@ -17,12 +16,11 @@ public class Combate {
     private Personaje contendiente;
     /** Referencia al torneo en el que se hace el combate. */
     private Torneo torneoActual;
-    /** El personaje que gana el combate. */
+    /** Indica si Avatar ganó el combate */
     private Boolean ganador;
 
     /**
      * Constructor que declara a los personajes que estarán en el combate,
-     * siempre empieza el personaje Avatar el combate (turnoActual = 0).
      * @param avatar El personaje con el que se combate.
      * @param Torneo La instancia del torneo en el que se está haciendo el combate.
      */
@@ -31,42 +29,6 @@ public class Combate {
         torneoActual = Torneo;
         contendiente = torneoActual.getCompetidores().getFirst();
         calcularResultado();
-    }
-
-    /**
-     * Metodo que en el turno de Avatar usa su habilidad.
-     * Avatar hace daño y se cura a sí mismo dependiendo de la curación y daño de la habilidad.
-     * Antes de usar la habilidad Avatar regenera vida.
-     * Si después de usar la habilidad la vida de contendiente es 0: se declara Avatar como el ganador.
-     * Después de usar la habilidad será el turno de Contendiente.
-     * @param habilidad la habilidad que Avatar quiere usar.
-     */
-    public void usarHabilidadAvatar(Habilidad habilidad){
-        avatar.regenerarVida();
-        int damage = habilidad.usar(avatar);
-        contendiente.quitarVida(damage);
-
-        if (contendiente.getVida() <= 0){
-            this.Resultado(true);
-        }
-    }
-
-    /**
-     * Metodo que en el turno de Contendiente usa su habilidad.
-     * Contendiente hace daño y se cura a sí mismo dependiendo de la curación y daño de la habilidad.
-     * Antes de usar la habilidad, Contendiente regenera vida.
-     * Si después de usar la habilidad, la vida de Avatar es 0, se declara Contendiente como el ganador.
-     * Después de usar la habilidad, será el turno de Avatar.
-     * @param habilidad la habilidad que Contendiente quiere usar.
-     */
-    public void usarHabilidadContendiente(Habilidad habilidad){
-        contendiente.regenerarVida();
-        int damage = habilidad.usar(contendiente);
-        avatar.quitarVida(damage);
-
-        if (avatar.getVida() <= 0){
-            this.Resultado(false);
-        }
     }
 
     /**
@@ -128,16 +90,22 @@ public class Combate {
 
     /**
      * Metodo que declara el ganador del combate.
-     * @param Ganador quien ganó el combate.
+     * @param Ganador Si avatar ganó el combate.
      */
     public void Resultado(Boolean Ganador){
         ganador = Ganador;
     }
 
+    /**
+     * Metodo getter que retorna si Avatar ganó.
+     */
     public Boolean getGanador() {
         return ganador;
     }
 
+    /**
+     * Metodo getter que retorna al personaje Avatar.
+     */
     public Personaje getAvatar() {
         return avatar;
     }

@@ -42,7 +42,6 @@ public class PlanillaPersonajes {
         personajes.add(FabricaPersonajes.crearPersonaje(tipoPersonaje, Nivel));
     }
 
-    // por definir...
     public Personaje seleccionarPersonaje(TipoPersonaje tipoPersonaje){
         return personajes.get(0);
     }

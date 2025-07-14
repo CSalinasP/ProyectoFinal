@@ -62,15 +62,6 @@ class Habilidad {
         return curacion;
     }
 
-    /**
-     * Metodo que usa la habilidad en un personaje.
-     * @param personaje Personaje al que se le aplica los efectos de la habilidad.
-     */
-    public int usar(Personaje personaje){
-        personaje.curarVida(curacion);
-        return damage;
-    }
-
     @Override
     public String toString(){
         return "Habilidad: "+getNombre()+", " +

@@ -10,22 +10,20 @@ import java.util.ArrayList;
 public class Personaje {
     /** El nombre del Personaje asociado a tu tipo de personaje. */
     private String nombre;
-    /** La vida total o máxima del personaje. */
-    private int vidaTotal;
-    /** La vida actual del personaje. */
+    /** La cantidad de vida actual del personaje. */
     private int vida;
-
-    private int victorias;
-
-    private int derrotas;
-
-    private int puntaje;
     /** La resistencia al daño del personaje. */
     private int resistencia;
     /** La regeneración de vida del personaje. */
     private int regeneracion;
     /** La lista de habilidades del personaje. */
     private ArrayList<Habilidad> habilidades;
+    /** La cantidad de victorias del personaje. */
+    private int victorias;
+    /** La cantidad de derrotas del personaje. */
+    private int derrotas;
+    /** La cantidad de puntaje del personaje. */
+    private int puntaje;
     // private RecursosGraficos sprites; //
 
 
@@ -58,46 +56,6 @@ public class Personaje {
         }
     }
 
-    /**
-     * Metodo que cura al personaje.
-     * Si después de curar, la vida actual sobrepasa la vida máxima del personaje:
-     * se iguala la vida actual con la vida máxima.
-     * @param numero La cantidad que se va a curar.
-     */
-    public void curarVida(int numero){
-        vida = vida + numero;
-        if (vida > vidaTotal){
-            vida = vidaTotal;
-        }
-    }
-
-    /**
-     * Metodo que le quita vida al personaje.
-     * El daño se reducirá dependiendo de la resistencia al daño del personaje.
-     * Si después de recibir daño, la vida actual es menor a 0: se iguala a 0.
-     * @param numero La cantidad de daño que va a recibir el personaje.
-     */
-    public void quitarVida(int numero){
-        vida = vida - ((1-resistencia)*numero);
-        if (vida<0){
-            vida = 0;
-        }
-    }
-
-    /**
-     * Metodo que cura al personaje en cada turno.
-     * Depende de la cantidad de regeneración que tiene el Personaje.
-     * Si después de curar, la vida actual sobrepasa la vida máxima del Personaje:
-     * se iguala la vida actual con la vida máxima.
-     */
-    public void regenerarVida(){
-        vida = vida + regeneracion;
-        if (vida>vidaTotal){
-            vida = vidaTotal;
-        }
-    }
-
-    // por hacer
     public void setSprites(){
     }
 
@@ -152,7 +110,7 @@ public class Personaje {
 
     /**
      * Metodo que calcula el promedio de la curación de todas las habilidades del personaje.
-     * * Se suman la curación de todas las habilidades y se divide por la cantidad de habilidades total.
+     * Se suman la curación de todas las habilidades y se divide por la cantidad de habilidades total.
      */
     public double getPromedioCuracionHabilidades(){
         double sumatoria = 0;
@@ -164,15 +122,22 @@ public class Personaje {
         return sumatoria/(double)habilidades.size();
     }
 
+    /**
+     * Metodo que aumenta el puntaje del personaje en 1.
+     */
     public void aumentarPuntaje(){
         puntaje+=1;
     }
+    /**
+     * Metodo que disminuye el puntaje del personaje en 1.
+     */
     public void disminuirPuntaje(){
         puntaje-=1;
     }
 
-
-
+    /**
+     * Metodo getter que retorna la cantidad ded victorias de personaje.
+     */
     public int getVictorias() {
         return victorias;
     }
