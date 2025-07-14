@@ -49,7 +49,7 @@ public class MenuEntreCombates extends JPanel {
 
         avatar = new JPanel();
         avatar.add(new JLabel("Avatar Actual"));
-        ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+        ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
         imgAvatar = new JLabel(iconAvatar);
         avatar.add(imgAvatar);
         fondoOeste.add(avatar);
@@ -57,7 +57,7 @@ public class MenuEntreCombates extends JPanel {
 
         oponente = new JPanel();
         oponente.add(new JLabel("Oponente Actual"));
-        ImageIcon iconOponente = RecursosGraficos.cargarImagen("/16bit.png", 100, 150);
+        ImageIcon iconOponente = RecursosGraficos.cargarImagen("/oponente.jpg", 100, 150);
         imgOponente = new JLabel(iconOponente);
         oponente.add(imgOponente);
         fondoEste.add(oponente);
@@ -109,25 +109,29 @@ public class MenuEntreCombates extends JPanel {
         if(tipo.equals("Humano")){
             personajeSeleccionado=TipoPersonaje.HUMANO;
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
+            avatar.add(imgAvatar);
         }
-        else if(tipo.equals("Cavallero")){
+        else if(tipo.equals("Caballero")){
             personajeSeleccionado=TipoPersonaje.CABALLERO;
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/caballero.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
+            avatar.add(imgAvatar);
         }
-        else if(tipo.equals("Cavernario")){
+        else if(tipo.equals("Cavernarios")){
             personajeSeleccionado=TipoPersonaje.CAVERNARIO;
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/cavernario.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
+            avatar.add(imgAvatar);
         }
         else{personajeSeleccionado=TipoPersonaje.NOMUERTO;
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/16bit.png", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/nomuerto.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
+            avatar.add(imgAvatar);
         }
         panelCentral.removeAll();
         panelCentral.setLayout(new GridLayout(3,1,0,0));
