@@ -23,8 +23,8 @@ public class MenuEntreCombates extends JPanel {
 
      /**Constructor de la clase que configura sus dimensiones, color y la disposición
      * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
-     * ver las opciones de avateres, comenzar el combate, volver al menu inical o ver el setatus,
-     * les aagrega los ActionListeners corresondientes
+     * ver las opciones de avateres, comenzar el combate, volver al menu inical o ver el status,
+     * les agrega los ActionListeners corresondientes
      * y los añade a sus respectivos subpaneles.
      * */
     public MenuEntreCombates(){
@@ -103,7 +103,7 @@ public class MenuEntreCombates extends JPanel {
     }
 
     /**Este metodo remueve los Jpaneles contenidos en el panel central, configura la disposision de
-     * sus elementos y
+     * sus elementos y añade los botones para elegir a los personajes
      * */
     public void MostrarOpciones(){
         panelCentral.removeAll();
@@ -116,6 +116,8 @@ public class MenuEntreCombates extends JPanel {
         this.revalidate();
     }
 
+    /**Este metodo retorna el panel central a su disposición original una vez se ha escogido un avatar
+     * */
     public void OcultarOpciones(String tipo){
         if(tipo.equals("Humano")){
             personajeSeleccionado=TipoPersonaje.HUMANO;
@@ -154,5 +156,173 @@ public class MenuEntreCombates extends JPanel {
     }
     public TipoPersonaje getPersonajeSeleccionado() {
         return personajeSeleccionado;
+    }
+
+    public void setPersonajeSeleccionado(TipoPersonaje personajeSeleccionado) {
+        this.personajeSeleccionado = personajeSeleccionado;
+    }
+
+    public JPanel getPanelCentral() {
+        return panelCentral;
+    }
+    public void setPanelCentral(JPanel panelCentral) {
+        this.panelCentral = panelCentral;
+    }
+
+    public ArrayList<BotonGenerico> getBotonesAvatares() {
+        return botonesAvatares;
+    }
+
+    public void setBotonesAvatares(ArrayList<BotonGenerico> botonesAvatares) {
+        this.botonesAvatares = botonesAvatares;
+    }
+
+    public BotonGenerico getAvatares() {
+        return avatares;
+    }
+
+    public void setAvatares(BotonGenerico avatares) {
+        this.avatares = avatares;
+    }
+
+    public BotonGenerico getComenzarCombate() {
+        return comenzarCombate;
+    }
+
+    public void setComenzarCombate(BotonGenerico comenzarCombate) {
+        this.comenzarCombate = comenzarCombate;
+    }
+
+    public BotonGenerico getVolverMenuInicial() {
+        return volverMenuInicial;
+    }
+
+    public void setVolverMenuInicial(BotonGenerico volverMenuInicial) {
+        this.volverMenuInicial = volverMenuInicial;
+    }
+
+    public BotonGenerico getStatus() {
+        return status;
+    }
+
+    public void setStatus(BotonGenerico status) {
+        this.status = status;
+    }
+
+    public BotonGenerico getA() {
+        return a;
+    }
+
+    public void setA(BotonGenerico a) {
+        this.a = a;
+    }
+
+    public BotonGenerico getB() {
+        return b;
+    }
+
+    public void setB(BotonGenerico b) {
+        this.b = b;
+    }
+
+    public BotonGenerico getC() {
+        return c;
+    }
+
+    public void setC(BotonGenerico c) {
+        this.c = c;
+    }
+
+    public BotonGenerico getD() {
+        return d;
+    }
+
+    public void setD(BotonGenerico d) {
+        this.d = d;
+    }
+
+    public JPanel getFondoSur() {
+        return fondoSur;
+    }
+
+    public void setFondoSur(JPanel fondoSur) {
+        this.fondoSur = fondoSur;
+    }
+
+    public JPanel getFondoNorte() {
+        return fondoNorte;
+    }
+
+    public void setFondoNorte(JPanel fondoNorte) {
+        this.fondoNorte = fondoNorte;
+    }
+
+    public JPanel getFondoEste() {
+        return fondoEste;
+    }
+
+    public void setFondoEste(JPanel fondoEste) {
+        this.fondoEste = fondoEste;
+    }
+
+    public JPanel getFondoOeste() {
+        return fondoOeste;
+    }
+
+    public void setFondoOeste(JPanel fondoOeste) {
+        this.fondoOeste = fondoOeste;
+    }
+
+    public JPanel getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(JPanel avatar) {
+        this.avatar = avatar;
+    }
+
+    public JPanel getOponente() {
+        return oponente;
+    }
+
+    public void setOponente(JPanel oponente) {
+        this.oponente = oponente;
+    }
+
+    public JLabel getImgAvatar() {
+        return imgAvatar;
+    }
+
+    public void setImgAvatar(JLabel imgAvatar) {
+        this.imgAvatar = imgAvatar;
+    }
+
+    public JLabel getImgOponente() {
+        return imgOponente;
+    }
+
+    public void setImgOponente(JLabel imgOponente) {
+        this.imgOponente = imgOponente;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuEntreCombates{" +
+                "personajeSeleccionado=" + personajeSeleccionado +
+                ", panelCentral=" + (panelCentral != null ? "initialized" : "null") +
+                ", botonesAvatares=" + (botonesAvatares != null ? botonesAvatares.toString() + " botones" : "null") +
+                ", avatares=" + (avatares != null ? avatares.toString() : "null") +
+                ", comenzarCombate=" + (comenzarCombate != null ? comenzarCombate.toString() : "null") +
+                ", volverMenuInicial=" + (volverMenuInicial != null ? volverMenuInicial.toString() : "null") +
+                ", status=" + (status != null ? status.toString() : "null") +
+                ", fondoSur=" + (fondoSur != null ? "initialized" : "null") +
+                ", fondoNorte=" + (fondoNorte != null ? "initialized" : "null") +
+                ", fondoEste=" + (fondoEste != null ? "initialized" : "null") +
+                ", fondoOeste=" + (fondoOeste != null ? "initialized" : "null") +
+                ", avatar=" + (avatar != null ? "initialized" : "null") +
+                ", oponente=" + (oponente != null ? "initialized" : "null") +
+                ", imgAvatar=" + (imgAvatar != null ? "initialized" : "null") +
+                ", imgOponente=" + (imgOponente != null ? "initialized" : "null") +
+                '}';
     }
 }

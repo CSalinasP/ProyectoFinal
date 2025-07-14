@@ -5,11 +5,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * La clase `OpcionesTorneo` es un `JPanel` que permite al usuario seleccionar
+ * el tipo de torneo para el juego.
+ */
 public class OpcionesTorneo extends JPanel {
     private TipoTorneo tipoTorneo;
     private BotonGenerico a, b, c;
     private ArrayList<BotonGenerico> botones;
 
+    /**
+     * Constructor de la clase `OpcionesTorneo`. Configura el panel y sus componentes iniciales.
+     */
     public OpcionesTorneo(){
         this.setBackground(Color.blue);
         a= new BotonGenerico(new ComandoMostrarOpciones(this),"Modalidad de Torneo", 1000, 100);
@@ -28,6 +35,11 @@ public class OpcionesTorneo extends JPanel {
         tipoTorneo = null;
     }
 
+    /**
+     * Oculta las opciones de torneo individuales y vuelve a mostrar el botón principal `a`.
+     * También establece el tipo de torneo seleccionado según el parámetro `tipo`.
+     * @param tipo La cadena que representa el tipo de torneo seleccionado ("Eliminatoria Simple" o "Liga Simple").
+     */
     public void OcultarOpciones(String tipo){
         if(tipo.equals("Eliminatoria Simple")){
             this.setTipoTorneo(TipoTorneo.ELIMINATORIA_SIMPLE);
@@ -39,6 +51,9 @@ public class OpcionesTorneo extends JPanel {
         this.add(a);
     }
 
+    /**
+     * Oculta el botón principal `a` y muestra las opciones de torneo individuales (`b` y `c`).
+     */
     public void MostrarOpciones(){
         this.remove(a);
         this.setLayout(new GridLayout(1,2,0,0));

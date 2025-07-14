@@ -1,13 +1,23 @@
 package GUIJuego;
 import javax.swing.*;
 import LogicaJuego.*;
-
 import java.awt.*;
 
+/**
+ * La clase Arena representa el panel visual donde se desarrolla un combate en el juego.
+ * Este panel contiene elementos interactivos como botones para pausar el juego
+ * y ver el resultado del combate.
+ */
 public class Arena extends JPanel{
     private Combate combate;
     private BotonGenerico pausa, resultado;
 
+    /**Constructor de la clase que configura sus dimensiones, color y la disposición
+     * de los subpaneles ademas de inicializarlos y agregarlos. Tambien incializa los botones para
+     * las opciones de pausar el combate, ver el resultado del mismo, les aagrega los ActionListeners corresondientes
+     * y los añade a sus respectivos subpaneles
+     * @param combate La instancia de la clase Combate que esta Arena representará visualmente.
+     */
     public Arena(Combate combate){
         this.setBackground(Color.red);
         pausa = new BotonGenerico(new ComandoPausa(combate), "Pausar Juego");
@@ -37,7 +47,37 @@ public class Arena extends JPanel{
         this.combate = combate;
     }
 
+
     public Combate getCombate() {
         return combate;
+    }
+
+    public void setCombate(Combate combate) {
+        this.combate = combate;
+    }
+
+    public BotonGenerico getPausa() {
+        return pausa;
+    }
+
+    public void setPausa(BotonGenerico pausa) {
+        this.pausa = pausa;
+    }
+
+    public BotonGenerico getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(BotonGenerico resultado) {
+        this.resultado = resultado;
+    }
+
+    @Override
+    public String toString() {
+        return "Arena{" +
+                "combate=" + (combate != null ? "initialized" : "null") +
+                ", pausa=" + (pausa != null ? pausa.toString(): "null") +
+                ", resultado=" + (resultado != null ? resultado.toString() : "null") +
+                '}';
     }
 }
