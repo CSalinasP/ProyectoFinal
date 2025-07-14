@@ -46,6 +46,8 @@ public class VentanaJuego extends JFrame {
         this.remove(panelActual);
         panelActual = panel;
         this.add(panelActual);
+        this.revalidate();
+        this.repaint();
     }
 
     /**Este metodo cierra VentanaJuego*/
