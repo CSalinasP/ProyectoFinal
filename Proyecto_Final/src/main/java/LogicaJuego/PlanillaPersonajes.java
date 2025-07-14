@@ -1,6 +1,4 @@
 package LogicaJuego;
-import GUIJuego.VentanaJuego;
-import LogicaTorneo.Inscribible;
 
 import java.util.ArrayList;
 

@@ -96,7 +96,7 @@ public class MenuEntreCombates extends JPanel {
      * */
     public void MostrarOpciones(){
         panelCentral.removeAll();
-        panelCentral.setLayout(new GridLayout(2,2,0,0));
+        panelCentral.setLayout(new GridLayout(2,2,10,10));
         panelCentral.setLayout(new FlowLayout(FlowLayout.LEFT));
         for(JButton avatar : botonesAvatares){
             panelCentral.add(avatar);

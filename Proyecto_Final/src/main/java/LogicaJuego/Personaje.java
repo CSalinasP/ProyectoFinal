@@ -1,6 +1,4 @@
 package LogicaJuego;
-import LogicaTorneo.Inscribible;
-import LogicaTorneo.Torneo;
 import java.util.ArrayList;
 
 /**
@@ -9,13 +7,19 @@ import java.util.ArrayList;
  * @version 1.2
  * @since 2025-07-10
  */
-public class Personaje implements Inscribible{
+public class Personaje {
     /** El nombre del Personaje asociado a tu tipo de personaje. */
     private String nombre;
     /** La vida total o máxima del personaje. */
     private int vidaTotal;
     /** La vida actual del personaje. */
     private int vida;
+
+    private int victorias;
+
+    private int derrotas;
+
+    private int puntaje;
     /** La resistencia al daño del personaje. */
     private int resistencia;
     /** La regeneración de vida del personaje. */
@@ -39,6 +43,7 @@ public class Personaje implements Inscribible{
         resistencia = Resistencia;
         regeneracion = Regeneracion;
         habilidades = Habilidades;
+        puntaje = 0;
     }
 
     /**
@@ -94,15 +99,6 @@ public class Personaje implements Inscribible{
 
     // por hacer
     public void setSprites(){
-    }
-
-    /**
-     * Metodo que inscribe al personaje en el torneo.
-     * @param torneo El torneo al cual se le quiere inscribir.
-     */
-    @Override
-    public void inscribir(Torneo torneo) {
-        torneo.getCompetidores().add(this);
     }
 
     /**
@@ -166,6 +162,19 @@ public class Personaje implements Inscribible{
             sumatoria += auxHabilidad.getCuracion();
         }
         return sumatoria/(double)habilidades.size();
+    }
+
+    public void aumentarPuntaje(){
+        puntaje+=1;
+    }
+    public void disminuirPuntaje(){
+        puntaje-=1;
+    }
+
+
+
+    public int getVictorias() {
+        return victorias;
     }
 
     @Override

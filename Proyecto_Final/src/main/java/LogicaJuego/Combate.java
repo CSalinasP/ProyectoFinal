@@ -19,21 +19,18 @@ public class Combate {
     private Torneo torneoActual;
     /** El personaje que gana el combate. */
     private Boolean ganador;
-    /** turnoActual=0 es el turno del Avatar y turnoActual=1 es el turno del contendiente. */
-    private int turnoActual;
 
     /**
      * Constructor que declara a los personajes que estarán en el combate,
      * siempre empieza el personaje Avatar el combate (turnoActual = 0).
-     * @param Avatar El personaje con el que se combate.
+     * @param avatar El personaje con el que se combate.
      * @param Torneo La instancia del torneo en el que se está haciendo el combate.
      */
-    public Combate(Personaje Avatar, Torneo Torneo){
-        avatar = Avatar;
+    public Combate(Personaje avatar, Torneo Torneo){
+        this.avatar = avatar;
         torneoActual = Torneo;
         contendiente = torneoActual.getCompetidores().getFirst();
         calcularResultado();
-        turnoActual = 0;
     }
 
     /**
@@ -52,7 +49,6 @@ public class Combate {
         if (contendiente.getVida() <= 0){
             this.Resultado(true);
         }
-        turnoActual = 1;
     }
 
     /**
@@ -71,7 +67,6 @@ public class Combate {
         if (avatar.getVida() <= 0){
             this.Resultado(false);
         }
-        turnoActual = 0;
     }
 
     /**
@@ -141,6 +136,10 @@ public class Combate {
 
     public Boolean getGanador() {
         return ganador;
+    }
+
+    public Personaje getAvatar() {
+        return avatar;
     }
 
     @Override

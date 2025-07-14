@@ -1,5 +1,4 @@
 package LogicaTorneo;
-
 import LogicaJuego.*;
 
 import java.time.DayOfWeek;
@@ -9,20 +8,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EliminatoriaSimple extends Torneo {
-    private static  EliminatoriaSimple instancia;
-    private Disciplina disciplina;
     private int niveles;
 	private ArrayList<Personaje> competidores;
-    private LocalDate fechaReferencia;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    private EliminatoriaSimple(int niveles){
+    public EliminatoriaSimple(int niveles){
         this.niveles = niveles;
 
         competidores = new ArrayList<>();
-        int numeroCompetidores = (int) Math.pow(2, niveles-1);
         Random random = new Random();
-        for (int i = 0; i < numeroCompetidores; i++) {
+        for (int i = 0; i < 2*niveles-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -47,22 +42,26 @@ public class EliminatoriaSimple extends Torneo {
             fechasEnfrentamientos.add(proximoLunes);
             proximoLunes = proximoLunes.plusWeeks(1);
         }
-
-    }
-
-    public static EliminatoriaSimple getInstance(int niveles){
-        if(instancia==null){
-            instancia = new EliminatoriaSimple(niveles);
-        }
-        return instancia;
     }
 
     @Override
     public void resultadosEnfrentamientos() {
-        competidores.removeFirst();
-        for(int i = 0; i<competidores.size(); i--){
-            competidores.remove(calcularPerdedor(competidores.get(i), competidores.get(i+1)));
+        if (!competidores.isEmpty()) {
+            competidores.removeFirst();
         }
+
+        ArrayList<Personaje> perdedores = new ArrayList<>();
+        for (int i = 0; i < competidores.size() - 1; i += 2) {
+            Personaje comp1 = competidores.get(i);
+            Personaje comp2 = competidores.get(i + 1);
+
+            Personaje perdedor = calcularPerdedor(comp1, comp2);
+            perdedores.add(perdedor);
+
+            competidores.getFirst().subirNivel();
+        }
+
+        competidores.removeAll(perdedores);
     }
 
     public Personaje calcularPerdedor(Personaje p1, Personaje p2){
@@ -94,7 +93,7 @@ public class EliminatoriaSimple extends Torneo {
         {
             probDamage=0.2;
         }
-        probCuracion = 0.1 * (p1.getPromedioCuracionHabilidades() /p1.getPromedioCuracionHabilidades());
+        probCuracion = 0.1 * (p1.getPromedioCuracionHabilidades() /p2.getPromedioCuracionHabilidades());
         if (probCuracion>0.2)
         {
             probCuracion=0.2;
@@ -110,7 +109,12 @@ public class EliminatoriaSimple extends Torneo {
         }
     }
 
-    @Override
+    public void setNiveles(int niveles) {
+        this.niveles = niveles;
+    }
+    public int getNiveles() {
+        return niveles;
+    }
     public ArrayList<Personaje> getCompetidores() {
         return competidores;
     }

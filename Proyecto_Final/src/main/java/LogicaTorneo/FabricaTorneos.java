@@ -8,11 +8,9 @@ public class FabricaTorneos {
     public static Torneo crearTorneo(TipoTorneo tipoTorneo, int niveles) {
         switch (tipoTorneo) {
             case ELIMINATORIA_SIMPLE:
-                return EliminatoriaSimple.getInstance(niveles);
-            case ELIMINATORIA_DOBLE:
-                return EliminatoriaDoble.getInstance(niveles);
+                return new EliminatoriaSimple(niveles);
             case LIGA_SIMPLE:
-                return LigaSimple.getInstance(niveles);
+                return new LigaSimple(niveles);
             default: return null;
         }
     }

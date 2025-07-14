@@ -18,7 +18,6 @@ import LogicaJuego.Personaje;
  */
 public abstract class Torneo {
     protected int niveles;
-    protected Disciplina disciplina;
     protected ArrayList<Personaje> competidores;
     protected ArrayList<LocalDate> fechaReferencia;
     protected ArrayList<Date> fechasEnfrentamientos;

@@ -1,6 +1,6 @@
 package GUIJuego;
 import LogicaJuego.*;
-import LogicaTorneo.FabricaTorneos;
+import LogicaTorneo.*;
 
 public class ComandoComenzar implements Comando{
     private OpcionesTorneo tipoTorneo;
@@ -11,7 +11,7 @@ public class ComandoComenzar implements Comando{
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo!=null){
+        if(tipoTorneo.getTipoTorneo()!=null){
             VentanaJuego.getInstancia().setTorneoActual(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo(), ((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getNumNiveles()));
             PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.HUMANO,1);
             PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.CABALLERO,1);
