@@ -16,6 +16,7 @@ public class MenuEntreCombates extends JPanel {
     private JPanel panelCentral;
     private ArrayList<BotonGenerico> botonesAvatares;
     private BotonGenerico avatares, comenzarCombate, volverMenuInicial, status;
+    private BotonGenerico a, b, c, d;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
     private JPanel avatar, oponente;
     private JLabel imgAvatar, imgOponente;
@@ -79,13 +80,23 @@ public class MenuEntreCombates extends JPanel {
         volverMenuInicial.addActionListener(e -> volverMenuInicial.getComando().ejecutar());
 
         botonesAvatares = new ArrayList<>();
+        a = new BotonGenerico(null, PlanillaPersonajes.getInstance().getPersonajes().get(0).getNombre(), "/humano.jpg", 64, 64);
+        a.setComando(new ComandoOcultarOpciones(this, a));
+        a.addActionListener(e-> a.getComando().ejecutar());
+        botonesAvatares.add(a);
+        b = new BotonGenerico(null, PlanillaPersonajes.getInstance().getPersonajes().get(1).getNombre(), "/caballero.jpg", 64, 64);
+        b.setComando(new ComandoOcultarOpciones(this, b));
+        b.addActionListener(e-> b.getComando().ejecutar());
+        botonesAvatares.add(b);
+        c = new BotonGenerico(null, PlanillaPersonajes.getInstance().getPersonajes().get(2).getNombre(), "/cavernario.jpg", 64, 64);
+        c.setComando(new ComandoOcultarOpciones(this, c));
+        c.addActionListener(e-> c.getComando().ejecutar());
+        botonesAvatares.add(c);
+        d = new BotonGenerico(null, PlanillaPersonajes.getInstance().getPersonajes().get(3).getNombre(), "/nomuerto.jpg", 64, 64);
+        d.setComando(new ComandoOcultarOpciones(this, d));
+        d.addActionListener(e-> d.getComando().ejecutar());
+        botonesAvatares.add(d);
 
-        for(int i=0; i<PlanillaPersonajes.getInstance().getPersonajes().size(); i++){
-            BotonGenerico btnAvatar = new BotonGenerico(null, PlanillaPersonajes.getInstance().getPersonajes().get(i).getNombre(), "/16bit.png", 64, 64);
-            btnAvatar.setComando(new ComandoOcultarOpciones(this, btnAvatar));
-            btnAvatar.addActionListener(e-> btnAvatar.getComando().ejecutar());
-            botonesAvatares.add(btnAvatar);
-        }
 
         panelCentral.add(avatares); panelCentral.add(comenzarCombate); panelCentral.add(volverMenuInicial);
         this.add(panelCentral, BorderLayout.CENTER);
