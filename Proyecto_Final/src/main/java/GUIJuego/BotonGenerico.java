@@ -9,10 +9,10 @@ public class BotonGenerico extends JButton{
     private Image imagen;
 
     public BotonGenerico(Comando comando, String nombre){
+        super(nombre);  // Mover super(nombre) al principio
         this.comando = comando;
         this.nombre = nombre;
         imagen = null;
-        super(nombre);
     }
 
     public BotonGenerico(Comando comando, String nombre, int ancho, int alto) {
