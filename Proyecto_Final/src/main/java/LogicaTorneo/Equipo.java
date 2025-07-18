@@ -3,15 +3,38 @@ package LogicaTorneo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Equipo implements Inscribible {
+public class Equipo extends Inscribible {
     private String nombreEquipo;
     private int numeroEquipo;
+    private int victorias;
+    private int derrotas;
     private List<Inscribible> competidores;
 
     public Equipo(String nombreEquipo, int numeroEquipo) {
         this.nombreEquipo = nombreEquipo;
         this.numeroEquipo = numeroEquipo;
         this.competidores = new ArrayList<>();
+    }
+
+    public void aumentarVictorias(){
+        victorias+=1;
+    }
+
+    public int getVictorias() {
+        return victorias;
+    }
+
+    public void setVictorias(int victorias) {
+        this.victorias = victorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    @Override
+    public void setDerrotas(int derrotas) {
+        super.setDerrotas(derrotas);
     }
 
     @Override

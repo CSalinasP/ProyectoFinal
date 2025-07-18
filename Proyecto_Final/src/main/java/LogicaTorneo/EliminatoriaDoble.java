@@ -1,20 +1,39 @@
 package LogicaTorneo;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EliminatoriaDoble extends Torneo {
     private static  EliminatoriaDoble instancia;
-    private Disciplina disciplina;
+
+    /**
+     *
+     */
+    @Override
+    public void actualizarFechas() {
+
+    }
+
     private ArrayList<Inscribible> competidores;
-    private ArrayList<ArrayList<Inscribible>> enfrentamientos;
-    private ArrayList<ArrayList<Inscribible>> enfrentamientosGanadores;
-    private ArrayList<ArrayList<Inscribible>> enfrentamientosPededores;
-    private ArrayList<LocalDate> fechaReferencia;
-    private ArrayList<Date> fechasEnfrentamientos;
+    private ArrayList<Inscribible> enfrentamientosGanadores;
+    private ArrayList<Inscribible> enfrentamientosPededores;
+    private LocalDate fechaReferencia;
+    private ArrayList<LocalDate> fechasEnfrentamientos;
 
     private EliminatoriaDoble(){
+        fechaReferencia = LocalDate.now();
+        fechasEnfrentamientos = new ArrayList<>();
+        LocalDate proximoLunes = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        LocalDate proximoMiercoles = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.WEDNESDAY));
+        for (int i = 0; i < 4; i++) {
+            fechasEnfrentamientos.add(proximoLunes);
+            fechasEnfrentamientos.add(proximoMiercoles);
+            proximoLunes = proximoLunes.plusWeeks(1);
+            proximoLunes = proximoMiercoles.plusWeeks(1);
+        }
+        fechasEnfrentamientos.add(proximoLunes);
     }
 
     public static EliminatoriaDoble getInstance(){
@@ -22,5 +41,22 @@ public class EliminatoriaDoble extends Torneo {
             instancia = new EliminatoriaDoble();
         }
         return instancia;
+    }
+
+    @Override
+    public void actualizarEnfrentamientos() {
+    }
+
+    @Override
+    public ArrayList<Inscribible> getCompetidores() {
+        return competidores;
+    }
+
+    public ArrayList<Inscribible> getEnfrentamientosGanadores() {
+        return enfrentamientosGanadores;
+    }
+
+    public ArrayList<Inscribible> getEnfrentamientosPededores() {
+        return enfrentamientosPededores;
     }
 }

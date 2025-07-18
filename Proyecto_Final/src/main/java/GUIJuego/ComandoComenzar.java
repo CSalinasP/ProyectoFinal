@@ -13,10 +13,9 @@ public class ComandoComenzar implements Comando{
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo!=null && avatares.getAvatares().size()==2){
+        if(tipoTorneo.getTipoTorneo()!=null && !avatares.getAvatares().isEmpty()){
             VentanaJuego.getInstancia().setTorneo(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo()));
-            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(0));
-            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().get(1));
+            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().getFirst());
             VentanaJuego.getInstancia().cambiarPanel(new MenuEntreCombates());
         }
     }

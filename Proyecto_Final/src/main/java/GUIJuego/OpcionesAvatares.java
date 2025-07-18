@@ -9,7 +9,6 @@ public class OpcionesAvatares extends JPanel {
     private ArrayList<TipoPersonaje> avatares;
     private BotonGenerico a, b, c, d, e;
     private ArrayList<BotonGenerico> botones;
-    private int clicks;
 
     public OpcionesAvatares(){
         this.setBackground(Color.blue);
@@ -33,8 +32,6 @@ public class OpcionesAvatares extends JPanel {
         botones = new ArrayList<>(); botones.add(b); botones.add(c); botones.add(d); botones.add(e);
 
         avatares = new ArrayList<>();
-
-        clicks = 0;
     }
 
     public void MostrarOpciones(){
@@ -57,15 +54,11 @@ public class OpcionesAvatares extends JPanel {
             avatares.add(TipoPersonaje.CAVERNARIO);
         }
         else{avatares.add(TipoPersonaje.NOMUERTO);}
-        clicks+=1;
-        if(clicks == 2){
-            clicks = 0;
-            this.remove(botones.get(0)); this.remove(botones.get(1)); this.remove(botones.get(2)); this.remove(botones.get(3));
-            this.setLayout(new GridLayout(1,1,0,0));
-            this.add(a);
-            this.revalidate();
-            this.repaint();
-        }
+        this.remove(botones.get(0)); this.remove(botones.get(1)); this.remove(botones.get(2)); this.remove(botones.get(3));
+        this.setLayout(new GridLayout(1,1,0,0));
+        this.add(a);
+        this.revalidate();
+        this.repaint();
     }
 
     public ArrayList<TipoPersonaje> getAvatares() {

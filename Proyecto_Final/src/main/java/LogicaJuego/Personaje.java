@@ -1,13 +1,19 @@
 package LogicaJuego;
 
+import LogicaTorneo.Individuo;
 import LogicaTorneo.Inscribible;
 import LogicaTorneo.Torneo;
 
 import java.util.ArrayList;
 
-public abstract class Personaje implements Inscribible{
+public abstract class Personaje extends Individuo {
     private String nombre;
     private int vida;
+    private int fuerza;
+    private int invulnerabilidad; //en contra en caso de debilidad
+    private int regeneración;
+    private int victorias;
+    private int derrotas;
     private ArrayList<Habilidad> habilidades;
     // private RecursosGraficos sprites; //
 
@@ -33,6 +39,28 @@ public abstract class Personaje implements Inscribible{
 
     public int getVida(){
         return vida;
+    }
+
+    @Override
+    public int getVictorias() {
+        return victorias;
+    }
+
+    @Override
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public int getInvulnerabilidad() {
+        return invulnerabilidad;
+    }
+
+    public int getRegeneracion() {
+        return regeneración;
     }
 
     public ArrayList<Habilidad> getHabilidades(){

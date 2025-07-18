@@ -1,7 +1,7 @@
 package LogicaJuego;
 
-public class Personaje_Caballero extends Personaje{
-    private final String nombre = "Caballero";
+public class Personaje_Mago extends Personaje{
+    private final String nombre = "Mago";
 
     @Override
     public String getNombre() {
