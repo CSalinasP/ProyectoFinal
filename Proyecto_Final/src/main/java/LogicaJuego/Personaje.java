@@ -1,78 +1,152 @@
 package LogicaJuego;
-
-import LogicaTorneo.Individuo;
-import LogicaTorneo.Inscribible;
-import LogicaTorneo.Torneo;
-
 import java.util.ArrayList;
 
-public abstract class Personaje extends Individuo {
+/**
+ * Clase que representa a los personajes y sus características.
+ * @author CSalinasP
+ * @version 1.2
+ * @since 2025-07-10
+ */
+public class Personaje {
+    /** El nombre del Personaje asociado a tu tipo de personaje. */
     private String nombre;
+    /** La cantidad de vida actual del personaje. */
     private int vida;
-    private int fuerza;
-    private int invulnerabilidad; //en contra en caso de debilidad
-    private int regeneración;
-    private int victorias;
-    private int derrotas;
+    /** La resistencia al daño del personaje. */
+    private int resistencia;
+    /** La regeneración de vida del personaje. */
+    private int regeneracion;
+    /** La lista de habilidades del personaje. */
     private ArrayList<Habilidad> habilidades;
+    /** La cantidad de victorias del personaje. */
+    private int victorias;
+    /** La cantidad de derrotas del personaje. */
+    private int derrotas;
+    /** La cantidad de puntaje del personaje. */
+    private int puntaje;
     // private RecursosGraficos sprites; //
 
-    public Personaje(){
-        habilidades = new ArrayList<>();
+
+    /**
+     * Constructor que declara al personaje con sus características.
+     * @param Nombre El nombre del personaje asociado a qué tipo de personaje es.
+     * @param Vida La vida del personaje.
+     * @param Resistencia La resistencia del personaje.
+     * @param Regeneracion La regeneración del personaje.
+     * @param Habilidades La lista de habilidades del personaje.
+    */
+    public Personaje(String Nombre, int Vida, int Resistencia, int Regeneracion, ArrayList<Habilidad> Habilidades){
+        nombre = Nombre;
+        vida = Vida;
+        resistencia = Resistencia;
+        regeneracion = Regeneracion;
+        habilidades = Habilidades;
+        puntaje = 0;
+    }
+
+    /**
+     * Metodo que sube de nivel los atributos del personaje y sus habilidades.
+     */
+    public void subirNivel(){
+        vida += 10;
+        resistencia += 5;
+        regeneracion += 5;
+        for (int i=0;i<3;i++){
+            habilidades.get(i).subirNivel();
+        }
     }
 
     public void setSprites(){
     }
 
-    @Override
-    public void inscribir(Torneo torneo) {
-        torneo.getCompetidores().add(this);
-    }
-
-    public void añadirHabilidad(Habilidad habilidad){
-        habilidades.add(habilidad);
-    }
-
+    /**
+     * Metodo getter que retorna el nombre del personaje.
+     */
     public String getNombre(){
         return nombre;
     }
 
+    /**
+     * Metodo getter que retorna la vida del personaje.
+     */
     public int getVida(){
         return vida;
     }
 
-    @Override
+    /**
+     * Metodo getter que retorna la resistencia del personaje.
+     */
+    public int getResistencia(){
+        return resistencia;
+    }
+
+    /**
+     * Metodo getter que retorna la regeneración del personaje.
+     */
+    public int getRegeneracion(){
+        return regeneracion;
+    }
+
+    /**
+     * Metodo getter que retorna la lista de habilidades del personaje.
+     */
+    public ArrayList<Habilidad> getHabilidades(){
+        return habilidades;
+    }
+
+    /**
+     * Metodo que calcula el promedio del daño todas las habilidades del personaje.
+     * Se suman el daño de todas las habilidades y se divide por la cantidad de habilidades total.
+     */
+    public double getPromedioDamageHabilidades(){
+        double sumatoria = 0;
+        Habilidad auxHabilidad;
+        for (int i=0;i<habilidades.size();i++){
+            auxHabilidad = habilidades.get(i);
+            sumatoria += auxHabilidad.getDamage();
+        }
+        return sumatoria/(double)habilidades.size();
+    }
+
+    /**
+     * Metodo que calcula el promedio de la curación de todas las habilidades del personaje.
+     * Se suman la curación de todas las habilidades y se divide por la cantidad de habilidades total.
+     */
+    public double getPromedioCuracionHabilidades(){
+        double sumatoria = 0;
+        Habilidad auxHabilidad;
+        for (int i=0;i<habilidades.size();i++){
+            auxHabilidad = habilidades.get(i);
+            sumatoria += auxHabilidad.getCuracion();
+        }
+        return sumatoria/(double)habilidades.size();
+    }
+
+    /**
+     * Metodo que aumenta el puntaje del personaje en 1.
+     */
+    public void aumentarPuntaje(){
+        puntaje+=1;
+    }
+    /**
+     * Metodo que disminuye el puntaje del personaje en 1.
+     */
+    public void disminuirPuntaje(){
+        puntaje-=1;
+    }
+
+    /**
+     * Metodo getter que retorna la cantidad ded victorias de personaje.
+     */
     public int getVictorias() {
         return victorias;
     }
 
     @Override
-    public int getDerrotas() {
-        return derrotas;
-    }
-
-    public int getFuerza() {
-        return fuerza;
-    }
-
-    public int getInvulnerabilidad() {
-        return invulnerabilidad;
-    }
-
-    public int getRegeneracion() {
-        return regeneración;
-    }
-
-    public ArrayList<Habilidad> getHabilidades(){
-        return habilidades;
-    }
-
-    public void modificarVida(int numero){
-        vida = vida + numero;
-    }
-
-    @Override
     public String toString(){
-        return "Nombre: "+getNombre()+", Vida: "+getVida();
+        return "Nombre: "+this.getNombre()+
+                ", Vida: "+this.getVida()+
+                ", Resistencia: "+this.getResistencia()+
+                ", Regeneracion: "+this.getRegeneracion();
     }
 }

@@ -6,58 +6,44 @@ import java.net.URL;
 public class BotonGenerico extends JButton{
     private Comando comando;
     private String nombre;
-    private ImageIcon imagen;
+    private Image imagen;
 
     public BotonGenerico(Comando comando, String nombre){
+        super(nombre);  // Mover super(nombre) al principio
         this.comando = comando;
         this.nombre = nombre;
         imagen = null;
-        super(nombre);
     }
 
-    public BotonGenerico(Comando comando, String nombre, int scaledWidth, int scaledHeight) {
+    public BotonGenerico(Comando comando, String nombre, int ancho, int alto) {
         super(nombre);
         this.comando = comando;
         this.nombre = nombre;
-        this.setPreferredSize(new Dimension(scaledWidth, scaledHeight));
+        this.setPreferredSize(new Dimension(ancho, alto));
     }
 
-    public BotonGenerico(Comando comando, String nombre, String imagePath, int scaledWidth, int scaledHeight) {
+    public BotonGenerico(Comando comando, String nombre, String imagePath, int ancho, int alto) {
         super(nombre);
         this.comando = comando;
         this.nombre = nombre;
-        setupImage(imagePath, scaledWidth, scaledHeight); // Método para cargar y escalar la imagen
+        setupImage(imagePath, ancho, alto); // Método para cargar y escalar la imagen
     }
 
     /**
      * Método privado para cargar y opcionalmente escalar la imagen, y luego establecerla como icono del botón.
      * @param imagePath La ruta de la imagen dentro de la carpeta 'resources'.
-     * @param scaledWidth Ancho deseado para la imagen (0 para no escalar).
-     * @param scaledHeight Alto deseado para la imagen (0 para no escalar).
+     * @param ancho es el Ancho deseado para la imagen (0 para no escalar).
+     * @param alto es el Alto deseado para la imagen (0 para no escalar).
      */
-    private void setupImage(String imagePath, int scaledWidth, int scaledHeight) {
-        URL imageUrl = getClass().getResource(imagePath);
-        if (imageUrl != null) {
-            ImageIcon originalIcon = new ImageIcon(imageUrl);
-
-            if (scaledWidth > 0 && scaledHeight > 0) {
-                Image image = originalIcon.getImage();
-                Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
-                setIcon(new ImageIcon(scaledImage)); // Establece el ícono escalado
-            } else {
-                setIcon(originalIcon); // Establece el ícono original
-            }
-        } else {
-            System.err.println("Error: No se pudo encontrar la imagen para BotonGenerico en: " + imagePath);
-            // Opcional: podrías poner un icono de placeholder aquí
-        }
+    private void setupImage(String imagePath, int ancho, int alto) {
+        this.setIcon(RecursosGraficos.cargarImagen(imagePath, ancho, alto));
     }
 
-    public ImageIcon getImagen() {
+    public Image getImagen() {
         return imagen;
     }
 
-    public void setImagen(ImageIcon imagen) {
+    public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
 

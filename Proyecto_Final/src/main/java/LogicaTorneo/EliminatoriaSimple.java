@@ -1,119 +1,121 @@
 package LogicaTorneo;
-
 import LogicaJuego.*;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-//Reducir a 1 sola opcion, incluir modo aventura, añadir atributos para obtener resultadoos
+import java.util.Random;
 
 public class EliminatoriaSimple extends Torneo {
-    private static  EliminatoriaSimple instancia;
-    private ArrayList<Inscribible> competidores;
-    private ArrayList<Inscribible>enfrentamientos;
-    private ArrayList<Inscribible>enfrentamientos2;
-    private ArrayList<Inscribible>enfrentamientos3;
-    private ArrayList<Inscribible>enfrentamientos4;
-    private LocalDate fechaReferencia;
+    private int niveles;
+	private ArrayList<Personaje> competidores;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    private EliminatoriaSimple(){
-        Set<Personaje> competidoresUnicosOrdenados = new LinkedHashSet<>();
-        /**competidoresUnicosOrdenados.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());*/
-        competidoresUnicosOrdenados.add(new Personaje_Humano());
-        competidoresUnicosOrdenados.add(new Personaje_Cavernario());
-        competidoresUnicosOrdenados.add(new Personaje_Caballero());
-        competidoresUnicosOrdenados.add(new Personaje_NoMuerto());
-        competidoresUnicosOrdenados.add(new Personaje_Gigante());
-        competidoresUnicosOrdenados.add(new Personaje_Hombre_Montruo());
-        competidoresUnicosOrdenados.add(new Personaje_Sindri());
-        competidoresUnicosOrdenados.add(new Personaje_Helado());
-        competidoresUnicosOrdenados.add(new Personaje_Acuatico());
-        competidoresUnicosOrdenados.add(new Personaje_Surtur());
-        competidoresUnicosOrdenados.add(new Personaje_Eolo());
-        competidoresUnicosOrdenados.add(new Personaje_Amazona());
-        competidoresUnicosOrdenados.add(new Personaje_Momia());
-        competidoresUnicosOrdenados.add(new Personaje_Fantasma());
-        competidoresUnicosOrdenados.add(new Personaje_Mago());
-        competidoresUnicosOrdenados.add(new Personaje_Nigromante());
-        competidores = new ArrayList<>(competidoresUnicosOrdenados);
-        enfrentamientos = new ArrayList<>(competidoresUnicosOrdenados);
-        enfrentamientos2 = new ArrayList<>(competidoresUnicosOrdenados);
-        for(int i=0 ; i < 8; i++){
-        enfrentamientos2.remove(i);}
-        enfrentamientos3 =  new ArrayList<>(enfrentamientos2);
-        for(int i=0 ; i < 4; i++){
-            enfrentamientos3.remove(i);}
-        enfrentamientos4 =  new ArrayList<>(enfrentamientos3);
-        for(int i=0 ; i < 2; i++){
-            enfrentamientos4.remove(i);}
+    public EliminatoriaSimple(int niveles){
+        this.niveles = niveles;
 
-        fechaReferencia = LocalDate.now();
-        fechasEnfrentamientos = new ArrayList<>();
-        LocalDate proximoDomingo = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        for (int i = 0; i < enfrentamientos.size()/2; i++) {
-            fechasEnfrentamientos.add(proximoDomingo);
-            proximoDomingo = proximoDomingo.plusWeeks(1);
-        }
-    }
-
-    public static EliminatoriaSimple getInstance(){
-        if(instancia==null){
-            instancia = new EliminatoriaSimple();
-        }
-        return instancia;
-    }
-
-    @Override
-    public void actualizarEnfrentamientos() {
-        ArrayList<Inscribible> ganadores = new ArrayList<>();
-        //despues gestionar los primeros con logica externa
-        for(int i = 0; i<enfrentamientos.size()-1; i++){
-            ganadores.add(determinarGanador(enfrentamientos.get(i), enfrentamientos.get(i+1)));
-            ganadores.getLast().aumentarVictorias();
-        }
-        enfrentamientos=ganadores;
-    }
-
-    @Override
-    public void actualizarFechas(){
-        LocalDate proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
-        fechasEnfrentamientos.clear();
-        if(enfrentamientos.size()/2>0) {
-            for (int i = 0; i < enfrentamientos.size() / 2; i++) {
-                fechasEnfrentamientos.add(proximoDomingo);
-                proximoDomingo = proximoDomingo.plusWeeks(1);
+        competidores = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 2*niveles-1; i++) {
+            int tipoPersonaje = random.nextInt(4);
+            switch (tipoPersonaje) {
+                case 0:
+                    competidores.add(FabricaHumanos.crearPersonaje(1));
+                    break;
+                case 1:
+                    competidores.add(FabricaCaballeros.crearPersonaje(1));
+                    break;
+                case 2:
+                    competidores.add(FabricaCavernarios.crearPersonaje(1));
+                    break;
+                case 3:
+                    competidores.add(FabricaNoMuertos.crearPersonaje(1));
+                    break;
             }
         }
+
+        LocalDate fechaReferencia = LocalDate.now();
+        LocalDate proximoLunes = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+        this.fechasEnfrentamientos = new ArrayList<LocalDate>();
+        for (int i = 0; i < niveles; i++) {
+            fechasEnfrentamientos.add(proximoLunes);
+            proximoLunes = proximoLunes.plusWeeks(1);
+        }
     }
 
     @Override
-    public ArrayList<LocalDate> getFechasEnfrentamientos() {
-        return fechasEnfrentamientos;
+    public void resultadosEnfrentamientos() {
+        if (!competidores.isEmpty()) {
+            competidores.removeFirst();
+        }
+
+        ArrayList<Personaje> perdedores = new ArrayList<>();
+        for (int i = 0; i < competidores.size() - 1; i += 2) {
+            Personaje comp1 = competidores.get(i);
+            Personaje comp2 = competidores.get(i + 1);
+
+            Personaje perdedor = calcularPerdedor(comp1, comp2);
+            perdedores.add(perdedor);
+
+            competidores.getFirst().subirNivel();
+        }
+
+        competidores.removeAll(perdedores);
     }
 
-    @Override
-    public ArrayList<Inscribible> getCompetidores() {
+    public Personaje calcularPerdedor(Personaje p1, Personaje p2){
+        double probVida;
+        double probResistencia;
+        double probRegeneracion;
+        double probDamage;
+        double probCuracion;
+        double probGanador;
+        Random rand = new Random();
+
+        probVida = 0.1 * ((double) p1.getVida() /p2.getVida());
+        if (probVida>0.2)
+        {
+            probVida=0.2;
+        }
+        probResistencia = 0.1 * ((double) p1.getResistencia() /p2.getResistencia());
+        if (probResistencia>0.2)
+        {
+            probResistencia=0.2;
+        }
+        probRegeneracion = 0.1 * ((double) p1.getRegeneracion() /p2.getRegeneracion());
+        if (probRegeneracion>0.2)
+        {
+            probRegeneracion=0.2;
+        }
+        probDamage = 0.1 * (p1.getPromedioDamageHabilidades() /p2.getPromedioDamageHabilidades());
+        if (probDamage>0.2)
+        {
+            probDamage=0.2;
+        }
+        probCuracion = 0.1 * (p1.getPromedioCuracionHabilidades() /p2.getPromedioCuracionHabilidades());
+        if (probCuracion>0.2)
+        {
+            probCuracion=0.2;
+        }
+
+        probGanador = probVida + probResistencia + probRegeneracion + probDamage + probCuracion;
+        Double auxRandom = rand.nextDouble();
+        if (auxRandom <= probGanador){
+            return p2;
+        }
+        else {
+            return p1;
+        }
+    }
+
+    public void setNiveles(int niveles) {
+        this.niveles = niveles;
+    }
+    public int getNiveles() {
+        return niveles;
+    }
+    public ArrayList<Personaje> getCompetidores() {
         return competidores;
-    }
-
-    @Override
-    public ArrayList<Inscribible> getEnfrentamientos() {
-        return enfrentamientos;
-    }
-
-    public ArrayList<Inscribible> getEnfrentamientos2() {
-        return enfrentamientos2;
-    }
-
-    public ArrayList<Inscribible> getEnfrentamientos3() {
-        return enfrentamientos3;
-    }
-
-    public ArrayList<Inscribible> getEnfrentamientos4() {
-        return enfrentamientos4;
     }
 }

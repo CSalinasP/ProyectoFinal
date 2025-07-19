@@ -1,47 +1,39 @@
 package LogicaJuego;
 
-public class FabricaPersonajes {
-    public static Personaje crearPersonaje(TipoPersonaje tipoPersonaje){
+import LogicaTorneo.*;
+
+/**
+ * Clase que usa el patrón Factory para fabricar personajes.
+ * @author CSalinasP
+ * @version 1.2
+ * @since 2025-07-10
+ */
+
+public abstract class FabricaPersonajes {
+    public FabricaPersonajes(){}
+
+    /**
+     * Metodo que crea un personaje con sus características y lo retorna.
+     * Dependiendo del tipo de personaje, se usa su fábrica respectivamente.
+     * @param tipoPersonaje El tipo de personaje que se desea crear.
+     * @param Nivel El nivel del personaje que se desea.
+     */
+    public static Personaje crearPersonaje(TipoPersonaje tipoPersonaje, int Nivel){
         switch (tipoPersonaje) {
             case HUMANO:
-                return new Personaje_Humano();
+                return FabricaHumanos.crearPersonaje(Nivel);
             case CABALLERO:
-                return new Personaje_Caballero();
+                return FabricaCaballeros.crearPersonaje(Nivel);
             case CAVERNARIO:
-                return new Personaje_Cavernario();
+                return FabricaCavernarios.crearPersonaje(Nivel);
             case NOMUERTO:
-                return new Personaje_NoMuerto();
-            case GIGANTE:
-                return new Personaje_Gigante();
-            case HOMBRE_MONSTRUO:
-                return new Personaje_Hombre_Montruo();
-            case TERRANO:
-                return new Personaje_Sindri();
-            case HELADO:
-                return new Personaje_Helado();
-            case ACUATICO:
-                return new Personaje_Acuatico();
-            case FUEGO:
-                return new Personaje_Surtur();
-            case AIRE:
-                return new Personaje_Eolo();
-            case NATURALEZA:
-                return new Personaje_Amazona();
-            case MOMIA:
-                return new Personaje_Momia();
-            case FANTASMA:
-                return new Personaje_Fantasma();
-            case MAGO:
-                return new Personaje_Mago();
-            case NIGROMANTE:
-                return new Personaje_Nigromante();
-            default:
-                return null;
+                return FabricaNoMuertos.crearPersonaje(Nivel);
+            default: return null;
         }
     }
 
     @Override
     public String toString(){
-        return "Clase encargada de fabricar personajes";
+        return "Clase encargada de fabricar personajes.";
     }
 }

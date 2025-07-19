@@ -1,21 +1,22 @@
 package GUIJuego;
-import LogicaJuego.PlanillaPersonajes;
-import LogicaTorneo.FabricaTorneos;
+import LogicaJuego.*;
+import LogicaTorneo.*;
 
 public class ComandoComenzar implements Comando{
     private OpcionesTorneo tipoTorneo;
-    private OpcionesAvatares avatares;
 
-    public ComandoComenzar(OpcionesTorneo tipoTorneo, OpcionesAvatares avatares){
+    public ComandoComenzar(OpcionesTorneo tipoTorneo){
         this.tipoTorneo = tipoTorneo;
-        this.avatares = avatares;
     }
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo.getTipoTorneo()!=null && !avatares.getAvatares().isEmpty()){
-            VentanaJuego.getInstancia().setTorneo(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo()));
-            PlanillaPersonajes.getInstance().añadirPersonaje(avatares.getAvatares().getFirst());
+        if(tipoTorneo.getTipoTorneo()!=null){
+            VentanaJuego.getInstancia().setTorneoActual(FabricaTorneos.crearTorneo(tipoTorneo.getTipoTorneo(), ((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getNumNiveles()));
+            PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.HUMANO,1);
+            PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.CABALLERO,1);
+            PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.CAVERNARIO,1);
+            PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.NOMUERTO,1);
             VentanaJuego.getInstancia().cambiarPanel(new MenuEntreCombates());
         }
     }
