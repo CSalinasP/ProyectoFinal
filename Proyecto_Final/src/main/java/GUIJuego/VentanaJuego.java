@@ -21,9 +21,9 @@ public class VentanaJuego extends JFrame {
         this.setPreferredSize(new Dimension(800,600));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
         panelActual = new MenuInicial();
         this.add(panelActual);
+        this.pack();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
@@ -46,6 +46,8 @@ public class VentanaJuego extends JFrame {
         this.remove(panelActual);
         panelActual = panel;
         this.add(panelActual);
+        this.revalidate();
+        this.repaint();
     }
 
     /**Este metodo cierra VentanaJuego*/

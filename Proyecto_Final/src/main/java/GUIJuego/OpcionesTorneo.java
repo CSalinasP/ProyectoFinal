@@ -39,16 +39,19 @@ public class OpcionesTorneo extends JPanel {
             this.setTipoTorneo(TipoTorneo.ELIMINATORIA_DOBLE);
         }
         else{this.setTipoTorneo(TipoTorneo.LIGA_SIMPLE);}
-
         this.remove(botones.get(0)); this.remove(botones.get(1)); this.remove(botones.get(2));
         this.setLayout(new GridLayout(1,1,0,0));
         this.add(a);
+        this.revalidate();
+        this.repaint();
     }
 
     public void MostrarOpciones(){
         this.remove(a);
         this.setLayout(new GridLayout(1,3,0,0));
         this.add(botones.get(0)); this.add(botones.get(1)); this.add(botones.get(2));
+        this.revalidate();
+        this.repaint();
     }
 
     public TipoTorneo getTipoTorneo() {

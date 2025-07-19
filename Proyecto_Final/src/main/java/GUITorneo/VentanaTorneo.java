@@ -17,9 +17,10 @@ public class VentanaTorneo extends JFrame {
         this.setPreferredSize(new Dimension(800,600));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
         this.bracketTorneo=bracketTorneo;
         this.add(bracketTorneo);
+        this.pack();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**Este metodo crea la única instancia de VentanaJuego que se usara en el juego si no existe
