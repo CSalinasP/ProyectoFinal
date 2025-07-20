@@ -27,7 +27,7 @@ public class FabricaHumanos extends FabricaPersonajes{
     public static Personaje crearPersonaje(int Nivel){
         return new Personaje(nombre, vidaBase+10*Nivel,
                 resistenciaBase+5*Nivel,
-                regeneracionBase+5*Nivel,
+                regeneracionBase+5*Nivel,"/humano.jpg",
                 FabricaHabilidadHumano.crearHabilidades(Nivel));
     }
 

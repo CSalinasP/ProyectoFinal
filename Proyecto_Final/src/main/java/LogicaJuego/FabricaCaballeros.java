@@ -27,7 +27,7 @@ public class FabricaCaballeros extends FabricaPersonajes{
     public static Personaje crearPersonaje(int Nivel){
         return new Personaje(nombre, vidaBase+10*(Nivel-1),
                                 resistenciaBase+5*(Nivel-1),
-                              regeneracionBase+5*(Nivel-1),
+                              regeneracionBase+5*(Nivel-1),"/caballero.jpg",
                 FabricaHabilidadCaballero.crearHabilidades(Nivel));
     }
 

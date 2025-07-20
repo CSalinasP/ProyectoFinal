@@ -24,7 +24,8 @@ public class Personaje {
     private int derrotas;
     /** La cantidad de puntaje del personaje. */
     private int puntaje;
-    // private RecursosGraficos sprites; //
+    /** La direccion del sprite del personaje en la carpeta resources. */
+    private String spritePath;
 
 
     /**
@@ -35,11 +36,12 @@ public class Personaje {
      * @param Regeneracion La regeneración del personaje.
      * @param Habilidades La lista de habilidades del personaje.
     */
-    public Personaje(String Nombre, int Vida, int Resistencia, int Regeneracion, ArrayList<Habilidad> Habilidades){
+    public Personaje(String Nombre, int Vida, int Resistencia, int Regeneracion, String spritePath, ArrayList<Habilidad> Habilidades){
         nombre = Nombre;
         vida = Vida;
         resistencia = Resistencia;
         regeneracion = Regeneracion;
+        this.spritePath = spritePath;
         habilidades = Habilidades;
         puntaje = 0;
     }
