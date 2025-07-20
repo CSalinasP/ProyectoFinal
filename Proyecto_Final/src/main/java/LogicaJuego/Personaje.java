@@ -144,6 +144,13 @@ public class Personaje {
         return victorias;
     }
 
+    /**
+     * Metodo getter que retorna la cantidad de puntaje del personaje en el torneo.
+     */
+    public int getPuntaje() {
+        return puntaje;
+    }
+
     @Override
     public String toString(){
         return "Nombre: "+this.getNombre()+
