@@ -15,8 +15,8 @@ public class ComandoMostrarOpciones implements Comando{
         if(opciones instanceof OpcionesTorneo){
             OpcionesTorneo opcionesTorneo = (OpcionesTorneo) opciones;
             opcionesTorneo.MostrarOpciones();
-        } else if (opciones instanceof OpcionesNiveles) {
-            OpcionesNiveles opcionesNiveles = (OpcionesNiveles) opciones;
+        } else if (opciones instanceof OpcionesAvatares) {
+            OpcionesAvatares opcionesNiveles = (OpcionesAvatares) opciones;
             opcionesNiveles.MostrarOpciones();
         } else if (opciones instanceof MenuEntreCombates) {
             MenuEntreCombates menuEntreCombates = (MenuEntreCombates) opciones;

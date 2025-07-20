@@ -10,7 +10,7 @@ import java.awt.*;
 public class MenuInicial extends JPanel {
     private JPanel panelCentral;
     private OpcionesTorneo tipoTorneo;
-    private OpcionesNiveles tipoAvatares;
+    private OpcionesAvatares tipoAvatares;
     private JPanel comienzoOsalida;
     private BotonGenerico comenzar, salir;
     private JPanel fondoSur, fondoNorte, fondoEste, fondoOeste;
@@ -29,7 +29,7 @@ public class MenuInicial extends JPanel {
         panelCentral.setBackground(Color.blue);
 
         tipoTorneo = new OpcionesTorneo();
-        tipoAvatares = new OpcionesNiveles();
+        tipoAvatares = new OpcionesAvatares();
         comienzoOsalida = new JPanel(); comienzoOsalida.setLayout(new GridLayout(1,2,10,0));
         comienzoOsalida.setBackground(Color.blue);
         comenzar = new BotonGenerico(new ComandoComenzar(tipoTorneo), "Comenzar");
@@ -73,14 +73,6 @@ public class MenuInicial extends JPanel {
 
     public void setTipoTorneo(OpcionesTorneo tipoTorneo) {
         this.tipoTorneo = tipoTorneo;
-    }
-
-    public OpcionesNiveles getTipoAvatares() {
-        return tipoAvatares;
-    }
-
-    public void setTipoAvatares(OpcionesNiveles tipoAvatares) {
-        this.tipoAvatares = tipoAvatares;
     }
 
     public JPanel getComienzoOsalida() {

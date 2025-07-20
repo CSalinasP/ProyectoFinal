@@ -8,16 +8,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EliminatoriaSimple extends Torneo {
-    private int niveles;
 	private ArrayList<Personaje> competidores;
+
+    /**
+     *
+     */
+
+    private ArrayList<Personaje>enfrentamientos;
+    private LocalDate fechaReferencia;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public EliminatoriaSimple(int niveles){
-        this.niveles = niveles;
-
+    public EliminatoriaSimple(){
         competidores = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 2*niveles-1; i++) {
+        competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
+        for (int i = 0; i < 15; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -33,89 +38,46 @@ public class EliminatoriaSimple extends Torneo {
                     competidores.add(FabricaNoMuertos.crearPersonaje(1));
                     break;
             }
+            enfrentamientos = new ArrayList<>(competidores);
         }
 
-        LocalDate fechaReferencia = LocalDate.now();
-        LocalDate proximoLunes = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
-        this.fechasEnfrentamientos = new ArrayList<LocalDate>();
-        for (int i = 0; i < niveles; i++) {
-            fechasEnfrentamientos.add(proximoLunes);
-            proximoLunes = proximoLunes.plusWeeks(1);
+        fechaReferencia = LocalDate.now();
+        fechasEnfrentamientos = new ArrayList<>();
+        LocalDate proximoDomingo = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        for (int i = 0; i < enfrentamientos.size()/2; i++) {
+            fechasEnfrentamientos.add(proximoDomingo);
+            proximoDomingo = proximoDomingo.plusWeeks(1);
         }
     }
 
     @Override
-    public void resultadosEnfrentamientos() {
-        if (!competidores.isEmpty()) {
-            competidores.removeFirst();
+    public void actualizarEnfrentamientos() {
+        ArrayList<Personaje> ganadores = new ArrayList<>();
+        //despues gestionar los primeros con logica externa
+        for(int i = 0; i<enfrentamientos.size()-1; i++){
+            ganadores.add(determinarGanador(enfrentamientos.get(i), enfrentamientos.get(i+1)));
+            ganadores.getLast().subirNivel();
         }
-
-        ArrayList<Personaje> perdedores = new ArrayList<>();
-        for (int i = 0; i < competidores.size() - 1; i += 2) {
-            Personaje comp1 = competidores.get(i);
-            Personaje comp2 = competidores.get(i + 1);
-
-            Personaje perdedor = calcularPerdedor(comp1, comp2);
-            perdedores.add(perdedor);
-
-            competidores.getFirst().subirNivel();
-        }
-
-        competidores.removeAll(perdedores);
+        enfrentamientos=ganadores;
     }
 
-    public Personaje calcularPerdedor(Personaje p1, Personaje p2){
-        double probVida;
-        double probResistencia;
-        double probRegeneracion;
-        double probDamage;
-        double probCuracion;
-        double probGanador;
-        Random rand = new Random();
-
-        probVida = 0.1 * ((double) p1.getVida() /p2.getVida());
-        if (probVida>0.2)
-        {
-            probVida=0.2;
-        }
-        probResistencia = 0.1 * ((double) p1.getResistencia() /p2.getResistencia());
-        if (probResistencia>0.2)
-        {
-            probResistencia=0.2;
-        }
-        probRegeneracion = 0.1 * ((double) p1.getRegeneracion() /p2.getRegeneracion());
-        if (probRegeneracion>0.2)
-        {
-            probRegeneracion=0.2;
-        }
-        probDamage = 0.1 * (p1.getPromedioDamageHabilidades() /p2.getPromedioDamageHabilidades());
-        if (probDamage>0.2)
-        {
-            probDamage=0.2;
-        }
-        probCuracion = 0.1 * (p1.getPromedioCuracionHabilidades() /p2.getPromedioCuracionHabilidades());
-        if (probCuracion>0.2)
-        {
-            probCuracion=0.2;
-        }
-
-        probGanador = probVida + probResistencia + probRegeneracion + probDamage + probCuracion;
-        Double auxRandom = rand.nextDouble();
-        if (auxRandom <= probGanador){
-            return p2;
-        }
-        else {
-            return p1;
+    public void actualizarFechas(){
+        LocalDate proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
+        fechasEnfrentamientos.clear();
+        if(enfrentamientos.size()/2>0) {
+            for (int i = 0; i < enfrentamientos.size() / 2; i++) {
+                fechasEnfrentamientos.add(proximoDomingo);
+                proximoDomingo = proximoDomingo.plusWeeks(1);
+            }
         }
     }
 
-    public void setNiveles(int niveles) {
-        this.niveles = niveles;
-    }
-    public int getNiveles() {
-        return niveles;
-    }
     public ArrayList<Personaje> getCompetidores() {
         return competidores;
+    }
+
+    @Override
+    public ArrayList<Personaje> getEnfrentamientos() {
+        return enfrentamientos;
     }
 }

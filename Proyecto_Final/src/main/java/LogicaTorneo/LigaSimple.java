@@ -10,17 +10,14 @@ import java.util.Random;
 import LogicaJuego.*;
 
 public class LigaSimple extends Torneo{
-    private int niveles;
     private ArrayList<Personaje> competidores;
     private ArrayList<ArrayList<Object>> estadisticas;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public LigaSimple(int niveles){
-        this.niveles = niveles;
-
+    public LigaSimple(){
         competidores = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < niveles+1; i++) {
+        for (int i = 0; i < 10; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -41,19 +38,19 @@ public class LigaSimple extends Torneo{
         LocalDate fechaReferencia = LocalDate.now();
         LocalDate proximoLunes = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
         this.fechasEnfrentamientos = new ArrayList<LocalDate>();
-        for (int i = 0; i < niveles; i++) {
+        for (int i = 0; i < 10; i++) {
             fechasEnfrentamientos.add(proximoLunes);
             proximoLunes = proximoLunes.plusWeeks(1);
         }
     }
 
-    public void resultadosEnfrentamientos() {
+    public void actualizarEnfrentamientos() {
         Personaje aux = competidores.removeFirst();
         ArrayList<Personaje> perdedores = new ArrayList<>();
         for (int i = 0; i < competidores.size() - 1; i += 2) {
             Personaje comp1 = competidores.get(i);
             Personaje comp2 = competidores.get(i + 1);
-            Personaje perdedor = calcularPerdedor(comp1, comp2);
+            Personaje perdedor = determinarGanador(comp1, comp2);
             if(perdedor == comp1){
                 comp1.disminuirPuntaje();
                 comp2.aumentarPuntaje();
@@ -63,58 +60,20 @@ public class LigaSimple extends Torneo{
         competidores.add(aux);
     }
 
-    public Personaje calcularPerdedor(Personaje p1, Personaje p2){
-        double probVida;
-        double probResistencia;
-        double probRegeneracion;
-        double probDamage;
-        double probCuracion;
-        double probGanador;
-        Random rand = new Random();
-
-        probVida = 0.1 * ((double) p1.getVida() /p2.getVida());
-        if (probVida>0.2)
-        {
-            probVida=0.2;
-        }
-        probResistencia = 0.1 * ((double) p1.getResistencia() /p2.getResistencia());
-        if (probResistencia>0.2)
-        {
-            probResistencia=0.2;
-        }
-        probRegeneracion = 0.1 * ((double) p1.getRegeneracion() /p2.getRegeneracion());
-        if (probRegeneracion>0.2)
-        {
-            probRegeneracion=0.2;
-        }
-        probDamage = 0.1 * (p1.getPromedioDamageHabilidades() /p2.getPromedioDamageHabilidades());
-        if (probDamage>0.2)
-        {
-            probDamage=0.2;
-        }
-        probCuracion = 0.1 * (p1.getPromedioCuracionHabilidades() /p2.getPromedioCuracionHabilidades());
-        if (probCuracion>0.2)
-        {
-            probCuracion=0.2;
-        }
-
-        probGanador = probVida + probResistencia + probRegeneracion + probDamage + probCuracion;
-        Double auxRandom = rand.nextDouble();
-        if (auxRandom <= probGanador){
-            return p2;
-        }
-        else {
-            return p1;
+    public void actualizarFechas(){
+        LocalDate proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
+        fechasEnfrentamientos.clear();
+        if(enfrentamientos.size()/2>0) {
+            for (int i = 0; i < enfrentamientos.size() / 2; i++) {
+                fechasEnfrentamientos.add(proximoDomingo);
+                proximoDomingo = proximoDomingo.plusWeeks(1);
+            }
         }
     }
+
 
     @Override
     public ArrayList<Personaje> getCompetidores() {
         return competidores;
-    }
-
-    @Override
-    public int getNiveles() {
-        return niveles;
     }
 }

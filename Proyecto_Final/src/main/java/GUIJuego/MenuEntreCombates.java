@@ -50,7 +50,7 @@ public class MenuEntreCombates extends JPanel {
 
         avatar = new JPanel();
         avatar.add(new JLabel("Avatar Actual"));
-        ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
+        ImageIcon iconAvatar = RecursosGraficos.cargarImagen(VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst().getSpritePath(), 100, 150);
         imgAvatar = new JLabel(iconAvatar);
         avatar.add(imgAvatar);
         fondoOeste.add(avatar);
@@ -58,7 +58,7 @@ public class MenuEntreCombates extends JPanel {
 
         oponente = new JPanel();
         oponente.add(new JLabel("Oponente Actual"));
-        ImageIcon iconOponente = RecursosGraficos.cargarImagen("/oponente.jpg", 100, 150);
+        ImageIcon iconOponente = RecursosGraficos.cargarImagen(VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().get(1).getSpritePath(), 100, 150);
         imgOponente = new JLabel(iconOponente);
         oponente.add(imgOponente);
         fondoEste.add(oponente);

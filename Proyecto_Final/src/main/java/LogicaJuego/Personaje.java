@@ -89,6 +89,9 @@ public class Personaje {
         return regeneracion;
     }
 
+    public String getSpritePath(){
+        return spritePath;
+    }
     /**
      * Metodo getter que retorna la lista de habilidades del personaje.
      */

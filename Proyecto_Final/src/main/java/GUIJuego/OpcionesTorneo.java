@@ -49,6 +49,10 @@ public class OpcionesTorneo extends JPanel {
         this.remove(botones.get(0)); this.remove(botones.get(1));
         this.setLayout(new GridLayout(1,1,0,0));
         this.add(a);
+        this.revalidate();
+        this.repaint();
+        VentanaJuego.getInstancia().getPanelActual().revalidate();
+        VentanaJuego.getInstancia().getPanelActual().repaint();
     }
 
     /**
@@ -58,6 +62,10 @@ public class OpcionesTorneo extends JPanel {
         this.remove(a);
         this.setLayout(new GridLayout(1,2,0,0));
         this.add(botones.get(0)); this.add(botones.get(1));
+        this.revalidate();
+        this.repaint();
+        VentanaJuego.getInstancia().getPanelActual().revalidate();
+        VentanaJuego.getInstancia().getPanelActual().repaint();
     }
 
     public TipoTorneo getTipoTorneo() {

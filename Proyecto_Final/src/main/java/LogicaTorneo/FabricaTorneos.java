@@ -5,12 +5,12 @@ public class FabricaTorneos {
     public FabricaTorneos(){
     }
 
-    public static Torneo crearTorneo(TipoTorneo tipoTorneo, int niveles) {
+    public static Torneo crearTorneo(TipoTorneo tipoTorneo) {
         switch (tipoTorneo) {
             case ELIMINATORIA_SIMPLE:
-                return new EliminatoriaSimple(niveles);
+                return new EliminatoriaSimple();
             case LIGA_SIMPLE:
-                return new LigaSimple(niveles);
+                return new LigaSimple();
             default: return null;
         }
     }
