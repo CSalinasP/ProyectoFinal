@@ -19,18 +19,18 @@ import java.util.Random;
  * modificar subpaneles
  */
 public abstract class Torneo {
+    protected int niveles;
     protected ArrayList<Personaje> competidores;
     protected ArrayList<Personaje> enfrentamientos;
     protected LocalDate fechaReferencia;
     protected ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public Torneo() {}
+    public Torneo(int niveles) {}
 
     /**Actualiza los pares enfrentados conforme vayan quedando menos*/
     public abstract void actualizarEnfrentamientos();
 
     public abstract void actualizarFechas();
-
 
     /**
      * Metodo que calcula automáticamente el resultado del combate.
@@ -90,8 +90,9 @@ public abstract class Torneo {
             return contendiente;
         }
     }
-    public ArrayList<LocalDate> getFechasEnfrentamientos() {
-        return fechasEnfrentamientos;
+
+    public int getNiveles() {
+        return niveles;
     }
 
     public ArrayList<Personaje> getCompetidores(){
@@ -100,5 +101,13 @@ public abstract class Torneo {
 
     public ArrayList<Personaje> getEnfrentamientos() {
         return enfrentamientos;
+    }
+
+    public LocalDate getFechaReferencia() {
+        return fechaReferencia;
+    }
+
+    public ArrayList<LocalDate> getFechasEnfrentamientos() {
+        return fechasEnfrentamientos;
     }
 }

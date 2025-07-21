@@ -10,11 +10,13 @@ import java.util.Random;
 import LogicaJuego.*;
 
 public class LigaSimple extends Torneo{
+    private int niveles;
     private ArrayList<Personaje> competidores;
     private ArrayList<ArrayList<Object>> estadisticas;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public LigaSimple(){
+    public LigaSimple(int niveles){
+        super(niveles);
         competidores = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {

@@ -28,7 +28,6 @@ public class Combate {
         this.avatar = avatar;
         torneoActual = Torneo;
         contendiente = torneoActual.getCompetidores().getFirst();
-        calcularResultado();
     }
 
     /**
@@ -43,7 +42,7 @@ public class Combate {
      * si el número generado aleatoriamente es menor o igual a la probabilidad de ganar, gana Avatar,
      * en caso contrario, gana Contendiente.
      */
-    public void calcularResultado(){
+    public Personaje calcularResultado(Personaje avatar, Personaje contendiente){
         double probVida;
         double probResistencia;
         double probRegeneracion;
@@ -82,9 +81,11 @@ public class Combate {
         Double auxRandom = rand.nextDouble();
         if (auxRandom <= probGanador){
             this.Resultado(true);
+            return avatar;
         }
         else {
             this.Resultado(false);
+            return contendiente;
         }
     }
 

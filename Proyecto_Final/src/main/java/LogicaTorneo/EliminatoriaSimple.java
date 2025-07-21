@@ -8,21 +8,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EliminatoriaSimple extends Torneo {
+    private int niveles;
 	private ArrayList<Personaje> competidores;
-
-    /**
-     *
-     */
-
     private ArrayList<Personaje>enfrentamientos;
     private LocalDate fechaReferencia;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public EliminatoriaSimple(){
+    public EliminatoriaSimple(int niveles){
+        super(niveles);
+        this.niveles = niveles;
         competidores = new ArrayList<>();
         Random random = new Random();
         competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < Math.pow(2,niveles)-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -38,8 +36,9 @@ public class EliminatoriaSimple extends Torneo {
                     competidores.add(FabricaNoMuertos.crearPersonaje(1));
                     break;
             }
-            enfrentamientos = new ArrayList<>(competidores);
         }
+        enfrentamientos = new ArrayList<>(competidores);
+        System.out.println(enfrentamientos.size());
 
         fechaReferencia = LocalDate.now();
         fechasEnfrentamientos = new ArrayList<>();
@@ -52,19 +51,31 @@ public class EliminatoriaSimple extends Torneo {
 
     @Override
     public void actualizarEnfrentamientos() {
-        ArrayList<Personaje> ganadores = new ArrayList<>();
-        //despues gestionar los primeros con logica externa
-        for(int i = 0; i<enfrentamientos.size()-1; i++){
-            ganadores.add(determinarGanador(enfrentamientos.get(i), enfrentamientos.get(i+1)));
-            ganadores.getLast().subirNivel();
+        if(enfrentamientos.size()>1) {
+            ArrayList<Personaje> ganadores = new ArrayList<>();
+            for (int i = 0; i < enfrentamientos.size() - 1; i++) {
+                if (i%2==0) {
+                    ganadores.add(determinarGanador(enfrentamientos.get(i), enfrentamientos.get(i + 1)));
+                    ganadores.getLast().subirNivel();
+                }
+            }
+            enfrentamientos = ganadores;
+            System.out.println(enfrentamientos.size());
         }
-        enfrentamientos=ganadores;
     }
 
     public void actualizarFechas(){
-        LocalDate proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
-        fechasEnfrentamientos.clear();
-        if(enfrentamientos.size()/2>0) {
+        System.out.println(fechasEnfrentamientos.size());
+        if(enfrentamientos.size()>1){
+            LocalDate proximoDomingo = null;
+            if (fechasEnfrentamientos.isEmpty()) {
+                // If for some reason dates are empty, start from today/next Sunday
+                proximoDomingo = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+            } else {
+                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2); // Use existing last date
+            }
+
+            fechasEnfrentamientos.clear();
             for (int i = 0; i < enfrentamientos.size() / 2; i++) {
                 fechasEnfrentamientos.add(proximoDomingo);
                 proximoDomingo = proximoDomingo.plusWeeks(1);
@@ -72,6 +83,7 @@ public class EliminatoriaSimple extends Torneo {
         }
     }
 
+    @Override
     public ArrayList<Personaje> getCompetidores() {
         return competidores;
     }
@@ -79,5 +91,20 @@ public class EliminatoriaSimple extends Torneo {
     @Override
     public ArrayList<Personaje> getEnfrentamientos() {
         return enfrentamientos;
+    }
+
+    @Override
+    public LocalDate getFechaReferencia() {
+        return fechaReferencia;
+    }
+
+    @Override
+    public ArrayList<LocalDate> getFechasEnfrentamientos() {
+        return fechasEnfrentamientos;
+    }
+
+    @Override
+    public int getNiveles() {
+        return niveles;
     }
 }
