@@ -12,14 +12,16 @@ import LogicaJuego.*;
 public class LigaSimple extends Torneo{
     private int niveles;
     private ArrayList<Personaje> competidores;
-    private ArrayList<ArrayList<Object>> estadisticas;
+    private ArrayList<ArrayList<Double>> estadisticas;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
     public LigaSimple(int niveles){
         super(niveles);
+        this.niveles = niveles;
         competidores = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
+        for (int i = 0; i < niveles-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -37,35 +39,51 @@ public class LigaSimple extends Torneo{
             }
         }
 
-        LocalDate fechaReferencia = LocalDate.now();
-        LocalDate proximoLunes = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
-        this.fechasEnfrentamientos = new ArrayList<LocalDate>();
-        for (int i = 0; i < 10; i++) {
-            fechasEnfrentamientos.add(proximoLunes);
-            proximoLunes = proximoLunes.plusWeeks(1);
+        enfrentamientos = new ArrayList<>(competidores);
+        System.out.println(enfrentamientos.size());
+
+        fechaReferencia = LocalDate.now();
+        fechasEnfrentamientos = new ArrayList<>();
+        LocalDate proximoDomingo = fechaReferencia.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        for (int i = 0; i < enfrentamientos.size()/2; i++) {
+            fechasEnfrentamientos.add(proximoDomingo);
+            proximoDomingo = proximoDomingo.plusWeeks(1);
         }
     }
 
+    @Override
     public void actualizarEnfrentamientos() {
-        Personaje aux = competidores.removeFirst();
-        ArrayList<Personaje> perdedores = new ArrayList<>();
-        for (int i = 0; i < competidores.size() - 1; i += 2) {
-            Personaje comp1 = competidores.get(i);
-            Personaje comp2 = competidores.get(i + 1);
-            Personaje perdedor = determinarGanador(comp1, comp2);
-            if(perdedor == comp1){
+        for (int i = 0; i < enfrentamientos.size() - 1; i += 2) {
+            Personaje comp1 = enfrentamientos.get(i);
+            Personaje comp2 = enfrentamientos.get(i + 1);
+            Personaje ganador = determinarGanador(comp1, comp2);
+            if(ganador == comp1){
                 comp1.disminuirPuntaje();
                 comp2.aumentarPuntaje();
             }
+            else {
+                comp2.disminuirPuntaje();
+                comp1.aumentarPuntaje();
+            }
             competidores.getFirst().subirNivel();
         }
-        competidores.add(aux);
+        Personaje aux = enfrentamientos.removeFirst();
+        enfrentamientos.add(aux);
     }
 
+    @Override
     public void actualizarFechas(){
-        LocalDate proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
-        fechasEnfrentamientos.clear();
-        if(enfrentamientos.size()/2>0) {
+        System.out.println(fechasEnfrentamientos.size());
+        if(enfrentamientos.size()>1){
+            LocalDate proximoDomingo = null;
+            if (fechasEnfrentamientos.isEmpty()) {
+                // If for some reason dates are empty, start from today/next Sunday
+                proximoDomingo = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+            } else {
+                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2); // Use existing last date
+            }
+
+            fechasEnfrentamientos.clear();
             for (int i = 0; i < enfrentamientos.size() / 2; i++) {
                 fechasEnfrentamientos.add(proximoDomingo);
                 proximoDomingo = proximoDomingo.plusWeeks(1);

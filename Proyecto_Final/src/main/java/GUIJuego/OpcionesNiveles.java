@@ -1,5 +1,6 @@
 package GUIJuego;
 
+import LogicaTorneo.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class OpcionesNiveles extends JPanel {
         this.add(niveles);
 
         botones = new ArrayList<>();
-        for(int i = 1; i<=4; i++){
+        for(int i = 1; i<=10; i++){
             BotonGenerico btnNivel = new BotonGenerico(null, String.valueOf(i));
             btnNivel.setComando(new ComandoOcultarOpciones(this, btnNivel));
             btnNivel.addActionListener(e-> btnNivel.getComando().ejecutar());
@@ -39,9 +40,17 @@ public class OpcionesNiveles extends JPanel {
      */
     public void MostrarOpciones(){
         this.remove(niveles);
-        this.setLayout(new GridLayout(1,4,0,0));
-        for(JButton avatar : botones){
-            this.add(avatar);
+        if(((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getTipoTorneo().getTipoTorneo().equals(TipoTorneo.ELIMINATORIA_SIMPLE)) {
+            this.setLayout(new GridLayout(1, 4, 0, 0));
+            for (int i=0; i<4; i++) {
+                this.add(botones.get(i));
+            }
+        }
+        else{
+            this.setLayout(new GridLayout(1, 10, 0, 0));
+            for (int i=0; i<10; i++) {
+                this.add(botones.get(i));
+            }
         }
         this.revalidate();
         this.repaint();
