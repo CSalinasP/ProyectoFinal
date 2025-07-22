@@ -19,7 +19,7 @@ public class EliminatoriaSimple extends Torneo {
         this.niveles = niveles;
         competidores = new ArrayList<>();
         Random random = new Random();
-        competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
+
         for (int i = 0; i < Math.pow(2,niveles)-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {

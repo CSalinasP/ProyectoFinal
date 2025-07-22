@@ -20,7 +20,7 @@ public class LigaSimple extends Torneo{
         this.niveles = niveles;
         competidores = new ArrayList<>();
         Random random = new Random();
-        competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
+
         for (int i = 0; i < niveles-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
@@ -95,5 +95,10 @@ public class LigaSimple extends Torneo{
     @Override
     public ArrayList<Personaje> getCompetidores() {
         return competidores;
+    }
+
+    @Override
+    public ArrayList<LocalDate> getFechasEnfrentamientos() {
+        return fechasEnfrentamientos;
     }
 }
