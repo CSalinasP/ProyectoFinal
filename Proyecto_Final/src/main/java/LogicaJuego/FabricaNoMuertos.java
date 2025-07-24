@@ -25,7 +25,7 @@ public class FabricaNoMuertos extends FabricaPersonajes{
      * @param Nivel El nivel del No Muerto que se desea crear.
      */
     public static Personaje crearPersonaje(int Nivel){
-        return new Personaje(nombre, vidaBase+10*Nivel,
+        return new Personaje(nombre,  Nivel, vidaBase+10*Nivel,
                 resistenciaBase+5*Nivel,
                 regeneracionBase+5*Nivel,"/nomuerto.jpg",
                 FabricaHabilidadNoMuerto.crearHabilidades(Nivel));

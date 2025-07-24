@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class EliminatoriaSimple extends Torneo {
-    private int niveles;
+    private int nivelesRestantes;
+    private int nivelesCompletados;
 	private ArrayList<Personaje> competidores;
     private ArrayList<Personaje>enfrentamientos;
+    private ArrayList<ArrayList<Personaje>> historialEnfrentamientos;
+    private ArrayList<ArrayList<LocalDate>> historialFechas;
     private LocalDate fechaReferencia;
     private ArrayList<LocalDate> fechasEnfrentamientos;
 
-    public EliminatoriaSimple(int niveles){
-        super(niveles);
-        this.niveles = niveles;
+    public EliminatoriaSimple(int nivelesRestantes){
+        super(nivelesRestantes);
+        this.nivelesRestantes = nivelesRestantes;
+        this.nivelesCompletados = 0;
         competidores = new ArrayList<>();
         Random random = new Random();
-        competidores.add(PlanillaPersonajes.getInstance().getPersonajes().getFirst());
-        for (int i = 0; i < Math.pow(2,niveles)-1; i++) {
+        competidores.add(null);
+        for (int i = 0; i < Math.pow(2, nivelesRestantes)-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -38,7 +42,7 @@ public class EliminatoriaSimple extends Torneo {
             }
         }
         enfrentamientos = new ArrayList<>(competidores);
-        System.out.println(enfrentamientos.size());
+
 
         fechaReferencia = LocalDate.now();
         fechasEnfrentamientos = new ArrayList<>();
@@ -47,19 +51,29 @@ public class EliminatoriaSimple extends Torneo {
             fechasEnfrentamientos.add(proximoDomingo);
             proximoDomingo = proximoDomingo.plusWeeks(1);
         }
+
+        historialEnfrentamientos = new ArrayList<>();
+        ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
+        historialEnfrentamientos.add(e);
+
+        historialFechas = new ArrayList<>();
+        ArrayList<LocalDate> f = new ArrayList<>(fechasEnfrentamientos);
+        historialFechas.add(f);
     }
 
     @Override
     public void actualizarEnfrentamientos() {
-        if(enfrentamientos.size()>1) {
+        if(enfrentamientos.size()>2) {
             ArrayList<Personaje> ganadores = new ArrayList<>();
-            for (int i = 0; i < enfrentamientos.size() - 1; i++) {
+            for (int i = 1; i < enfrentamientos.size()-1; i++) {
                 if (i%2==0) {
                     ganadores.add(determinarGanador(enfrentamientos.get(i), enfrentamientos.get(i + 1)));
                     ganadores.getLast().subirNivel();
                 }
             }
             enfrentamientos = ganadores;
+            ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
+            historialEnfrentamientos.add(e);
             System.out.println(enfrentamientos.size());
         }
     }
@@ -80,6 +94,8 @@ public class EliminatoriaSimple extends Torneo {
                 fechasEnfrentamientos.add(proximoDomingo);
                 proximoDomingo = proximoDomingo.plusWeeks(1);
             }
+            ArrayList<LocalDate> f = new ArrayList<>(fechasEnfrentamientos);
+            historialFechas.add(f);
         }
     }
 
@@ -104,7 +120,30 @@ public class EliminatoriaSimple extends Torneo {
     }
 
     @Override
-    public int getNiveles() {
-        return niveles;
+    public int getNivelesRestantes() {
+        return nivelesRestantes;
+    }
+
+    @Override
+    public void setNivelesRestantes(int nivelesRestantes) {
+        this.nivelesRestantes = nivelesRestantes;
+    }
+
+    public ArrayList<ArrayList<Personaje>> getHistorialEnfrentamientos() {
+        return historialEnfrentamientos;
+    }
+
+    public ArrayList<ArrayList<LocalDate>> getHistorialFechas() {
+        return historialFechas;
+    }
+
+    @Override
+    public int getNivelesCompletados() {
+        return nivelesCompletados;
+    }
+
+    @Override
+    public void setNivelesCompletados(int nivelesCompletados) {
+        this.nivelesCompletados = nivelesCompletados;
     }
 }

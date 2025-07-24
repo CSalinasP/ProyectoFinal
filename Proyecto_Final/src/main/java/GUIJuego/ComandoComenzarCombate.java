@@ -12,7 +12,7 @@ public class ComandoComenzarCombate implements Comando {
     @Override
     public void ejecutar() {
         if(menuEntreCombates.getPersonajeSeleccionado()!=null){
-            VentanaJuego.getInstancia().cambiarPanel(new Arena(new Combate(PlanillaPersonajes.getInstance().seleccionarPersonaje(menuEntreCombates.getPersonajeSeleccionado()), VentanaJuego.getInstancia().getTorneoActual())));
+            VentanaJuego.getInstancia().cambiarPanel(new Arena(new Combate(VentanaJuego.getInstancia().getTorneoActual())));
         }
     }
 }

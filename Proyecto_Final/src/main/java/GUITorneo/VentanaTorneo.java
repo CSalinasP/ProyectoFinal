@@ -7,12 +7,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaTorneo extends JFrame {
+    private static VentanaTorneo instancia;
     private BracketTorneo bracketTorneo;
 
     /**Constructor de la clase que configura las dimensiones de la ventana, la posisiona en pantalla,
      * establece el termino de la aplicación cuando se presiona el icono de cerrar ventana,
      * agrega una instancia de MenuInicial al JFrame y lo hace visible.*/
-    public VentanaTorneo(BracketTorneo bracketTorneo){
+    private VentanaTorneo(BracketTorneo bracketTorneo){
         this.setPreferredSize(new Dimension(800,600));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,6 +22,13 @@ public class VentanaTorneo extends JFrame {
         this.pack();
         this.setLocationRelativeTo(VentanaJuego.getInstancia());
         //*setExtendedState(JFrame.MAXIMIZED_BOTH);*/
+    }
+
+    public static VentanaTorneo getInstancia(BracketTorneo bracketTorneo){
+        if(instancia==null){
+            return new VentanaTorneo(bracketTorneo);
+        }
+        return instancia;
     }
 
     public void abrirVentana(){

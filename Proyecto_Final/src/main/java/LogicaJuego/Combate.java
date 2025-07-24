@@ -1,5 +1,11 @@
 package LogicaJuego;
 
+import GUIJuego.MenuEntreCombates;
+import GUIJuego.MenuInicial;
+import GUIJuego.VentanaJuego;
+import GUIJuego.Victoria;
+import GUITorneo.VentanaTorneo;
+import LogicaTorneo.EliminatoriaSimple;
 import LogicaTorneo.Torneo;
 import java.util.Random;
 
@@ -21,13 +27,12 @@ public class Combate {
 
     /**
      * Constructor que declara a los personajes que estarán en el combate,
-     * @param avatar El personaje con el que se combate.
-     * @param Torneo La instancia del torneo en el que se está haciendo el combate.
+     * @param torneo La instancia del torneo en el que se está haciendo el combate.
      */
-    public Combate(Personaje avatar, Torneo Torneo){
-        this.avatar = avatar;
-        torneoActual = Torneo;
-        contendiente = torneoActual.getCompetidores().getFirst();
+    public Combate(Torneo torneo){
+        torneoActual = torneo;
+        this.avatar = torneoActual.getEnfrentamientos().getFirst();
+        this.contendiente = torneoActual.getEnfrentamientos().get(1);
     }
 
     /**
@@ -87,6 +92,66 @@ public class Combate {
             this.Resultado(false);
             return contendiente;
         }
+    }
+
+    public void finalizarCombate(){
+        if(VentanaJuego.getInstancia().getTorneoActual() instanceof EliminatoriaSimple) {
+            if (VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() > 1) {
+                calcularResultado(avatar, contendiente);
+                VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                if (ganador) {
+                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().remove(contendiente);
+                    VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(((EliminatoriaSimple) VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(avatar);
+                    VentanaJuego.getInstancia().getTorneoActual().setNivelesRestantes(VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() - 1);
+                    VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado Esta Ronda", new MenuEntreCombates()));
+                } else {
+                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));
+                }
+            } else {
+                calcularResultado(avatar, contendiente);
+                VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                if (ganador) {
+                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().remove(contendiente);
+                    VentanaJuego.getInstancia().getTorneoActual().setNivelesRestantes(VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() - 1);
+                    VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado", new MenuInicial()));
+                } else {
+                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));
+                }
+            }
+        }
+        else{
+            if (VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() > 1) {
+                calcularResultado(avatar, contendiente);
+                VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                VentanaJuego.getInstancia().getTorneoActual().setNivelesRestantes(VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() - 1);
+                VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
+                if (ganador) {
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado Esta Ronda", new MenuEntreCombates()));
+                } else {
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido Esta Ronda", new MenuEntreCombates()));
+                }
+            } else {
+                calcularResultado(avatar, contendiente);
+                VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                VentanaJuego.getInstancia().getTorneoActual().setNivelesRestantes(VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() - 1);
+                VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
+                if (ganador) {
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Estas en el puesto"+VentanaJuego.getInstancia().getTorneoActual().getPosicion(), new MenuInicial()));
+                } else {
+                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Estas en el puesto"+VentanaJuego.getInstancia().getTorneoActual().getPosicion(), new MenuEntreCombates()));
+                }
+            }
+        }
+
     }
 
     /**

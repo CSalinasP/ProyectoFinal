@@ -1,4 +1,6 @@
 package LogicaJuego;
+import GUIJuego.VentanaJuego;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +12,10 @@ import java.util.ArrayList;
 public class Personaje {
     /** El nombre del Personaje asociado a tu tipo de personaje. */
     private String nombre;
+
+    private int posision;
+
+    private int nivel;
     /** La cantidad de vida actual del personaje. */
     private int vida;
     /** La resistencia al daño del personaje. */
@@ -31,19 +37,23 @@ public class Personaje {
     /**
      * Constructor que declara al personaje con sus características.
      * @param Nombre El nombre del personaje asociado a qué tipo de personaje es.
+     * @param nivel El nivel del personaje.
      * @param Vida La vida del personaje.
      * @param Resistencia La resistencia del personaje.
      * @param Regeneracion La regeneración del personaje.
      * @param Habilidades La lista de habilidades del personaje.
     */
-    public Personaje(String Nombre, int Vida, int Resistencia, int Regeneracion, String spritePath, ArrayList<Habilidad> Habilidades){
+    public Personaje(String Nombre, int nivel, int Vida, int Resistencia, int Regeneracion, String spritePath, ArrayList<Habilidad> Habilidades){
         nombre = Nombre;
+        this.nivel = nivel;
         vida = Vida;
         resistencia = Resistencia;
         regeneracion = Regeneracion;
         this.spritePath = spritePath;
         habilidades = Habilidades;
         puntaje = 0;
+        victorias = 0;
+        derrotas = 0;
     }
 
     /**
@@ -99,10 +109,19 @@ public class Personaje {
         return habilidades;
     }
 
+    public int getPosision() {
+        return posision;
+    }
+
     /**
      * Metodo que calcula el promedio del daño todas las habilidades del personaje.
      * Se suman el daño de todas las habilidades y se divide por la cantidad de habilidades total.
      */
+
+    public double ratioVictoriaDerrota(){
+        return victorias/derrotas;
+    }
+
     public double getPromedioDamageHabilidades(){
         double sumatoria = 0;
         Habilidad auxHabilidad;
@@ -146,6 +165,31 @@ public class Personaje {
     public int getVictorias() {
         return victorias;
     }
+
+    public void setVictorias(int victorias) {
+        this.victorias = victorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public void setDerrotas(int derrotas) {
+        this.derrotas = derrotas;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setPosision(int posision) {
+        this.posision = posision;
+    }
+
 
     @Override
     public String toString(){

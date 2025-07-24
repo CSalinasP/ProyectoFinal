@@ -11,20 +11,29 @@ import java.util.ArrayList;
 
 public class BracketES extends BracketTorneo {
     private EliminatoriaSimple torneo;
-    private ArrayList<Personaje> enfrentamientos;
-    private ArrayList<LocalDate> fechasEnfrentamientos;
+    private int avance;
+    private ArrayList<ArrayList<Personaje>> enfrentamientos;
+    private ArrayList<ArrayList<LocalDate>> fechasEnfrentamientos;
     private final int ANCHO_COMPETIDOR = 100;
     private final int ALTO_COMPETIDOR = 20;
     private ArrayList<Boolean> barreras;
-    private Boolean a, b, c, d;
 
-    public BracketES (){
+    public BracketES (int avance){
+        this.avance = avance;
         torneo = (EliminatoriaSimple) VentanaJuego.getInstancia().getTorneoActual();
-        enfrentamientos = torneo.getEnfrentamientos();
-        fechasEnfrentamientos = torneo.getFechasEnfrentamientos();
+        enfrentamientos = ((EliminatoriaSimple) VentanaJuego.getInstancia().getTorneoActual()).getHistorialEnfrentamientos();
+        fechasEnfrentamientos = ((EliminatoriaSimple) VentanaJuego.getInstancia().getTorneoActual()).getHistorialFechas();
+
         barreras = new ArrayList<>();
-        a = true; barreras.add(a);  b = true; barreras.add(b);
-        c = false; barreras.add(c);  d = false; barreras.add(d);
+        for(int i = 0; i<=torneo.getNivelesRestantes(); i++){
+            if(i<avance){
+                barreras.add(true);
+            }
+            else{
+                barreras.add(false);
+            }
+        }
+
         this.setBackground(Color.WHITE); // Fondo del panel
         this.setPreferredSize(new Dimension(calcularAnchoIdeal(), calcularAltoIdeal()));
     }
@@ -37,18 +46,20 @@ public class BracketES extends BracketTorneo {
         return 34 * ALTO_COMPETIDOR;
     }
 
-    public void dibujarBracket(Graphics2D g2d, Stroke solidStroke, ArrayList<Personaje> enfrentamientos, int x, int y, int ronda){
-        for (int i = 0; i < enfrentamientos.size(); i++) {
+    public void dibujarBracket(Graphics2D g2d, Stroke solidStroke, int x, int y, int ronda){
+        for (int i = 0; i < enfrentamientos.get(ronda-1).size(); i++) {
             double factor_aumento_espacio = Math.pow(2, ronda-1);
             int xCoordenada = x; // Posición X
             int yCoordenada = (int) (y + (2* factor_aumento_espacio *i*(ALTO_COMPETIDOR))); //Posición Y
-            dibujarCompetidor(g2d, enfrentamientos.get(i), xCoordenada, yCoordenada);
+            System.out.println(enfrentamientos.get(ronda-1).size());
+            System.out.println(i);
+            dibujarCompetidor(g2d, enfrentamientos.get(ronda-1).get(i), xCoordenada, yCoordenada);
 
             g2d.setColor(Color.BLACK); //color de las lineas
             g2d.setStroke(solidStroke); // Todas las líneas usarán el stroke sólido
 
             // Línea horizontal saliendo del competidor actual
-            if(ronda<5) {
+            if(ronda<torneo.getNivelesRestantes()+1) {
                 int centroCompetidorInicioX = xCoordenada + ANCHO_COMPETIDOR; // Extremo derecho del competidor inicio
                 int centroCompetidorFinX = centroCompetidorInicioX + ANCHO_COMPETIDOR / 2; //
                 int centroCompetidorFijoY = yCoordenada + ALTO_COMPETIDOR / 2; //coordenada Y
@@ -57,7 +68,7 @@ public class BracketES extends BracketTorneo {
                 // Línea vertical (uniendo pares) y línea horizontal de ganador
                 // Solo dibujar si es el primer competidor de un par (índice par: 0, 2, 4...)
                 // y si hay un siguiente competidor para formar el par (i+1)
-                if (i % 2 == 0 && (i + 1) < enfrentamientos.size()) {
+                if (i % 2 == 0 && (i + 1) < enfrentamientos.get(ronda-1).size()) {
                     // Calcular la yCoordenada del *siguiente* competidor (i+1)
                     int inicioLineaVertical = centroCompetidorFijoY;
                     int finLineaVertical = (int) ((inicioLineaVertical + 2 * factor_aumento_espacio * (ALTO_COMPETIDOR)));
@@ -68,7 +79,7 @@ public class BracketES extends BracketTorneo {
                     int centroEntreCompetidoresFinX = centroCompetidorFinX + ANCHO_COMPETIDOR;
                     g2d.drawLine(centroCompetidorFinX, centroEntreCompetidoresY, centroEntreCompetidoresFinX, centroEntreCompetidoresY);
 
-                    dibujarFecha(g2d, fechasEnfrentamientos.get(i / 2), centroCompetidorFinX + 5, centroEntreCompetidoresY - ALTO_COMPETIDOR);
+                    dibujarFecha(g2d, fechasEnfrentamientos.get(ronda-1).get(i/2), centroCompetidorFinX + 5, centroEntreCompetidoresY - ALTO_COMPETIDOR);
                 }
             }
         }
@@ -81,14 +92,12 @@ public class BracketES extends BracketTorneo {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // Define el estilo de línea normal (sólida) para todas las conexiones
         Stroke solidStroke = new BasicStroke(2); // Grosor de 2 píxeles
-        dibujarBracket(g2d, solidStroke, torneo.getEnfrentamientos(), ANCHO_COMPETIDOR/2, ALTO_COMPETIDOR, 1);
-        dibujarBracket(g2d, solidStroke, torneo.getEnfrentamientos(), 3 * ANCHO_COMPETIDOR, 2 * ALTO_COMPETIDOR, 2);
-        dibujarBracket(g2d, solidStroke, torneo.getEnfrentamientos(), (11* ANCHO_COMPETIDOR)/2, 4 * ALTO_COMPETIDOR, 3);
-        dibujarBracket(g2d, solidStroke, torneo.getEnfrentamientos(), 8 * ANCHO_COMPETIDOR, 8 * ALTO_COMPETIDOR, 4);
-        dibujarBracket(g2d, solidStroke, torneo.getEnfrentamientos(), (21 * ANCHO_COMPETIDOR)/2, 16 * ALTO_COMPETIDOR, 5);
+        for(int i = 0; i<torneo.getNivelesRestantes()+torneo.getNivelesCompletados(); i++){
+            if(barreras.get(i)){
+                dibujarBracket(g2d, solidStroke, (ANCHO_COMPETIDOR*(1+5*(i))/2),(int) Math.pow(2,(i))*ALTO_COMPETIDOR, i+1);
+            }
+        }
     }
-
-
 
     private void dibujarCompetidor(Graphics2D g2d, Personaje personaje, int x, int y) {
         // Se dibuja el rectangulo del competidor

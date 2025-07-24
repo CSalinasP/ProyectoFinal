@@ -19,9 +19,13 @@ import java.util.Random;
  * modificar subpaneles
  */
 public abstract class Torneo {
-    protected int niveles;
+    protected int posicion;
+    protected int nivelesRestantes;
+    protected int nivelesCompletados;
     protected ArrayList<Personaje> competidores;
     protected ArrayList<Personaje> enfrentamientos;
+    private ArrayList<ArrayList<Personaje>> historialEnfrentamientos;
+    private ArrayList<ArrayList<LocalDate>> historialFechas;
     protected LocalDate fechaReferencia;
     protected ArrayList<LocalDate> fechasEnfrentamientos;
 
@@ -91,8 +95,36 @@ public abstract class Torneo {
         }
     }
 
-    public int getNiveles() {
-        return niveles;
+    public int getNivelesRestantes() {
+        return nivelesRestantes;
+    }
+
+    public void setNivelesRestantes(int nivelesRestantes) {
+        this.nivelesRestantes = nivelesRestantes;
+    }
+
+    public int getNivelesCompletados() {
+        return nivelesCompletados;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public void setNivelesCompletados(int nivelesCompletados) {
+        this.nivelesCompletados = nivelesCompletados;
+    }
+
+    public ArrayList<ArrayList<Personaje>> getHistorialEnfrentamientos() {
+        return historialEnfrentamientos;
+    }
+
+    public ArrayList<ArrayList<LocalDate>> getHistorialFechas() {
+        return historialFechas;
     }
 
     public ArrayList<Personaje> getCompetidores(){

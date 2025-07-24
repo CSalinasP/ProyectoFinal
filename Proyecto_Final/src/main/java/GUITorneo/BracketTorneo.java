@@ -5,5 +5,4 @@ import LogicaTorneo.Torneo;
 
 public abstract class BracketTorneo extends JPanel {
     public Torneo torneo;
-
-}
+    }

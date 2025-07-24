@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @author Francisco Arentsen
  */
 public class MenuEntreCombates extends JPanel {
-    private TipoPersonaje personajeSeleccionado;
+    private int nivelActual;
+    private Personaje personajeSeleccionado;
     private JPanel panelCentral;
     private ArrayList<BotonGenerico> botonesAvatares;
     private BotonGenerico avatares, comenzarCombate, volverMenuInicial, status;
@@ -28,7 +29,8 @@ public class MenuEntreCombates extends JPanel {
      * y los añade a sus respectivos subpaneles.
      * */
     public MenuEntreCombates(){
-        personajeSeleccionado=null;
+        personajeSeleccionado = null;
+        nivelActual = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().get(1).getNivel();
         this.setLayout(new BorderLayout());
         panelCentral = new JPanel();
         panelCentral.setLayout(new GridLayout(3,10,0,0));
@@ -50,7 +52,7 @@ public class MenuEntreCombates extends JPanel {
 
         avatar = new JPanel();
         avatar.add(new JLabel("Avatar Actual"));
-        ImageIcon iconAvatar = RecursosGraficos.cargarImagen(VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst().getSpritePath(), 100, 150);
+        ImageIcon iconAvatar = RecursosGraficos.cargarImagen("/16bit.png", 100, 150);
         imgAvatar = new JLabel(iconAvatar);
         avatar.add(imgAvatar);
         fondoOeste.add(avatar);
@@ -120,27 +122,41 @@ public class MenuEntreCombates extends JPanel {
      * */
     public void OcultarOpciones(String tipo){
         if(tipo.equals("Humano")){
-            personajeSeleccionado=TipoPersonaje.HUMANO;
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
+            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
         else if(tipo.equals("Caballero")){
-            personajeSeleccionado=TipoPersonaje.CABALLERO;
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
+            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/caballero.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
         else if(tipo.equals("Cavernarios")){
-            personajeSeleccionado=TipoPersonaje.CAVERNARIO;
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0, FabricaHumanos.crearPersonaje(nivelActual));
+            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/cavernario.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
-        else{personajeSeleccionado=TipoPersonaje.NOMUERTO;
+        else{
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().addFirst(FabricaHumanos.crearPersonaje(nivelActual));
+            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/nomuerto.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
@@ -154,17 +170,19 @@ public class MenuEntreCombates extends JPanel {
         this.repaint();
         this.revalidate();
     }
-    public TipoPersonaje getPersonajeSeleccionado() {
+
+    public Personaje getPersonajeSeleccionado() {
         return personajeSeleccionado;
     }
 
-    public void setPersonajeSeleccionado(TipoPersonaje personajeSeleccionado) {
+    public void setPersonajeSeleccionado(Personaje personajeSeleccionado) {
         this.personajeSeleccionado = personajeSeleccionado;
     }
 
     public JPanel getPanelCentral() {
         return panelCentral;
     }
+
     public void setPanelCentral(JPanel panelCentral) {
         this.panelCentral = panelCentral;
     }
@@ -308,7 +326,7 @@ public class MenuEntreCombates extends JPanel {
     @Override
     public String toString() {
         return "MenuEntreCombates{" +
-                "personajeSeleccionado=" + personajeSeleccionado +
+                "personajeSeleccionado=" + (personajeSeleccionado != null ? personajeSeleccionado.toString() + " botones" : "null")+
                 ", panelCentral=" + (panelCentral != null ? "initialized" : "null") +
                 ", botonesAvatares=" + (botonesAvatares != null ? botonesAvatares.toString() + " botones" : "null") +
                 ", avatares=" + (avatares != null ? avatares.toString() : "null") +

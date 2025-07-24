@@ -9,5 +9,7 @@ public class ComandoFinalizarCombate implements Comando {
     public ComandoFinalizarCombate(Combate combateActual){
         this.combateActual = combateActual;
     }
-    public void ejecutar(){}
+    public void ejecutar(){
+        combateActual.finalizarCombate();
+    }
 }

@@ -2,25 +2,22 @@
 package GUIJuego;
 import GUITorneo.BracketES;
 import GUITorneo.BracketLS;
-import GUITorneo.VentanaTorneo;
 import GUITorneo.BracketTorneo;
+import GUITorneo.VentanaTorneo;
 import LogicaTorneo.EliminatoriaSimple;
-
-import javax.swing.*;
 
 public class ComandoMostrarStatus implements Comando {
 
     public ComandoMostrarStatus() {
     }
-
     @Override
     public void ejecutar() {
         if(VentanaJuego.getInstancia().getTorneoActual() instanceof EliminatoriaSimple){
-            VentanaTorneo statusFrame = new VentanaTorneo(new BracketES());
+            VentanaTorneo statusFrame = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1));
             statusFrame.abrirVentana();
         }
-        else {
-            VentanaTorneo statusFrame = new VentanaTorneo(new BracketLS());
+        else{
+            VentanaTorneo statusFrame = VentanaTorneo.getInstancia(new BracketLS());
             statusFrame.abrirVentana();
         }
     }
