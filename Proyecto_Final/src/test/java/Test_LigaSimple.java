@@ -48,4 +48,10 @@ public class Test_LigaSimple {
         }
         assert aux;
     }
+    @Test
+    void testTorneoSinCompetidores() {
+        Torneo torneoVacio = FabricaTorneos.crearTorneo(TipoTorneo.ELIMINATORIA_SIMPLE, 0);
+        assertNotNull(torneoVacio, "El torneo no debería ser null.");
+        assertTrue(torneoVacio.getCompetidores().isEmpty(), "Un torneo sin competidores debería tener una lista vacía.");
+    }
 }

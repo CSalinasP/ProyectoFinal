@@ -8,7 +8,8 @@ import java.awt.*;
  * Este panel contiene elementos interactivos como botones para pausar el juego
  * y ver el resultado del combate.
  */
-public class Arena extends JPanel{
+public class
+Arena extends JPanel{
     private Combate combate;
     private BotonGenerico pausa, resultado;
 
