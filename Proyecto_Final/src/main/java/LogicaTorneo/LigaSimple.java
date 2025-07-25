@@ -14,6 +14,8 @@ public class LigaSimple extends Torneo{
     private int nivelesCompletados;
     private ArrayList<Personaje> competidores;
     private ArrayList<LocalDate> fechasEnfrentamientos;
+    private ArrayList<ArrayList<Personaje>> historialEnfrentamientos;
+    private ArrayList<ArrayList<LocalDate>> historialFechas;
 
     public LigaSimple(int nivelesRestantes){
         super(nivelesRestantes);
@@ -21,7 +23,7 @@ public class LigaSimple extends Torneo{
         competidores = new ArrayList<>();
         Random random = new Random();
         //**competidores.add(null);*/
-        for (int i = 0; i < nivelesRestantes; i++) {
+        for (int i = 0; i < nivelesRestantes+1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
                 case 0:
@@ -49,6 +51,14 @@ public class LigaSimple extends Torneo{
             fechasEnfrentamientos.add(proximoDomingo);
             proximoDomingo = proximoDomingo.plusWeeks(1);
         }
+
+        historialEnfrentamientos = new ArrayList<>();
+        ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
+        historialEnfrentamientos.add(e);
+
+        historialFechas = new ArrayList<>();
+        ArrayList<LocalDate> f = new ArrayList<>(fechasEnfrentamientos);
+        historialFechas.add(f);
     }
 
     @Override
@@ -67,10 +77,12 @@ public class LigaSimple extends Torneo{
                 comp2.setVictorias(comp2.getVictorias()+1);
                 comp1.setDerrotas(comp1.getDerrotas()+1);
             }
-            competidores.getFirst().subirNivel();
+            System.out.println(comp1.getVictorias());
         }
         Personaje aux = enfrentamientos.removeFirst();
         enfrentamientos.add(aux);
+        ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
+        historialEnfrentamientos.add(e);
     }
 
     @Override
@@ -90,28 +102,44 @@ public class LigaSimple extends Torneo{
                 fechasEnfrentamientos.add(proximoDomingo);
                 proximoDomingo = proximoDomingo.plusWeeks(1);
             }
+            ArrayList<LocalDate> f = new ArrayList<>(fechasEnfrentamientos);
+            historialFechas.add(f);
         }
     }
 
 
-    public void posisionar(){
+    public void posisionar() {
+        // 1. Algoritmo de ordenamiento (Bubble Sort)
+        // Este algoritmo ya ordena de menor a mayor ratio.
+        // Personaje con menor ratio al principio, personaje con mayor ratio al final.
         for (int i = 0; i < competidores.size() - 1; i++) {
             for (int j = 0; j < competidores.size() - i - 1; j++) {
-                if (enfrentamientos.get(i).ratioVictoriaDerrota() > enfrentamientos.get(i+1).ratioVictoriaDerrota()) {
-                    Personaje aux = enfrentamientos.get(j);
-                    enfrentamientos.set(j,enfrentamientos.get(i+1));
-                    enfrentamientos.set(i+1, aux);
+                if (competidores.get(j).ratioVictoriaDerrota() > competidores.get(j + 1).ratioVictoriaDerrota()) {
+                    Personaje aux = competidores.get(j);
+                    competidores.set(j, competidores.get(j + 1));
+                    competidores.set(j + 1, aux);
                 }
             }
         }
-        enfrentamientos.getLast().setPosision(1);
-        for(int i = -2; i>-competidores.size(); i--) {
-            if(enfrentamientos.get(i).ratioVictoriaDerrota()==(enfrentamientos.get(i+1).ratioVictoriaDerrota())){
-                enfrentamientos.get(i).setPosision(enfrentamientos.get(i+1).getPosision());
-            }
-            else{enfrentamientos.get(i).setPosision(enfrentamientos.get(i+1).getPosision()+1);}
-        }
 
+        // 2. Asignar posiciones: El mejor ratio (al final de la lista) obtiene la posición 1
+        if (!competidores.isEmpty()) {
+            int posicionActual = 1;
+
+            // Recorremos la lista desde el final (mayor ratio) hacia el principio (menor ratio)
+            // para asignar la posición 1 al de mejor ratio.
+            for (int i = competidores.size() - 1; i >= 0; i--) {
+                // Asignamos la posición actual al personaje
+                competidores.get(i).setPosision(posicionActual);
+
+                // Si no estamos en el primer elemento Y el ratio del elemento actual
+                // es diferente al ratio del elemento anterior (que en este recorrido es el siguiente mejor)
+                // entonces incrementamos la posición para el siguiente grupo de ratios.
+                if (i > 0 && competidores.get(i).ratioVictoriaDerrota() != competidores.get(i - 1).ratioVictoriaDerrota()) {
+                    posicionActual++;
+                }
+            }
+        }
     }
 
     @Override
@@ -147,5 +175,23 @@ public class LigaSimple extends Torneo{
     @Override
     public void setNivelesCompletados(int nivelesCompletados) {
         this.nivelesCompletados = nivelesCompletados;
+    }
+
+    @Override
+    public ArrayList<ArrayList<Personaje>> getHistorialEnfrentamientos() {
+        return historialEnfrentamientos;
+    }
+
+    public void setHistorialEnfrentamientos(ArrayList<ArrayList<Personaje>> historialEnfrentamientos) {
+        this.historialEnfrentamientos = historialEnfrentamientos;
+    }
+
+    @Override
+    public ArrayList<ArrayList<LocalDate>> getHistorialFechas() {
+        return historialFechas;
+    }
+
+    public void setHistorialFechas(ArrayList<ArrayList<LocalDate>> historialFechas) {
+        this.historialFechas = historialFechas;
     }
 }

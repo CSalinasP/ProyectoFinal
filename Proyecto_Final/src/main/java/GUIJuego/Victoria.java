@@ -26,7 +26,7 @@ public class Victoria extends JPanel {
     }
 
     private void iniciarTemporizador(JPanel jPanel) {
-        Timer timer = new Timer(5000, new ActionListener() {
+        Timer timer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Al finalizar el temporizador, cambiamos al MenuInicial

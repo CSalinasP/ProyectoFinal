@@ -23,7 +23,7 @@ public class EliminatoriaSimple extends Torneo {
         this.nivelesCompletados = 0;
         competidores = new ArrayList<>();
         Random random = new Random();
-        competidores.add(null);
+        competidores.add(FabricaHumanos.crearPersonaje(1));
         for (int i = 0; i < Math.pow(2, nivelesRestantes)-1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
@@ -63,7 +63,8 @@ public class EliminatoriaSimple extends Torneo {
 
     @Override
     public void actualizarEnfrentamientos() {
-        if(enfrentamientos.size()>2) {
+        System.out.println(enfrentamientos.size()*100000);
+        if(!enfrentamientos.isEmpty()) {
             ArrayList<Personaje> ganadores = new ArrayList<>();
             for (int i = 1; i < enfrentamientos.size()-1; i++) {
                 if (i%2==0) {
@@ -74,13 +75,12 @@ public class EliminatoriaSimple extends Torneo {
             enfrentamientos = ganadores;
             ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
             historialEnfrentamientos.add(e);
-            System.out.println(enfrentamientos.size());
+            System.out.println(enfrentamientos.size()*100000);
         }
     }
 
     public void actualizarFechas(){
-        System.out.println(fechasEnfrentamientos.size());
-        if(enfrentamientos.size()>1){
+        if(!enfrentamientos.isEmpty()){
             LocalDate proximoDomingo = null;
             if (fechasEnfrentamientos.isEmpty()) {
                 // If for some reason dates are empty, start from today/next Sunday

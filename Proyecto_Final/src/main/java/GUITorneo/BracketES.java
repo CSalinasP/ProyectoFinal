@@ -25,7 +25,8 @@ public class BracketES extends BracketTorneo {
         fechasEnfrentamientos = ((EliminatoriaSimple) VentanaJuego.getInstancia().getTorneoActual()).getHistorialFechas();
 
         barreras = new ArrayList<>();
-        for(int i = 0; i<=torneo.getNivelesRestantes(); i++){
+        barreras.add(true);
+        for(int i = 0; i<torneo.getNivelesRestantes()+torneo.getNivelesCompletados()+1; i++){
             if(i<avance){
                 barreras.add(true);
             }
@@ -51,15 +52,13 @@ public class BracketES extends BracketTorneo {
             double factor_aumento_espacio = Math.pow(2, ronda-1);
             int xCoordenada = x; // Posición X
             int yCoordenada = (int) (y + (2* factor_aumento_espacio *i*(ALTO_COMPETIDOR))); //Posición Y
-            System.out.println(enfrentamientos.get(ronda-1).size());
-            System.out.println(i);
             dibujarCompetidor(g2d, enfrentamientos.get(ronda-1).get(i), xCoordenada, yCoordenada);
 
             g2d.setColor(Color.BLACK); //color de las lineas
             g2d.setStroke(solidStroke); // Todas las líneas usarán el stroke sólido
 
             // Línea horizontal saliendo del competidor actual
-            if(ronda<torneo.getNivelesRestantes()+1) {
+            if(ronda<=torneo.getNivelesRestantes()+torneo.getNivelesCompletados()) {
                 int centroCompetidorInicioX = xCoordenada + ANCHO_COMPETIDOR; // Extremo derecho del competidor inicio
                 int centroCompetidorFinX = centroCompetidorInicioX + ANCHO_COMPETIDOR / 2; //
                 int centroCompetidorFijoY = yCoordenada + ALTO_COMPETIDOR / 2; //coordenada Y
@@ -92,7 +91,7 @@ public class BracketES extends BracketTorneo {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // Define el estilo de línea normal (sólida) para todas las conexiones
         Stroke solidStroke = new BasicStroke(2); // Grosor de 2 píxeles
-        for(int i = 0; i<torneo.getNivelesRestantes()+torneo.getNivelesCompletados(); i++){
+        for(int i = 0; i<torneo.getNivelesRestantes()+torneo.getNivelesCompletados()+1; i++){
             if(barreras.get(i)){
                 dibujarBracket(g2d, solidStroke, (ANCHO_COMPETIDOR*(1+5*(i))/2),(int) Math.pow(2,(i))*ALTO_COMPETIDOR, i+1);
             }
@@ -138,5 +137,13 @@ public class BracketES extends BracketTorneo {
 
     public ArrayList<Boolean> getBarreras() {
         return barreras;
+    }
+
+    public int getAvance() {
+        return avance;
+    }
+
+    public void setAvance(int avance) {
+        this.avance = avance;
     }
 }

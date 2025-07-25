@@ -39,17 +39,18 @@ public class OpcionesNiveles extends JPanel {
      * en su lugar los botones individuales para seleccionar cada nivel.
      */
     public void MostrarOpciones(){
-        this.remove(niveles);
-        if(((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getTipoTorneo().getTipoTorneo().equals(TipoTorneo.ELIMINATORIA_SIMPLE)) {
-            this.setLayout(new GridLayout(1, 4, 0, 0));
-            for (int i=0; i<4; i++) {
-                this.add(botones.get(i));
-            }
-        }
-        else{
-            this.setLayout(new GridLayout(1, 10, 0, 0));
-            for (int i=0; i<10; i++) {
-                this.add(botones.get(i));
+        if(((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getTipoTorneo().getTipoTorneo() != null) {
+            this.remove(niveles);
+            if (((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getTipoTorneo().getTipoTorneo().equals(TipoTorneo.ELIMINATORIA_SIMPLE)) {
+                this.setLayout(new GridLayout(1, 4, 0, 0));
+                for (int i = 0; i < 4; i++) {
+                    this.add(botones.get(i));
+                }
+            } else {
+                this.setLayout(new GridLayout(1, 10, 0, 0));
+                for (int i = 0; i < 10; i++) {
+                    this.add(botones.get(i));
+                }
             }
         }
         this.revalidate();

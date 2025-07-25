@@ -29,8 +29,8 @@ public class MenuEntreCombates extends JPanel {
      * y los añade a sus respectivos subpaneles.
      * */
     public MenuEntreCombates(){
-        personajeSeleccionado = null;
-        nivelActual = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().get(1).getNivel();
+        personajeSeleccionado = FabricaHumanos.crearPersonaje(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1);
+        nivelActual = VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1;
         this.setLayout(new BorderLayout());
         panelCentral = new JPanel();
         panelCentral.setLayout(new GridLayout(3,10,0,0));
@@ -52,7 +52,7 @@ public class MenuEntreCombates extends JPanel {
 
         avatar = new JPanel();
         avatar.add(new JLabel("Avatar Actual"));
-        ImageIcon iconAvatar = RecursosGraficos.cargarImagen("/16bit.png", 100, 150);
+        ImageIcon iconAvatar = RecursosGraficos.cargarImagen(VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().get(0).getSpritePath(), 100, 150);
         imgAvatar = new JLabel(iconAvatar);
         avatar.add(imgAvatar);
         fondoOeste.add(avatar);
@@ -121,13 +121,14 @@ public class MenuEntreCombates extends JPanel {
     /**Este metodo retorna el panel central a su disposición original una vez se ha escogido un avatar
      * */
     public void OcultarOpciones(String tipo){
-        if(tipo.equals("Humano")){
+        if(tipo.equals("NoMuerto")){
             VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
             VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
+            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().addFirst(FabricaHumanos.crearPersonaje(nivelActual));
             personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
             VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/nomuerto.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
@@ -154,11 +155,10 @@ public class MenuEntreCombates extends JPanel {
         else{
             VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
             VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().addFirst(FabricaHumanos.crearPersonaje(nivelActual));
             personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
             VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
             avatar.remove(imgAvatar);
-            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/nomuerto.jpg", 100, 150));
+            ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }

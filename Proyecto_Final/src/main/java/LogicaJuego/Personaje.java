@@ -54,6 +54,7 @@ public class Personaje {
         puntaje = 0;
         victorias = 0;
         derrotas = 0;
+        posision = 0;
     }
 
     /**
@@ -119,7 +120,11 @@ public class Personaje {
      */
 
     public double ratioVictoriaDerrota(){
-        return victorias/derrotas;
+        if(derrotas!=0){
+            return victorias/derrotas;}
+        else{
+            return victorias;
+        }
     }
 
     public double getPromedioDamageHabilidades(){

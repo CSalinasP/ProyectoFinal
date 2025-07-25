@@ -13,12 +13,10 @@ public class ComandoMostrarStatus implements Comando {
     @Override
     public void ejecutar() {
         if(VentanaJuego.getInstancia().getTorneoActual() instanceof EliminatoriaSimple){
-            VentanaTorneo statusFrame = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1));
-            statusFrame.abrirVentana();
+            VentanaTorneo statusFrame = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()));
         }
         else{
             VentanaTorneo statusFrame = VentanaTorneo.getInstancia(new BracketLS());
-            statusFrame.abrirVentana();
         }
     }
 }

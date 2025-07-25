@@ -18,7 +18,7 @@ public class BracketLS extends BracketTorneo {
     private final int ALTO_COMPETIDOR = 30;
 
     public BracketLS(){
-        torneo = new LigaSimple(10);
+        torneo = (LigaSimple) VentanaJuego.getInstancia().getTorneoActual();
         enfrentamientos = torneo.getEnfrentamientos();
         fechasEnfrentamientos = torneo.getFechasEnfrentamientos();
         this.setBackground(Color.WHITE); // Fondo del panel
