@@ -122,41 +122,32 @@ public class MenuEntreCombates extends JPanel {
      * */
     public void OcultarOpciones(String tipo){
         if(tipo.equals("NoMuerto")){
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().addFirst(FabricaHumanos.crearPersonaje(nivelActual));
-            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(FabricaNoMuertos.crearPersonaje(nivelActual));
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/nomuerto.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
         else if(tipo.equals("Caballero")){
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
-            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(FabricaCaballeros.crearPersonaje(nivelActual));
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/caballero.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
         else if(tipo.equals("Cavernarios")){
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0, FabricaHumanos.crearPersonaje(nivelActual));
-            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(FabricaCavernarios.crearPersonaje(nivelActual));
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/cavernario.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
             avatar.add(imgAvatar);
         }
         else{
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().set(0,FabricaHumanos.crearPersonaje(nivelActual));
-            personajeSeleccionado = VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().getFirst();
-            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(personajeSeleccionado);
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).removeFirst();
+            VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(nivelActual-1).addFirst(FabricaHumanos.crearPersonaje(nivelActual));
             avatar.remove(imgAvatar);
             ImageIcon iconAvatar = (RecursosGraficos.cargarImagen("/humano.jpg", 100, 150));
             imgAvatar = new JLabel(iconAvatar);
