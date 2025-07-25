@@ -61,6 +61,7 @@ public class Personaje {
      * Metodo que sube de nivel los atributos del personaje y sus habilidades.
      */
     public void subirNivel(){
+        nivel +=1;
         vida += 10;
         resistencia += 5;
         regeneracion += 5;

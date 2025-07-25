@@ -22,7 +22,6 @@ public class LigaSimple extends Torneo{
         this.nivelesRestantes = nivelesRestantes;
         competidores = new ArrayList<>();
         Random random = new Random();
-        //**competidores.add(null);*/
         for (int i = 0; i < nivelesRestantes+1; i++) {
             int tipoPersonaje = random.nextInt(4);
             switch (tipoPersonaje) {
@@ -63,26 +62,30 @@ public class LigaSimple extends Torneo{
 
     @Override
     public void actualizarEnfrentamientos() {
-        for (int i = 0; i < enfrentamientos.size() - 1; i += 2) {
-            Personaje comp1 = enfrentamientos.get(i);
-            Personaje comp2 = enfrentamientos.get(i + 1);
-            Personaje ganador = determinarGanador(comp1, comp2);
-            comp1.subirNivel();
-            comp2.subirNivel();
-            if(ganador == comp1){
-               comp1.setVictorias(comp1.getVictorias()+1);
-               comp2.setDerrotas(comp2.getDerrotas()+1);
+        if(!enfrentamientos.isEmpty()){
+            for (int i = 0; i < enfrentamientos.size() - 1; i += 2) {
+                Personaje comp1 = enfrentamientos.get(i);
+                Personaje comp2 = enfrentamientos.get(i + 1);
+                if (comp1 == null || comp2 == null) {
+                    continue;
+                }
+                Personaje ganador = determinarGanador(comp1, comp2);
+                comp1.subirNivel();
+                comp2.subirNivel();
+                if(ganador == comp1){
+                   comp1.setVictorias(comp1.getVictorias()+1);
+                   comp2.setDerrotas(comp2.getDerrotas()+1);
+                }
+                else {
+                    comp2.setVictorias(comp2.getVictorias()+1);
+                    comp1.setDerrotas(comp1.getDerrotas()+1);
+                }
             }
-            else {
-                comp2.setVictorias(comp2.getVictorias()+1);
-                comp1.setDerrotas(comp1.getDerrotas()+1);
-            }
-            System.out.println(comp1.getVictorias());
-        }
-        Personaje aux = enfrentamientos.removeFirst();
-        enfrentamientos.add(aux);
-        ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
-        historialEnfrentamientos.add(e);
+            if(!enfrentamientos.isEmpty()){
+                Personaje aux = enfrentamientos.removeFirst();
+                enfrentamientos.add(aux);}
+            ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
+            historialEnfrentamientos.add(e);}
     }
 
     @Override
@@ -91,10 +94,9 @@ public class LigaSimple extends Torneo{
         if(enfrentamientos.size()>1){
             LocalDate proximoDomingo = null;
             if (fechasEnfrentamientos.isEmpty()) {
-                // If for some reason dates are empty, start from today/next Sunday
                 proximoDomingo = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
             } else {
-                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2); // Use existing last date
+                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
             }
 
             fechasEnfrentamientos.clear();
@@ -109,9 +111,6 @@ public class LigaSimple extends Torneo{
 
 
     public void posisionar() {
-        // 1. Algoritmo de ordenamiento (Bubble Sort)
-        // Este algoritmo ya ordena de menor a mayor ratio.
-        // Personaje con menor ratio al principio, personaje con mayor ratio al final.
         for (int i = 0; i < competidores.size() - 1; i++) {
             for (int j = 0; j < competidores.size() - i - 1; j++) {
                 if (competidores.get(j).ratioVictoriaDerrota() > competidores.get(j + 1).ratioVictoriaDerrota()) {
@@ -122,19 +121,10 @@ public class LigaSimple extends Torneo{
             }
         }
 
-        // 2. Asignar posiciones: El mejor ratio (al final de la lista) obtiene la posición 1
         if (!competidores.isEmpty()) {
             int posicionActual = 1;
-
-            // Recorremos la lista desde el final (mayor ratio) hacia el principio (menor ratio)
-            // para asignar la posición 1 al de mejor ratio.
             for (int i = competidores.size() - 1; i >= 0; i--) {
-                // Asignamos la posición actual al personaje
                 competidores.get(i).setPosision(posicionActual);
-
-                // Si no estamos en el primer elemento Y el ratio del elemento actual
-                // es diferente al ratio del elemento anterior (que en este recorrido es el siguiente mejor)
-                // entonces incrementamos la posición para el siguiente grupo de ratios.
                 if (i > 0 && competidores.get(i).ratioVictoriaDerrota() != competidores.get(i - 1).ratioVictoriaDerrota()) {
                     posicionActual++;
                 }

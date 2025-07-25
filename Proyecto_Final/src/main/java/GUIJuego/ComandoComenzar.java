@@ -11,7 +11,7 @@ public class ComandoComenzar implements Comando{
 
     @Override
     public void ejecutar() {
-        if(tipoTorneo.getTipoTorneo()!=null){
+        if(tipoTorneo.getTipoTorneo()!=null && ((MenuInicial) VentanaJuego.getInstancia().getPanelActual()).getNumNiveles()!=0){
             PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.HUMANO,1);
             PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.CABALLERO,1);
             PlanillaPersonajes.getInstance().añadirPersonaje(TipoPersonaje.CAVERNARIO,1);

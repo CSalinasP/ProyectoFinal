@@ -1,5 +1,5 @@
 package GUIJuego;
-import java.util.ArrayList;
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -27,13 +27,13 @@ public class RecursosGraficos {
         URL imageURL = RecursosGraficos.class.getResource(imgPath);
 
         if (imageURL == null) {
-            System.err.println("Error: No se pudo encontrar la imagen en: " + imgPath);
+            System.err.println("No se pudo encontrar la imagen en: " + imgPath);
             return null; // Salir si la imagen no se encuentra
         }
 
         ImageIcon iconoOriginal = new ImageIcon(imageURL);
 
-        // Escalar la imagen si se especifican ancho y alto válidos
+        // Escalar la imagen si se especifican ancho y alto validos
         if (ancho > 0 && alto > 0) {
             Image img = iconoOriginal.getImage();
             Image imgEscalada = img.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);

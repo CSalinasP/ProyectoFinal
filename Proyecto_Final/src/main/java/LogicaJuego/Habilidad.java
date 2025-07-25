@@ -7,7 +7,7 @@ package LogicaJuego;
  * @since 2025-07-10
  */
 
-class Habilidad {
+public class Habilidad {
     /** El nombre de la habilidad. */
     private String nombre;
     /** La cantidad de daño de la habilidad. */

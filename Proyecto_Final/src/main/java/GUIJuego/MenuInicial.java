@@ -23,6 +23,7 @@ public class MenuInicial extends JPanel {
      * */
     public MenuInicial(){
         this.setLayout(new BorderLayout());
+        numNiveles = 0;
         panelCentral = new JPanel();
         panelCentral.setLayout(new GridLayout(3,1,0,10));
         panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));

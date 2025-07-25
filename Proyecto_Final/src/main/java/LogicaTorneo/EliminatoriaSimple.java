@@ -63,7 +63,6 @@ public class EliminatoriaSimple extends Torneo {
 
     @Override
     public void actualizarEnfrentamientos() {
-        System.out.println(enfrentamientos.size()*100000);
         if(!enfrentamientos.isEmpty()) {
             ArrayList<Personaje> ganadores = new ArrayList<>();
             for (int i = 1; i < enfrentamientos.size()-1; i++) {
@@ -75,7 +74,6 @@ public class EliminatoriaSimple extends Torneo {
             enfrentamientos = ganadores;
             ArrayList<Personaje> e = new ArrayList<>(enfrentamientos);
             historialEnfrentamientos.add(e);
-            System.out.println(enfrentamientos.size()*100000);
         }
     }
 
