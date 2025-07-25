@@ -38,10 +38,10 @@ public class Test_LigaSimple {
     @Test
     @Order(2)
     void verificacionResultados() {
-        ligaSimple.resultadosEnfrentamientos();
+        ligaSimple.actualizarEnfrentamientos();
         boolean aux = false;
         for (int i=0;i<ligaSimple.getCompetidores().size();i++){
-            if (ligaSimple.getCompetidores().get(i).getPuntaje() != 0){
+            if (ligaSimple.getEnfrentamientos().get(i).getVictorias() != 0){
                 aux = true;
                 break;
             }

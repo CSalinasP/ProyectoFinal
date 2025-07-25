@@ -135,11 +135,27 @@ public abstract class Torneo {
         return enfrentamientos;
     }
 
+    public void setEnfrentamientos(ArrayList<Personaje> enfrentamientos) {
+        this.enfrentamientos = enfrentamientos;
+    }
+
+    public void setCompetidores(ArrayList<Personaje> competidores) {
+        this.competidores = competidores;
+    }
+
     public LocalDate getFechaReferencia() {
         return fechaReferencia;
     }
 
     public ArrayList<LocalDate> getFechasEnfrentamientos() {
         return fechasEnfrentamientos;
+    }
+
+    public void setHistorialEnfrentamientos(ArrayList<ArrayList<Personaje>> historialEnfrentamientos) {
+        this.historialEnfrentamientos = historialEnfrentamientos;
+    }
+
+    public void setHistorialFechas(ArrayList<ArrayList<LocalDate>> historialFechas) {
+        this.historialFechas = historialFechas;
     }
 }

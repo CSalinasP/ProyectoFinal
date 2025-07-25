@@ -204,4 +204,8 @@ public class Personaje {
                 ", Resistencia: "+this.getResistencia()+
                 ", Regeneracion: "+this.getRegeneracion();
     }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
 }

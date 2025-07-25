@@ -18,27 +18,27 @@ public class Test_EliminatoriaSimple {
      */
     @BeforeAll
     static void setUp() {
-        eliminatoriaSimple = FabricaTorneos.crearTorneo(TipoTorneo.ELIMINATORIA_SIMPLE, 5);
+        eliminatoriaSimple = FabricaTorneos.crearTorneo(TipoTorneo.ELIMINATORIA_SIMPLE, 4);
     }
 
     /**
      * Test que verifica que cuando se crea un torneo de 5 niveles,
-     * el número de competidores tiene que ser de 9.
+     * el número de competidores tiene que ser de 16.
      */
     @Test
     @Order(1)
     void creacionCompetidores() {
-        assertEquals(9, eliminatoriaSimple.getCompetidores().size());
+        assertEquals(16, eliminatoriaSimple.getCompetidores().size());
     }
 
     /**
      * Test que verifica que después de que se simulen los resultados de los competidores 1 vez,
-     * el número de competidores restantes en el torneo tiene que ser de 4.
+     * el número de competidores restantes en el torneo tiene que ser de 7.
      */
     @Test
     @Order(2)
     void verificacionResultados() {
-        eliminatoriaSimple.resultadosEnfrentamientos();
-        assertEquals(4, eliminatoriaSimple.getCompetidores().size());
+        eliminatoriaSimple.actualizarEnfrentamientos();
+        assertEquals(7, eliminatoriaSimple.getEnfrentamientos().size());
     }
 }
