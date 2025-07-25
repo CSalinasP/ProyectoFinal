@@ -41,7 +41,7 @@ public class BracketLS extends BracketTorneo {
                 }
             }
             else if (i==1){
-                for(int j=0; j<enfrentamientos.size(); j++){
+                for(int j=0; j<enfrentamientos.size()-1; j++){
                     if(j%2==0){
                         g2d.drawLine(2*ANCHO_COMPETIDOR,((3+2*j)*ALTO_COMPETIDOR)/2, 3*ANCHO_COMPETIDOR,((3+2*j)*ALTO_COMPETIDOR)/2);
                         dibujarFecha(g2d,fechasEnfrentamientos.get(j/2) ,2*ANCHO_COMPETIDOR,(((1+2*j)*ALTO_COMPETIDOR)/2-5));

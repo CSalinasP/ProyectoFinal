@@ -112,15 +112,13 @@ public class Combate {
                     VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
                     VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado Esta Ronda", new MenuEntreCombates()));
                 } else {
-                    VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
-                    VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().addFirst(avatar);
-                    VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(1+(VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(avatar);
-                    VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
-                    VentanaJuego.getInstancia().getTorneoActual().setNivelesRestantes(VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes() - 1);
-                    VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
-                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado Esta Ronda", new MenuEntreCombates()));
-                   /** VentanaJuego.getInstancia().getTorneoActual().getEnfrentamientos().removeFirst();
-                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));*/
+                    for(int i = 0; i<VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes()+1; i++){
+                        VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                        VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                    }
+                    VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(1+(VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(contendiente);
+                    VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));
+                    JFrame V = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes()+1));
                 }
             } else {
                 calcularResultado(avatar, contendiente);
@@ -129,15 +127,17 @@ public class Combate {
                     VentanaJuego.getInstancia().getTorneoActual().setNivelesCompletados(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados() + 1);
                     VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
                     VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
-                    VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(1+(VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(avatar);
+                    VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get((VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(avatar);
                     VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Ganado", new MenuInicial()));
                     JFrame V = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1));
                 } else {
-                    VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
-                    VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                    for(int i = 0; i<VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes()+1; i++){
+                        VentanaJuego.getInstancia().getTorneoActual().actualizarEnfrentamientos();
+                        VentanaJuego.getInstancia().getTorneoActual().actualizarFechas();
+                    }
                     VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(1+(VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(contendiente);
                     VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));
-                    JFrame V = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+1));
+                    JFrame V = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes()+1));
                 }
             }
         }

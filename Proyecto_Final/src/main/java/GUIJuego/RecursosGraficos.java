@@ -42,6 +42,4 @@ public class RecursosGraficos {
             return iconoOriginal;
         }
     }
-
-
 }
