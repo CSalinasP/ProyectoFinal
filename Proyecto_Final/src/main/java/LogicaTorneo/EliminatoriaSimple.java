@@ -81,10 +81,9 @@ public class EliminatoriaSimple extends Torneo {
         if(!enfrentamientos.isEmpty()){
             LocalDate proximoDomingo = null;
             if (fechasEnfrentamientos.isEmpty()) {
-                // If for some reason dates are empty, start from today/next Sunday
                 proximoDomingo = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
             } else {
-                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2); // Use existing last date
+                proximoDomingo = fechasEnfrentamientos.getLast().plusWeeks(2);
             }
 
             fechasEnfrentamientos.clear();
@@ -94,6 +93,7 @@ public class EliminatoriaSimple extends Torneo {
             }
             ArrayList<LocalDate> f = new ArrayList<>(fechasEnfrentamientos);
             historialFechas.add(f);
+            System.out.println(historialFechas.size()*1000);
         }
     }
 

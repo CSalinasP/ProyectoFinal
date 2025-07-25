@@ -118,7 +118,6 @@ public class Combate {
                     }
                     VentanaJuego.getInstancia().getTorneoActual().getHistorialEnfrentamientos().get(1+(VentanaJuego.getInstancia().getTorneoActual()).getNivelesCompletados()).addFirst(contendiente);
                     VentanaJuego.getInstancia().cambiarPanel(new Victoria("Haz Perdido", new MenuInicial()));
-                    JFrame V = VentanaTorneo.getInstancia(new BracketES(VentanaJuego.getInstancia().getTorneoActual().getNivelesCompletados()+VentanaJuego.getInstancia().getTorneoActual().getNivelesRestantes()+1));
                 }
             } else {
                 calcularResultado(avatar, contendiente);
